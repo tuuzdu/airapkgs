@@ -21840,6 +21840,8 @@ EOF
   pysigset = callPackage ../development/python-modules/pysigset { };
 
   us = callPackage ../development/python-modules/us { };
+
+  base58 = callPackage ../development/python-modules/base58 { };
 });
 
 in fix' (extends overrides packages)

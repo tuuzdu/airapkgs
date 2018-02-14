@@ -5123,7 +5123,6 @@ in {
   importlib-metadata = callPackage ../development/python-modules/importlib-metadata {};
 
   importlib-resources = callPackage ../development/python-modules/importlib-resources {};
-
 });
 
 in fix' (extends overrides packages)

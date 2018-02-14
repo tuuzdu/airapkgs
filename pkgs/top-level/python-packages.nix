@@ -21848,6 +21848,24 @@ EOF
   rlp = callPackage ../development/python-modules/rlp { };
 
   lru-dict = callPackage ../development/python-modules/lru-dict { };
+
+  hexbytes = callPackage ../development/python-modules/hexbytes { };
+
+  eth-hash = callPackage ../development/python-modules/eth-hash { };
+
+  eth-utils = callPackage ../development/python-modules/eth-utils { };
+
+  eth-abi = callPackage ../development/python-modules/eth-abi { };
+
+  eth-keys = callPackage ../development/python-modules/eth-keys { };
+
+  eth-keyfile = callPackage ../development/python-modules/eth-keyfile { };
+
+  eth-rlp = callPackage ../development/python-modules/eth-rlp { };
+
+  eth-account = callPackage ../development/python-modules/eth-account { };
+
+  web3 = callPackage ../development/python-modules/web3 { };
 });
 
 in fix' (extends overrides packages)

@@ -21842,6 +21842,8 @@ EOF
   us = callPackage ../development/python-modules/us { };
 
   base58 = callPackage ../development/python-modules/base58 { };
+
+  pysha3 = callPackage ../development/python-modules/pysha3 { };
 });
 
 in fix' (extends overrides packages)

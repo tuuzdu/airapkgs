@@ -21846,6 +21846,8 @@ EOF
   pysha3 = callPackage ../development/python-modules/pysha3 { };
 
   rlp = callPackage ../development/python-modules/rlp { };
+
+  lru-dict = callPackage ../development/python-modules/lru-dict { };
 });
 
 in fix' (extends overrides packages)

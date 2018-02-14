@@ -21844,6 +21844,8 @@ EOF
   base58 = callPackage ../development/python-modules/base58 { };
 
   pysha3 = callPackage ../development/python-modules/pysha3 { };
+
+  rlp = callPackage ../development/python-modules/rlp { };
 });
 
 in fix' (extends overrides packages)

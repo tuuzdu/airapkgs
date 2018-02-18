@@ -61,7 +61,7 @@ self: super: {
   ##       callStackDoc, called at compiler/utils/Outputable.hs:1150:37 in ghc:Outputable
   ##       pprPanic, called at utils/haddock/haddock-api/src/Haddock/Interface/Create.hs:1013:16 in main:Haddock.Interface.Create
   ## Please report this as a GHC bug:  http://www.haskell.org/ghc/reportabug
-  hspec = dontHaddock (dontCheck super.hspec_2_4_7);        # test suite causes an infinite loop
+  hspec = dontHaddock (dontCheck super.hspec_2_4_8);        # test suite causes an infinite loop
 
   ## Setup: Encountered missing dependencies:
   ## QuickCheck >=2.3 && <2.10
@@ -88,7 +88,7 @@ self: super: {
   ##       from the context: a
   constraints = super.constraints_0_10;
 
-  hspec-core = overrideCabal super.hspec-core_2_4_7 (drv: {
+  hspec-core = overrideCabal super.hspec-core_2_4_8 (drv: {
     ## Needs bump to a versioned attribute
     ## 
     ##     • No instance for (Semigroup Summary)
@@ -102,14 +102,7 @@ self: super: {
   ## breaks hspec:
   ## Setup: Encountered missing dependencies:
   ## hspec-discover ==2.4.7
-  hspec-discover = super.hspec-discover_2_4_7;
-
-  ## Needs bump to a versioned attribute
-  ## 
-  ##     • No instance for (Semigroup Metadatas)
-  ##         arising from the superclasses of an instance declaration
-  ##     • In the instance declaration for ‘Monoid Metadatas’
-  JuicyPixels = super.JuicyPixels_3_2_9_4;
+  hspec-discover = super.hspec-discover_2_4_8;
 
   ## Needs bump to a versioned attribute
   ## 
@@ -135,16 +128,7 @@ self: super: {
   ##     • Could not deduce (Semigroup (Traversal f))
   ##         arising from the superclasses of an instance declaration
   ##       from the context: Applicative f
-  tasty = super.tasty_1_0_0_1;
-
-  ## Needs bump to a versioned attribute
-  ## 
-  ## Setup: Encountered missing dependencies:
-  ## template-haskell >=2.4 && <2.13
-  ## builder for ‘/nix/store/sq6cc33h4zk1wns2fsyv8cj6clcf6hwi-th-lift-0.7.7.drv’ failed with exit code 1
-  ## error: build of ‘/nix/store/sq6cc33h4zk1wns2fsyv8cj6clcf6hwi-th-lift-0.7.7.drv’ failed
-  th-lift = super.th-lift_0_7_8;
-
+  tasty = super.tasty_1_0_1;
 
   ## On Hackage:
 

@@ -20743,4 +20743,12 @@ with pkgs;
   actionlib = callPackage ../development/ros-modules/actionlib { };
 
   ros = callPackage ../development/ros-modules/ros { };
+
+  ros_opcua_msgs = callPackage ../development/ros-modules/ros_opcua_communication/msgs.nix { };
+
+  ros_opcua_srvs = callPackage ../development/ros-modules/ros_opcua_communication/srvs.nix { };
+
+  ros_opcua_impl_freeopcua = callPackage ../development/ros-modules/ros_opcua_communication/impl_freeopcua.nix { };
+
+  ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
 }

@@ -31,6 +31,6 @@ in mkRosPackage {
     description = "Robonomics development kit";
     homepage = http://github.com/airalab/robonomics_dev;
     license = licenses.bsd3;
-    maintainers = [ lib.maintainers.akru ];
+    maintainers = [ maintainers.akru ];
   };
 }

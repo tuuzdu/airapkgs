@@ -20751,4 +20751,24 @@ with pkgs;
   ros_opcua_impl_freeopcua = callPackage ../development/ros-modules/ros_opcua_communication/impl_freeopcua.nix { };
 
   ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
+
+  robonomics_comm_market = callPackage ../applications/science/robotics/aira/robonomics_comm/market.nix { };
+
+  robonomics_comm_control = callPackage ../applications/science/robotics/aira/robonomics_comm/control.nix { };
+
+  robonomics_comm_liability = callPackage ../applications/science/robotics/aira/robonomics_comm/liability.nix { };
+
+  robonomics_comm = callPackage ../applications/science/robotics/aira/robonomics_comm { };
+
+  robonomics_game_transport = callPackage ../applications/science/robotics/aira/robonomics_game/transport.nix { };
+
+  robonomics_game_warehouse = callPackage ../applications/science/robotics/aira/robonomics_game/warehouse.nix { };
+
+  robonomics_game_plant = callPackage ../applications/science/robotics/aira/robonomics_game/plant.nix { };
+
+  robonomics_game_supply = callPackage ../applications/science/robotics/aira/robonomics_game/supply.nix { };
+
+  robonomics_game = callPackage ../applications/science/robotics/aira/robonomics_game { };
+
+  robonomics_dev = callPackage ../applications/science/robotics/aira/robonomics_dev { };
 }

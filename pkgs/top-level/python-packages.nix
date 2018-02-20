@@ -21895,6 +21895,12 @@ EOF
   eth-account = callPackage ../development/python-modules/eth-account { };
 
   web3 = callPackage ../development/python-modules/web3 { };
+
+  empy = callPackage ../development/python-modules/empy { };
+
+  catkin_pkg = callPackage ../development/python-modules/catkin_pkg { };
+
+  rospkg = callPackage ../development/python-modules/rospkg { };
 });
 
 in fix' (extends overrides packages)

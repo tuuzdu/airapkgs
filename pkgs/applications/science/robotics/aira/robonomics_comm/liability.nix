@@ -25,6 +25,6 @@ in mkRosPackage {
     description = "Robot liability support for ROS";
     homepage = http://github.com/airalab/robonomics_comm;
     license = licenses.bsd3;
-    maintainers = [ lib.maintainers.akru ];
+    maintainers = [ maintainers.akru ];
   };
 }

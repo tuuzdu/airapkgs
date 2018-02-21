@@ -23339,8 +23339,6 @@ in
 
   rospy = callPackage ../development/ros-modules/rospy { };
 
-  roslisp = callPackage ../development/ros-modules/roslisp { };
-
   rostime = callPackage ../development/ros-modules/rostime { };
 
   roslib = callPackage ../development/ros-modules/roslib { };

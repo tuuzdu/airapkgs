@@ -20694,12 +20694,6 @@ with pkgs;
 
   gencpp = callPackage ../development/ros-modules/gencpp { };
 
-  geneus = callPackage ../development/ros-modules/geneus { };
-
-  genlisp = callPackage ../development/ros-modules/genlisp { };
-
-  gennodejs = callPackage ../development/ros-modules/gennodejs { };
-
   genpy = callPackage ../development/ros-modules/genpy { };
 
   message_generation = callPackage ../development/ros-modules/message_generation { };

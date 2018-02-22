@@ -14,7 +14,7 @@
 
 rustPlatform.buildRustPackage rec {
   name = "parity-${version}";
-  inherit version cargoSha256 patches;
+  inherit cargoSha256 patches;
 
   src = fetchFromGitHub {
     owner = "paritytech";
@@ -33,6 +33,5 @@ rustPlatform.buildRustPackage rec {
     homepage = http://parity.io;
     license = licenses.gpl3;
     maintainers = [ maintainers.akru ];
-    inherit version;
   };
 }

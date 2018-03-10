@@ -14574,6 +14574,9 @@ with pkgs;
 
   stellar-core = self.altcoins.stellar-core;
 
+  parity = self.altcoins.parity;
+  parity-beta = self.altcoins.parity-beta;
+
   aumix = callPackage ../applications/audio/aumix {
     gtkGUI = false;
   };
@@ -20893,4 +20896,135 @@ with pkgs;
   simplehttp2server = callPackage ../servers/simplehttp2server { };
 
   diceware = callPackage ../tools/security/diceware { };
+
+  freeopcua = callPackage ../development/libraries/freeopcua { };
+
+  # ROS
+  mkRosPackage = callPackage ../build-support/ros { };
+
+  console_bridge = callPackage ../development/ros-modules/console_bridge { };
+
+  catkin = callPackage ../development/ros-modules/catkin { };
+
+  cmake_modules = callPackage ../development/ros-modules/cmake_modules { };
+
+  xmlrpcpp = callPackage ../development/ros-modules/xmlrpcpp { };
+
+  genmsg = callPackage ../development/ros-modules/genmsg { };
+
+  gencpp = callPackage ../development/ros-modules/gencpp { };
+
+  genpy = callPackage ../development/ros-modules/genpy { };
+
+  message_generation = callPackage ../development/ros-modules/message_generation { };
+
+  message_runtime = callPackage ../development/ros-modules/message_runtime { };
+
+  message_filters = callPackage ../development/ros-modules/message_filters { };
+
+  std_srvs = callPackage ../development/ros-modules/std_srvs { };
+
+  std_msgs = callPackage ../development/ros-modules/std_msgs { };
+
+  rosgraph_msgs = callPackage ../development/ros-modules/rosgraph_msgs { };
+
+  cpp_common = callPackage ../development/ros-modules/cpp_common { };
+
+  roscpp_serialization = callPackage ../development/ros-modules/roscpp_serialization { };
+
+  roscpp_traits = callPackage ../development/ros-modules/roscpp_traits { };
+
+  roscpp = callPackage ../development/ros-modules/roscpp { };
+
+  rospy = callPackage ../development/ros-modules/rospy { };
+
+  rostime = callPackage ../development/ros-modules/rostime { };
+
+  roslib = callPackage ../development/ros-modules/roslib { };
+
+  rospack = callPackage ../development/ros-modules/rospack { };
+
+  rosunit = callPackage ../development/ros-modules/rosunit { };
+
+  rosbuild = callPackage ../development/ros-modules/rosbuild { };
+
+  rosconsole = callPackage ../development/ros-modules/rosconsole { };
+
+  roslang = callPackage ../development/ros-modules/roslang { };
+
+  rosmake = callPackage ../development/ros-modules/rosmake { };
+
+  roscreate = callPackage ../development/ros-modules/roscreate { };
+
+  rosclean = callPackage ../development/ros-modules/rosclean { };
+
+  rosboost_cfg = callPackage ../development/ros-modules/rosboost_cfg { };
+
+  rosgraph = callPackage ../development/ros-modules/rosgraph { };
+
+  roslz4 = callPackage ../development/ros-modules/roslz4 { };
+
+  rosmaster = callPackage ../development/ros-modules/rosmaster { };
+
+  rosbash = callPackage ../development/ros-modules/rosbash { };
+
+  rosbag = callPackage ../development/ros-modules/rosbag { };
+
+  rosbag_storage = callPackage ../development/ros-modules/rosbag/storage.nix { };
+
+  roslaunch = callPackage ../development/ros-modules/roslaunch { };
+
+  rosnode = callPackage ../development/ros-modules/rosnode { };
+
+  rosmsg = callPackage ../development/ros-modules/rosmsg { };
+
+  rosout = callPackage ../development/ros-modules/rosout { };
+
+  rosparam = callPackage ../development/ros-modules/rosparam { };
+
+  rosservice= callPackage ../development/ros-modules/rosservice { };
+
+  rostest = callPackage ../development/ros-modules/rostest { };
+
+  rostopic = callPackage ../development/ros-modules/rostopic { };
+
+  roswtf = callPackage ../development/ros-modules/roswtf { };
+
+  topic_tools = callPackage ../development/ros-modules/topic_tools { };
+
+  ros_comm = callPackage ../development/ros-modules/ros_comm { };
+
+  actionlib_msgs = callPackage ../development/ros-modules/actionlib_msgs { };
+
+  actionlib = callPackage ../development/ros-modules/actionlib { };
+
+  ros = callPackage ../development/ros-modules/ros { };
+
+  ros_opcua_msgs = callPackage ../development/ros-modules/ros_opcua_communication/msgs.nix { };
+
+  ros_opcua_srvs = callPackage ../development/ros-modules/ros_opcua_communication/srvs.nix { };
+
+  ros_opcua_impl_freeopcua = callPackage ../development/ros-modules/ros_opcua_communication/impl_freeopcua.nix { };
+
+  ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
+
+  robonomics_comm_market = callPackage ../applications/science/robotics/aira/robonomics_comm/market.nix { };
+
+  robonomics_comm_control = callPackage ../applications/science/robotics/aira/robonomics_comm/control.nix { };
+
+  robonomics_comm_liability = callPackage ../applications/science/robotics/aira/robonomics_comm/liability.nix { };
+
+  robonomics_comm = callPackage ../applications/science/robotics/aira/robonomics_comm { };
+
+  robonomics_game_transport = callPackage ../applications/science/robotics/aira/robonomics_game/transport.nix { };
+
+  robonomics_game_warehouse = callPackage ../applications/science/robotics/aira/robonomics_game/warehouse.nix { };
+
+  robonomics_game_plant = callPackage ../applications/science/robotics/aira/robonomics_game/plant.nix { };
+
+  robonomics_game_supply = callPackage ../applications/science/robotics/aira/robonomics_game/supply.nix { };
+
+  robonomics_game = callPackage ../applications/science/robotics/aira/robonomics_game { };
+
+  robonomics_dev = callPackage ../applications/science/robotics/aira/robonomics_dev { };
 }

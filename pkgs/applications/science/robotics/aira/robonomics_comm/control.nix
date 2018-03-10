@@ -1,0 +1,30 @@
+{ stdenv
+, mkRosPackage
+, fetchFromGitHub
+, robonomics_comm_market
+, python3Packages
+}:
+
+let
+  pname = "robonomics_control";
+  version = "0.0.0";
+
+in mkRosPackage {
+  name = "${pname}-${version}";
+
+  src = fetchFromGitHub {
+    owner = "airalab";
+    repo = "robonomics_comm";
+    rev = "release/${pname}-0";
+    sha256 = "1drs3d53ry0zmvp3xqqx5fhapc2sxi6yb1xzlaxm4mm64kh4fav3";
+  };
+
+  propagatedBuildInputs = with python3Packages; [ robonomics_comm_market web3 numpy ];
+
+  meta = with stdenv.lib; {
+    description = "Set of robonomics control algorithms";
+    homepage = http://github.com/airalab/robonomics_comm;
+    license = licenses.bsd3;
+    maintainers = [ maintainers.akru ];
+  };
+}

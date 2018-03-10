@@ -1,0 +1,18 @@
+diff --git a/web3/utils/encoding.py b/web3/utils/encoding.py
+index 3b7bbe3..820588c 100644
+--- a/web3/utils/encoding.py
++++ b/web3/utils/encoding.py
+@@ -200,7 +200,12 @@ def to_bytes(primitive=None, hexstr=None, text=None):
+         return decode_hex(hexstr)
+     elif text is not None:
+         return text.encode('utf-8')
+-    raise TypeError("expected an int in first arg, or keyword of hexstr or text")
++
++    try:
++        # XXX: Dirty hack, but I don't known why to_bytes is called for bytes32[n] type
++        return list(map(lambda x: x.data, primitive))
++    except:
++        raise TypeError("expected an int in first arg, or keyword of hexstr or text")
+ 
+ 
+ def to_text(primitive=None, hexstr=None, text=None):

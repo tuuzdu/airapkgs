@@ -79,19 +79,28 @@ in rec {
       stdenv
       subversion
       tarball
-      vim;
+      vim
+      parity-beta
+      parity
+      robonomics_dev
+      robonomics_comm
+      robonomics_game;
   };
 
   tested = lib.hydraJob (pkgs.releaseTools.aggregate {
     name = "nixos-${nixos.channel.version}";
     meta = {
       description = "Release-critical builds for the NixOS channel";
-      maintainers = [ lib.maintainers.eelco ];
+      maintainers = [ lib.maintainers.akru ];
     };
     constituents =
       let all = x: map (system: x.${system}) supportedSystems; in
       [ nixpkgs.tarball
-        (all nixpkgs.jdk)
+        (all nixpkgs.robonomics_dev)
+        (all nixpkgs.robonomics_comm)
+        (all nixpkgs.robonomics_game)
+        (all nixpkgs.parity-beta)
+        (all nixpkgs.parity)
       ]
       ++ lib.collect lib.isDerivation nixos;
   });

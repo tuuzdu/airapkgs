@@ -20,7 +20,7 @@ in mkRosPackage {
     owner = "airalab";
     repo = "ros_opcua_communication";
     rev = "release/${pname}-0";
-    sha256 = "0vsabqqip447dj1rw139jmlp7l3vg81j6kxalzsaqzd9c8yiadiz";
+    sha256 = "1b1rcpma4dzvg3z2jymdsacqrzbvki97cfbvbra0gik19i6r2pz0";
   };
 
   propagatedBuildInputs = [ catkin roscpp ros_opcua_srvs freeopcua libxml2 pkgconfig ];

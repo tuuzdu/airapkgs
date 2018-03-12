@@ -168,6 +168,22 @@ in rec {
   );
 
 
+  # A bootable VirtualBox virtual appliance as an OVA file (i.e. packaged OVF).
+  ova_minimal = forTheseSystems [ "x86_64-linux" ] (system:
+
+    with import nixpkgs { inherit system; };
+
+    hydraJob ((import lib/eval-config.nix {
+      inherit system;
+      modules =
+        [ versionModule
+          ./modules/installer/virtualbox-minimal.nix
+        ];
+    }).config.system.build.virtualBoxOVA)
+
+  );
+
+
   # Ensure that all packages used by the minimal NixOS config end up in the channel.
   dummy = forAllSystems (system: pkgs.runCommand "dummy"
     { toplevel = (import lib/eval-config.nix {

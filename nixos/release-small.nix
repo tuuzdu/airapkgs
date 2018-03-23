@@ -82,6 +82,7 @@ in rec {
       vim
       parity-beta
       parity
+      solc
       robonomics_dev
       robonomics_comm
       robonomics_game;

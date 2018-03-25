@@ -1,9 +1,9 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, robonomics_comm_market
 , robonomics_comm_control
 , robonomics_comm_liability
+, robonomics_comm_lighthouse
 }:
 
 let
@@ -20,7 +20,7 @@ in mkRosPackage {
     sha256 = "00w7k0si596picjvsix4ji2myvcpjnqsak6ni3gvglsijs8kmpnf";
   };
 
-  propagatedBuildInputs = [ robonomics_comm_market robonomics_comm_control robonomics_comm_liability ];
+  propagatedBuildInputs = [ robonomics_comm_lighthouse robonomics_comm_control robonomics_comm_liability ];
 
   meta = with stdenv.lib; {
     description = "Robonomics communication stack meta-package";

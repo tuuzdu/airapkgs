@@ -21008,7 +21008,7 @@ with pkgs;
 
   ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
 
-  robonomics_comm_market = callPackage ../applications/science/robotics/aira/robonomics_comm/market.nix { };
+  robonomics_comm_lighthouse = callPackage ../applications/science/robotics/aira/robonomics_comm/lighthouse.nix { };
 
   robonomics_comm_control = callPackage ../applications/science/robotics/aira/robonomics_comm/control.nix { };
 

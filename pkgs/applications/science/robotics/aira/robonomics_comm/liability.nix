@@ -1,7 +1,7 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, robonomics_comm_market
+, robonomics_comm_lighthouse
 , python3Packages
 }:
 
@@ -19,7 +19,7 @@ in mkRosPackage {
     sha256 = "15sfx7ffjwfy0q7448847sclhibd6ysaya7dbywxny6s9id8q9gs";
   };
 
-  propagatedBuildInputs = with python3Packages; [ robonomics_comm_market web3 ipfsapi ];
+  propagatedBuildInputs = with python3Packages; [ robonomics_comm_lighthouse web3 ipfsapi ];
 
   meta = with stdenv.lib; {
     description = "Robot liability support for ROS";

@@ -8,7 +8,7 @@
 
 let
   pname = "robonomics_market";
-  version = "0.0.0";
+  version = "0.1.0";
 
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -16,8 +16,8 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "airalab";
     repo = "robonomics_comm";
-    rev = "release/${pname}-0";
-    sha256 = "1vckxjs4mvplsq30k4bwdz8g1cmj686zj4bnxs8z53h3kl9cn19n";
+    rev = "release/${pname}-1";
+    sha256 = "1r17jjjrf8341k8r66wh4n64ps4blg9c3k5p3v75acw6gmqi5bj9";
   };
 
   propagatedBuildInputs = with python3Packages; [ ros_comm ipfs pexpect base58 web3 ];

@@ -7,15 +7,15 @@
 
 let
   pname = "robonomics_control";
-  version = "0.0.0";
+  version = "0";
 
-in mkRosPackage {
+in mkRosPackage rec {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "airalab";
     repo = "robonomics_comm";
-    rev = "release/${pname}-0";
+    rev = "release/${name}";
     sha256 = "1drs3d53ry0zmvp3xqqx5fhapc2sxi6yb1xzlaxm4mm64kh4fav3";
   };
 

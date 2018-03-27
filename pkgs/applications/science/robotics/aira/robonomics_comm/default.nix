@@ -8,16 +8,16 @@
 
 let
   pname = "robonomics_comm";
-  version = "0.0.0";
+  version = "0.0";
 
-in mkRosPackage {
+in mkRosPackage rec {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "airalab";
     repo = "robonomics_comm";
-    rev = "release/${pname}-0";
-    sha256 = "00w7k0si596picjvsix4ji2myvcpjnqsak6ni3gvglsijs8kmpnf";
+    rev = "release/${name}";
+    sha256 = "0nvc3kjpmfg2rmsaxvcv78bdh3v35bav37izi5m43xhx672zbh0c";
   };
 
   propagatedBuildInputs = [ robonomics_comm_lighthouse robonomics_comm_control robonomics_comm_liability ];

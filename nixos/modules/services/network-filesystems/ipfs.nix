@@ -12,6 +12,7 @@ let
     (optionalString (cfg.serviceFdlimit != null)     "--manage-fdlimit=false")
     (optionalString (cfg.defaultMode == "offline")   "--offline")
     (optionalString (cfg.defaultMode == "norouting") "--routing=none")
+    (optionalString cfg.pubsubExperiment             "--enable-pubsub-experiment")
   ] ++ cfg.extraFlags);
 
   defaultDataDir = if versionAtLeast config.system.stateVersion "17.09" then
@@ -158,6 +159,12 @@ in {
         type = types.bool;
         default = false;
         description = "If set to true, the repo won't be initialized with help files";
+      };
+
+      pubsubExperiment = mkOption {
+        type = types.bool;
+        default = false;
+        description = "If set to true, the IPFS started with enabled experimental PubSub support";
       };
 
       extraConfig = mkOption {

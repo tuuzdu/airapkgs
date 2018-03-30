@@ -28,7 +28,7 @@ let
 in rec {
 
   nixos = {
-    inherit (nixos') channel manual iso_minimal ova_minimal dummy;
+    inherit (nixos') channel manual iso_minimal ova_minimal docker_image dummy;
     tests = {
       inherit (nixos'.tests)
         containers-imperative

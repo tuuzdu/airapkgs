@@ -5,84 +5,100 @@ with lib;
 let
   cfg = config.services.parity;
 
-in {
+  parityHome = "/var/lib/parity";
+  parityEnv = "${parityHome}/${cfg.chain}-env.sh";
+  parityPsk = "${parityHome}/${cfg.chain}-psk";
 
+in {
   options = {
     services.parity = {
+      enable = mkEnableOption "Enable Parity daemon service.";
 
-      enable = mkEnableOption "Enable Parity node service.";
+      light  = mkEnableOption "Enable Light mode.";
 
-      warp = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Enable WARP syncronisation.";
-      };
+      unlock = mkEnableOption "Unlock account for sending transactions.";
 
       chain = mkOption {
         type = types.str;
-        default = "mainnet";
-        description = "User blockchain network.";
-      };
-
-      autoSign = {
-        enable = mkOption {
-          type = types.bool;
-          default = true;
-          description = "Create default account for sending transactions.";
-        };
-
-        passwordFile = mkOption {
-          type = types.str;
-          default = "/var/lib/parity/psk";
-          description = "File to store account password file.";
-        };
-      };
-
-      user = mkOption {
-        type = types.str;
-        default = "parity";
-        description = "User account under which service runs.";
-      };
-
-      extraOptions = mkOption {
-        type = types.listOf types.str;
-        default = [];
-        example = [ "-v" ];
-        description = ''
-          Additional command-line arguments to pass to
-          <command>parity</command>.
-        '';
+        default = "foundation";
+        description = "Used blockchain network name.";
       };
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable { 
+    environment.etc."parity.toml".text = ''
+[parity]
+# Current working blockchain name (default: foundation)
+chain = "${cfg.chain}"
+
+# Enable light mode (default: false)
+light = ${if cfg.light then "true" else "false"}
+
+# No updates will be auto-installed (nix doesn't allow this)
+auto_update = "none"
+
+[ui]
+# You will need to unlock accounts manually if Wallet is disabled.
+disable = ${if cfg.unlock then "true" else "false"}
+
+[dapps]
+# You won't be able to access any web Dapps.
+disable = ${if cfg.unlock then "true" else "false"}
+
+[footprint]
+# Prune old state data. Maintains journal overlay - fast but extra 50MB of memory used.
+pruning = "fast"
+
+# Disable tracing.
+tracing = "off"
+    
+'' + lib.optionalString cfg.unlock ''
+[account]
+unlock = ["@DEFAULT_ACCOUNT@"]
+password = ["${parityPsk}"]
+'';
+
     systemd.services.parity = {
-      after    = [ "network.target" ];
+      description = "Parity Daemon";
+      after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStart = with lib.strings; ''
-          export ACCOUNT=$(${pkgs.parity}/bin/parity account list | head -n 1)
-          if [ $ACCOUNT -eq "" ]; then
-            ${optionalString cfg.autoSign.enable "${pkgs.parity}/bin/parity account new --password ${cfg.autoSign.passwordFile}"}
-            export ACCOUNT=$(${pkgs.parity}/bin/parity account list | head -n 1)
+
+      preStart = (
+        if !cfg.unlock then "" else ''
+          [ -e ${parityEnv} ] && source ${parityEnv}
+
+          if [ -z "$DEFAULT_ACCOUNT" ]; then
+            echo "$(tr -dc A-Za-z0-9 </dev/urandom | head -c 96)" \
+              > ${parityPsk} 
+            echo "DEFAULT_ACCOUNT=$(${pkgs.parity}/bin/parity --chain=${cfg.chain} account new --password=${parityPsk})" \
+              > ${parityEnv}
           fi
-          ${pkgs.parity}/bin/parity --chain ${cfg.chain} \
-          ${optionalString cfg.warp "--warp"} \
-          ${optionalString cfg.autoSign.enable "--no-ui --unlock $ACCOUNT --password ${cfg.autoSign.passwordFile}"} \
-          ${concatStringsSep " " cfg.extraOptions}
-        '';
-        ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
-        Restart = "on-failure";
-        User = cfg.user;
+      ''); 
+
+      script = ''
+        [ -e ${parityEnv} ] && source ${parityEnv} 
+
+        cat /etc/parity.toml | sed \
+          -e "s/@DEFAULT_ACCOUNT@/$DEFAULT_ACCOUNT/" \
+          | ${pkgs.parity}/bin/parity --config=/dev/stdin
+      '';
+
+      serviceConfig = {
+        Restart    = "on-failure";
+        KillSignal = "SIGHUP";
+        StartLimitInterval = 0;
+        RestartSec = 1;
+        User       = "parity";
       };
     };
 
-    users.extraUsers = singleton
-      { name = cfg.user;
-        home = "/var/lib/parity";
-        createHome = true;
-        isNormalUser = true;
-      };
+    users.extraUsers = singleton {
+      name = "parity";
+      home = "${parityHome}";
+      createHome = true;
+      isNormalUser = true;
+      description = "Parity daemon user";
+    };
   };
 }

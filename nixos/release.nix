@@ -190,6 +190,7 @@ in rec {
       modules =
         [ versionModule
           ./modules/installer/virtualbox-demo.nix
+          ./modules/installer/aira.nix
         ];
     }).config.system.build.virtualBoxOVA)
 
@@ -206,8 +207,25 @@ in rec {
       modules =
         [ versionModule
           ./modules/installer/virtualbox-minimal.nix
+          ./modules/installer/aira.nix
         ];
     }).config.system.build.virtualBoxOVA)
+
+  );
+
+
+  docker_image = forTheseSystems [ "x86_64-linux" ] (system:
+
+    with import nixpkgs { inherit system; };
+
+    hydraJob ((import lib/eval-config.nix {
+      inherit system;
+      modules =
+        [ versionModule
+          ./modules/virtualisation/docker-image.nix
+          ./modules/installer/aira.nix
+        ];
+    }).config.system.build.tarball)
 
   );
 

@@ -23428,4 +23428,6 @@ in
   robonomics_game = callPackage ../applications/science/robotics/aira/robonomics_game { };
 
   robonomics_dev = callPackage ../applications/science/robotics/aira/robonomics_dev { };
+
+  aira-quick-start = callPackage ../applications/science/robotics/aira/aira-quick-start.nix { };
 }

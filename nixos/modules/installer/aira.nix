@@ -6,7 +6,7 @@ with lib;
 
   services = {
     aira-quick-start.enable = true;
-    parity.chain = "ropsten";
+    parity.chain = "kovan";
   };
 
   # Allow the user to log in as root without a password.

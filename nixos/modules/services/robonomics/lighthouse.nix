@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.services.lighthouse;
 
-  defaultContract = "0x9c8DD1E767f54520B4fb1A6E306F172EA8492f9c";
+  defaultContract = "0xc2F821d99f469D5818cE368543bcD9389e4E04C1";
 
 in {
   options = {
@@ -34,6 +34,7 @@ in {
       # Ethereum network client
       parity.enable = true;
       parity.unlock = true;
+      parity.chain = "kovan";
 
       # IPFS network client
       ipfs.enable = true;

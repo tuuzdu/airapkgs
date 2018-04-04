@@ -214,7 +214,7 @@ in rec {
   );
 
 
-  docker_image = forTheseSystems [ "x86_64-linux" ] (system:
+  docker_image = forMatchingSystems [ "x86_64-linux" ] (system:
 
     with import nixpkgs { inherit system; };
 

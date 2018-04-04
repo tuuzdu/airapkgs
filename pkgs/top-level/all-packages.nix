@@ -14732,9 +14732,6 @@ with pkgs;
   dapp = self.altcoins.dapp;
   hevm = self.altcoins.hevm;
 
-  parity = self.altcoins.parity;
-  parity-beta = self.altcoins.parity-beta;
-
   stellar-core = self.altcoins.stellar-core;
 
   parity = self.altcoins.parity;

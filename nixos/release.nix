@@ -198,7 +198,7 @@ in rec {
 
 
   # A bootable VirtualBox virtual appliance as an OVA file (i.e. packaged OVF).
-  ova_minimal = forTheseSystems [ "x86_64-linux" ] (system:
+  ova_minimal = forMatchingSystems [ "x86_64-linux" ] (system:
 
     with import nixpkgs { inherit system; };
 

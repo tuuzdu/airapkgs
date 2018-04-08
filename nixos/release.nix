@@ -190,7 +190,7 @@ in rec {
       modules =
         [ versionModule
           ./modules/installer/virtualbox-demo.nix
-          ./modules/installer/aira.nix
+          ./modules/installer/aira-quick-start.nix
         ];
     }).config.system.build.virtualBoxOVA)
 
@@ -207,7 +207,7 @@ in rec {
       modules =
         [ versionModule
           ./modules/installer/virtualbox-minimal.nix
-          ./modules/installer/aira.nix
+          ./modules/installer/aira-quick-start.nix
         ];
     }).config.system.build.virtualBoxOVA)
 
@@ -223,7 +223,7 @@ in rec {
       modules =
         [ versionModule
           ./modules/virtualisation/docker-image.nix
-          ./modules/installer/aira.nix
+          ./modules/installer/aira-quick-start.nix
         ];
     }).config.system.build.tarball)
 

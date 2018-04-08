@@ -214,6 +214,9 @@ in {
   ###### implementation
 
   config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = [ 4001 ];
+    networking.firewall.allowedUDPPorts = [ 5353 ];
+
     environment.systemPackages = [ wrapped ];
     environment.etc."fuse.conf" = mkIf cfg.autoMount { text = ''
       user_allow_other

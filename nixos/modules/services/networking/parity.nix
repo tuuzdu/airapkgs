@@ -12,16 +12,23 @@ let
 in {
   options = {
     services.parity = {
-      enable = mkEnableOption "Enable Parity daemon service.";
+      enable = mkEnableOption "Enable Parity daemon";
 
-      light  = mkEnableOption "Enable Light mode.";
+      package = mkOption {
+        type = types.package;
+        default = pkgs.parity;
+        defaultText = "pkgs.parity";
+        description = "Parity client for service providing";
+      };
 
-      unlock = mkEnableOption "Unlock account for sending transactions.";
+      light  = mkEnableOption "Enable Light mode";
+
+      unlock = mkEnableOption "Unlock account for sending transactions";
 
       chain = mkOption {
         type = types.str;
         default = "foundation";
-        description = "Used blockchain network name.";
+        description = "Used blockchain network name";
       };
     };
   };
@@ -81,15 +88,14 @@ password = ["${parityPsk}"]
 
         cat /etc/parity.toml | sed \
           -e "s/@DEFAULT_ACCOUNT@/$DEFAULT_ACCOUNT/" \
-          | ${pkgs.parity}/bin/parity --config=/dev/stdin
+          | ${cfg.package}/bin/parity --config=/dev/stdin
       '';
 
       serviceConfig = {
         Restart    = "on-failure";
         KillSignal = "SIGHUP";
-        StartLimitInterval = 0;
         RestartSec = 1;
-        User       = "parity";
+        User = "parity";
       };
     };
 
@@ -98,7 +104,7 @@ password = ["${parityPsk}"]
       home = "${parityHome}";
       createHome = true;
       isNormalUser = true;
-      description = "Parity daemon user";
+      description = "Parity daemon";
     };
   };
 }

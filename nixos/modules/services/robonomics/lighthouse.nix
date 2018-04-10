@@ -32,28 +32,34 @@ in {
     # Enable dependencies
     services = {
       # Ethereum network client
-      parity.enable = true;
-      parity.unlock = true;
-      parity.chain = "kovan";
+      parity = {
+        enable = true;
+        unlock = true;
+        chain = "kovan";
+      };
 
       # IPFS network client
-      ipfs.enable = true;
-      ipfs.pubsubExperiment = true;
-      ipfs.extraConfig = {
-          Announce = [
+      ipfs = {
+        enable = true;
+        pubsubExperiment = true;
+        extraConfig = {
+          Bootstrap = [
             "/dns4/pool.aira.life/tcp/4001/ipfs/QmdfQmbmXt6sqjZyowxPUsmvBsgSGQjm4VXrV7WGy62dv8"
           ];
+        };
       };
     };
 
     systemd.services.lighthouse = {
       wants = [ "parity.service" "ipfs.service" ];
       wantedBy = [ "multi-user.target" ];
+
       script = ''
         source ${pkgs.robonomics_comm}/setup.bash \
           && roslaunch robonomics_lighthouse lighthouse.launch \
             lighthouse_contract:="${cfg.contract}"
       '';
+
       serviceConfig = {
         Restart = "on-failure";
         StartLimitInterval = 0;

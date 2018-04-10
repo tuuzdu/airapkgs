@@ -13,20 +13,29 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ python3 python3Packages.web3 ];
-    # Enable dependencies
-    services = {
-      # Ethereum network client
-      parity.enable = true;
-      parity.unlock = true;
+    services.parity = {
+      enable = true;
+      unlock = true;
     };
 
     systemd.services.aira-quick-start = {
       wants = [ "parity.service" ];
       wantedBy = [ "multi-user.target" ];
       conflicts = [ "getty@tty1.service" ];
+
+      environment = {
+        inherit (config.environment.sessionVariables) NIX_PATH;
+        HOME = "/root";
+      };
+
+      path = with pkgs; [ python3 python3Packages.web3 config.nix.package.out ];
+
+      script = ''
+        ${pkgs.aira-quick-start}/bin/aira-quick-start \
+          && ${config.system.build.nixos-rebuild}/bin/nixos-rebuild switch
+      '';
+
       serviceConfig = {
-        ExecStart = "${pkgs.aira-quick-start}/bin/aira-quick-start";
         Restart = "on-failure";
         RestartSec = 5;
         StandardInput = "tty";

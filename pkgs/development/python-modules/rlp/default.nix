@@ -1,27 +1,21 @@
-{ lib
-, fetchurl
-, buildPythonPackage
-, pytest
-, pluggy
-, six
-}:
+{ lib, fetchPypi, buildPythonPackage, pytest }:
 
-let
+buildPythonPackage rec {
+  name = "${pname}-${version}";
   pname = "rlp";
   version = "0.6.0";
-in buildPythonPackage rec {
-  name = "${pname}-${version}";
-  src = fetchurl {
-    url = "mirror://pypi/${builtins.substring 0 1 pname}/${pname}/${name}.tar.gz";
+
+  src = fetchPypi {
+    inherit pname version;
     sha256 = "0d3gx4mp8q4z369s5yk1n9c55sgfw9fidbwqxq67d6s7l45rm1w7";
   };
 
-  checkInputs = [ pytest pluggy six ];
+  buildInputs = [ pytest ];
 
   meta = {
-    description = "A Python implementation of Recursive Length Prefix encoding (RLP)";
-    homepage = https://github.com/ethereum/pyrlp;
+    description = "A package for encoding and decoding data in and from Recursive Length Prefix notation";
+    homepage = "https://github.com/ethereum/pyrlp";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.akru ];
+    maintainers = with lib.maintainers; [ gebner ];
   };
 }

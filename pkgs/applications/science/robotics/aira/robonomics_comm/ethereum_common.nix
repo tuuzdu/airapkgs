@@ -3,10 +3,11 @@
 , fetchFromGitHub
 , robonomics_comm_lighthouse
 , python3Packages
+, ros_comm
 }:
 
 let
-  pname = "robonomics_control";
+  pname = "ethereum_common";
   version = "0.0";
 
 in mkRosPackage rec {
@@ -16,13 +17,13 @@ in mkRosPackage rec {
     owner = "airalab";
     repo = "robonomics_comm";
     rev = "release/${name}";
-    sha256 = "1drs3d53ry0zmvp3xqqx5fhapc2sxi6yb1xzlaxm4mm64kh4fav3";
+    sha256 = "1i1kh4wxn73n0m6q2ckps31034pw9jzl732q157nsjyy8x3as5wf";
   };
 
-  propagatedBuildInputs = with python3Packages; [ robonomics_comm_lighthouse web3 numpy ];
+  propagatedBuildInputs = with python3Packages; [ ros_comm web3 ];
 
   meta = with stdenv.lib; {
-    description = "Set of robonomics control algorithms";
+    description = "Commonly used Ethereum communication nodes";
     homepage = http://github.com/airalab/robonomics_comm;
     license = licenses.bsd3;
     maintainers = [ maintainers.akru ];

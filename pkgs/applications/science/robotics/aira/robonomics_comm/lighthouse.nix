@@ -4,11 +4,12 @@
 , ros_comm
 , python3Packages
 , ipfs
+, robonomics_comm_ethereum_common
 }:
 
 let
   pname = "robonomics_lighthouse";
-  version = "0.0";
+  version = "0.1";
 
 in mkRosPackage rec {
   name = "${pname}-${version}";
@@ -17,10 +18,11 @@ in mkRosPackage rec {
     owner = "airalab";
     repo = "robonomics_comm";
     rev = "release/${name}";
-    sha256 = "1fx6sri746im213fz8hra0kjy2g0mn9ipld6840mqnjh5m68ahh5";
+    sha256 = "02i7f7l26k8zy5dvkafg1sdf58xi7vxcsh2s7f7lr2z4cnggc1c9";
   };
 
-  propagatedBuildInputs = with python3Packages; [ ros_comm ipfs pexpect base58 web3 ];
+  propagatedBuildInputs = with python3Packages;
+  [ ros_comm ipfs pexpect base58 web3 robonomics_comm_ethereum_common ];
 
   meta = with stdenv.lib; {
     description = "Robonomics lighthouse support for ROS";

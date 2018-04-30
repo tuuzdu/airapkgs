@@ -21477,6 +21477,8 @@ with pkgs;
 
   robonomics_comm_liability = callPackage ../applications/science/robotics/aira/robonomics_comm/liability.nix { };
 
+  robonomics_comm_ethereum_common = callPackage ../applications/science/robotics/aira/robonomics_comm/ethereum_common.nix { };
+
   robonomics_comm = callPackage ../applications/science/robotics/aira/robonomics_comm { };
 
   robonomics_game_transport = callPackage ../applications/science/robotics/aira/robonomics_game/transport.nix { };

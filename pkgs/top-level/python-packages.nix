@@ -18299,8 +18299,6 @@ EOF
 
   base58 = callPackage ../development/python-modules/base58 { };
 
-  rlp = callPackage ../development/python-modules/rlp { };
-
   lru-dict = callPackage ../development/python-modules/lru-dict { };
 
   hexbytes = callPackage ../development/python-modules/hexbytes { };

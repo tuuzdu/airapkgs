@@ -7,7 +7,7 @@
 
 let
   pname = "eth-hash";
-  version = "v0.1.0-alpha.3";
+  version = "v0.1.2";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
@@ -15,7 +15,7 @@ in buildPythonPackage rec {
     owner = "ethereum";
     repo = "${pname}";
     rev = "${version}";
-    sha256 = "1q8067hpk352vy0b1kckrw33wfpl0c126036nw2d6n3h1sl45c0f";
+    sha256 = "1pfrfrzwqm0i8z8n8ha234zqw750gplwnpvbnihpy99yv34xa0j5";
   }; 
 
   propagatedBuildInputs = [ pycryptodome pysha3 ];

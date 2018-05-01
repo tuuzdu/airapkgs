@@ -9,7 +9,7 @@
 
 let
   pname = "eth-account";
-  version = "v0.1.0-alpha.2";
+  version = "v0.2.2";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
@@ -17,7 +17,7 @@ in buildPythonPackage rec {
     owner = "ethereum";
     repo = "${pname}";
     rev = "${version}";
-    sha256 = "16caxwphnd02bhn4k4l4rbiy5vdcscgm34p6ny829gmdaiiq06fp";
+    sha256 = "10i0kizhsb8wbmrsxf09j9gc36mrgcvi1pn424zkfl5rphlqk1m8";
   };
 
   propagatedBuildInputs = [ attrdict eth-keyfile eth-utils eth-rlp ];

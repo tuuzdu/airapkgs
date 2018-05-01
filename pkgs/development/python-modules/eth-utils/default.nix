@@ -7,7 +7,7 @@
 
 let
   pname = "eth-utils";
-  version = "v1.0.0-beta.1";
+  version = "v1.0.3";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
@@ -15,7 +15,7 @@ in buildPythonPackage rec {
     owner = "ethereum";
     repo = "${pname}";
     rev = "${version}";
-    sha256 = "0s14k2h5836hqn186ig7fyflr5ag185vdw0r0c7pd1bipjqksbja";
+    sha256 = "0c4sgzvb18yyg86rdnfw91jgnl4zikmk3n8gaya1507nk6071rcj";
   };
 
   propagatedBuildInputs = [ cytoolz eth-hash ];

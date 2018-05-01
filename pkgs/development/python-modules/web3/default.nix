@@ -5,11 +5,12 @@
 , requests
 , eth-abi
 , eth-account
+, websockets
 }:
 
 let
   pname = "web3";
-  version = "v4.0.0-beta.9";
+  version = "v4.2.0";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
@@ -17,12 +18,12 @@ in buildPythonPackage rec {
     owner = "ethereum";
     repo = "${pname}.py";
     rev = "${version}";
-    sha256 = "1wjh84jlcwblbj3xhmyy2vmwxkdncmj2smk0pf8xnxrvy8vb07az";
+    sha256 = "1rr0m4ra6gv5xd4yxhd5rnqwvsxn1s1gaqc362b9if4grxr2nnjr";
   };
 
   patches = [ ./bytes32_array_fix.patch ];
 
-  propagatedBuildInputs = [ lru-dict requests eth-abi eth-account ];
+  propagatedBuildInputs = [ lru-dict requests eth-abi eth-account websockets ];
 
   # No testing
   doCheck = false;

@@ -1,6 +1,6 @@
 let
-  version     = "1.10.3";
-  sha256      = "1rci8rdsc05fsfr6man0k9qrmymss77x9igyr928x8d7b6jvqa3s";
+  version     = "1.10.4";
+  sha256      = "1vyqid2m1y06zm451fdn208h20r04cymdrra0l014swlis2vbjdc";
   cargoSha256 = "1sxqkg0wajz1k456kxw3401vcf6fzm3r2zp6ny8vwl2jwmz33s5k";
   patches     = [ ./patches/vendored-sources-1.10.patch ];
 in

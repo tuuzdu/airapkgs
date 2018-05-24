@@ -18222,6 +18222,8 @@ EOF
   pyowm = callPackage ../development/python-modules/pyowm { };
 
   prometheus_client = callPackage ../development/python-modules/prometheus_client { };
+
+  pysdl2 = callPackage ../development/python-modules/pysdl2 { };
 });
 
 in fix' (extends overrides packages)

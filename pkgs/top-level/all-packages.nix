@@ -11632,6 +11632,8 @@ with pkgs;
 
   spatialite_tools = callPackage ../development/libraries/spatialite-tools { };
 
+  spdk = callPackage ../development/libraries/spdk { };
+
   speechd = callPackage ../development/libraries/speechd { };
 
   speech-tools = callPackage ../development/libraries/speech-tools {};
@@ -13585,6 +13587,9 @@ with pkgs;
     inherit kernel;
     inherit (kernel) stdenv; # in particular, use the same compiler by default
 
+    # Obsolete aliases (these packages do not depend on the kernel).
+    inherit (pkgs) odp-dpdk pktgen; # added 2018-05
+
     acpi_call = callPackage ../os-specific/linux/acpi-call {};
 
     amdgpu-pro = callPackage ../os-specific/linux/amdgpu-pro { };
@@ -13611,13 +13616,7 @@ with pkgs;
 
     evdi = callPackage ../os-specific/linux/evdi { };
 
-    pktgen = callPackage ../os-specific/linux/pktgen { };
-
     hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons { };
-
-    odp-dpdk = callPackage ../os-specific/linux/odp-dpdk { };
-
-    ofp = callPackage ../os-specific/linux/ofp { };
 
     e1000e = callPackage ../os-specific/linux/e1000e {};
 
@@ -13814,6 +13813,10 @@ with pkgs;
 
   buildLinux = attrs: callPackage ../os-specific/linux/kernel/generic.nix attrs;
 
+  dpdk = callPackage ../os-specific/linux/dpdk {
+    kernel = null; # dpdk modules are in linuxPackages.dpdk.kmod
+  };
+
   keyutils = callPackage ../os-specific/linux/keyutils { };
 
   libselinux = callPackage ../os-specific/linux/libselinux { };
@@ -13962,7 +13965,11 @@ with pkgs;
 
   nss_ldap = callPackage ../os-specific/linux/nss_ldap { };
 
+  odp-dpdk = callPackage ../os-specific/linux/odp-dpdk { };
+
   odroid-xu3-bootloader = callPackage ../tools/misc/odroid-xu3-bootloader { };
+
+  ofp = callPackage ../os-specific/linux/ofp { };
 
   openpam = callPackage ../development/libraries/openpam { };
 
@@ -14008,6 +14015,8 @@ with pkgs;
   pipes = callPackage ../misc/screensavers/pipes { };
 
   pipework = callPackage ../os-specific/linux/pipework { };
+
+  pktgen = callPackage ../os-specific/linux/pktgen { };
 
   plymouth = callPackage ../os-specific/linux/plymouth { };
 
@@ -17087,6 +17096,7 @@ with pkgs;
       else null;
   };
 
+  # TODO: we should probably merge these 2
   musescore =
     if stdenv.isDarwin then
       callPackage ../applications/audio/musescore/darwin.nix { }
@@ -18364,7 +18374,10 @@ with pkgs;
 
   xxd = callPackage ../tools/misc/xxd { };
 
-  vimNox = lowPrio (vim_configurable.override { source = "vim-nox"; });
+  vimNox = lowPrio (vim_configurable.override {
+    source = "vim-nox";
+    lua = pkgs.lua5_1; # vimNox source is from 2012, requires older lua
+  });
 
   qpdfview = libsForQt5.callPackage ../applications/misc/qpdfview {};
 

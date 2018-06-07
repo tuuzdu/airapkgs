@@ -10,7 +10,7 @@
 
 let
   pname = "web3";
-  version = "v4.2.0";
+  version = "v4.3.0";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
@@ -18,10 +18,8 @@ in buildPythonPackage rec {
     owner = "ethereum";
     repo = "${pname}.py";
     rev = "${version}";
-    sha256 = "1rr0m4ra6gv5xd4yxhd5rnqwvsxn1s1gaqc362b9if4grxr2nnjr";
+    sha256 = "0zvcbfcdxx8pmc7q8yiiv2dy83qw4v7nazxps42h866syz36ablv";
   };
-
-  patches = [ ./bytes32_array_fix.patch ];
 
   propagatedBuildInputs = [ lru-dict requests eth-abi eth-account websockets ];
 

@@ -16688,13 +16688,13 @@ EOF
   pychart = callPackage ../development/python-modules/pychart {};
 
   parsimonious = buildPythonPackage rec {
-    version = "0.7.0";
+    version = "0.8.0";
     name = "parsimonious-${version}";
     src = pkgs.fetchFromGitHub {
       repo = "parsimonious";
       owner = "erikrose";
       rev = version;
-      sha256 = "087npc8ccryrxabmqifcz56w4wd0hzmv0mc91wrbhc1sil196j0a";
+      sha256 = "0inm0393kv2yghik36m34jqhbv5zl1fpcpzshp1nsb6d4lwm0jcv";
     };
 
     propagatedBuildInputs = with self; [ nose six ];

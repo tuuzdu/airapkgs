@@ -6,14 +6,14 @@
 
 let
   pname = "eth-keyfile";
-  version = "v0.5.1";
+  version = "0.5.1";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "ethereum";
     repo = "${pname}";
-    rev = "${version}";
+    rev = "v${version}";
     sha256 = "1lgw24xl2g670qaajicjhkibl0gvcyqbxrnhlsadw8z78lxv6v90";
   };
 

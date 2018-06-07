@@ -9,14 +9,14 @@
 
 let
   pname = "eth-abi";
-  version = "v1.1.1";
+  version = "1.1.1";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "ethereum";
     repo = "${pname}";
-    rev = "${version}";
+    rev = "v${version}";
     sha256 = "0irnn656rmwm23b7p88sfdgnfm1dbpqra08l6x3lkdj2ajnq6lsh";
   };
 

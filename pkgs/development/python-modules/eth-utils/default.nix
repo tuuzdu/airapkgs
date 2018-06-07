@@ -7,14 +7,14 @@
 
 let
   pname = "eth-utils";
-  version = "v1.0.3";
+  version = "1.0.3";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "ethereum";
     repo = "${pname}";
-    rev = "${version}";
+    rev = "v${version}";
     sha256 = "0c4sgzvb18yyg86rdnfw91jgnl4zikmk3n8gaya1507nk6071rcj";
   };
 

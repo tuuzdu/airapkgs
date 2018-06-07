@@ -9,14 +9,14 @@
 
 let
   pname = "eth-account";
-  version = "v0.2.2";
+  version = "0.2.2";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "ethereum";
     repo = "${pname}";
-    rev = "${version}";
+    rev = "v${version}";
     sha256 = "10i0kizhsb8wbmrsxf09j9gc36mrgcvi1pn424zkfl5rphlqk1m8";
   };
 

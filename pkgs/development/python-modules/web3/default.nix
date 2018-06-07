@@ -10,14 +10,14 @@
 
 let
   pname = "web3";
-  version = "v4.3.0";
+  version = "4.3.0";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "ethereum";
     repo = "${pname}.py";
-    rev = "${version}";
+    rev = "v${version}";
     sha256 = "0zvcbfcdxx8pmc7q8yiiv2dy83qw4v7nazxps42h866syz36ablv";
   };
 

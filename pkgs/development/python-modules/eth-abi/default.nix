@@ -2,11 +2,14 @@
 , fetchFromGitHub 
 , buildPythonPackage
 , eth-utils
+, parsimonious
+, pytest
+, hypothesis
 }:
 
 let
   pname = "eth-abi";
-  version = "v1.0.0";
+  version = "v1.1.1";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
@@ -14,10 +17,11 @@ in buildPythonPackage rec {
     owner = "ethereum";
     repo = "${pname}";
     rev = "${version}";
-    sha256 = "04jiwri35yz0sfnbpldc8ll484mxxlwraifi345nxp8g48w12c6g";
+    sha256 = "0irnn656rmwm23b7p88sfdgnfm1dbpqra08l6x3lkdj2ajnq6lsh";
   };
 
-  propagatedBuildInputs = [ eth-utils ];
+  buildInputs = [ pytest hypothesis ];
+  propagatedBuildInputs = [ eth-utils parsimonious ];
 
   prePatch = ''
     sed -i '/setuptools-markdown/d' setup.py

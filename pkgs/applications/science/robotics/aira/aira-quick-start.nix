@@ -17,7 +17,7 @@ in buildPythonApplication rec {
     owner = "airalab";
     repo = "aira-quick-start";
     rev = "master";
-    sha256 = "1mj1kqdg9axx26x9rcp5gym0f5yaqpkisz10sbik34mm76g14bly";
+    sha256 = "0rhxzh63532yhj933p9qq3s5myiqkq3zh60lwkbscfq7228v457z";
   };
 
   propagatedBuildInputs = [ python3 web3 termcolor ];

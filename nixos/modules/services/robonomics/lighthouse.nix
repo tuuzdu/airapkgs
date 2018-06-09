@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.services.lighthouse;
 
-  defaultContract = "0xc2F821d99f469D5818cE368543bcD9389e4E04C1";
+  defaultContract = "airalab.lighthouse.0.robonomics.eth";
 
 in {
   options = {
@@ -35,7 +35,6 @@ in {
       parity = {
         enable = true;
         unlock = true;
-        chain = "kovan";
       };
 
       # IPFS network client

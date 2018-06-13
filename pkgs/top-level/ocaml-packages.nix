@@ -363,6 +363,8 @@ let
       then callPackage ../development/ocaml-modules/lambda-term { }
       else lambdaTerm-1_6;
 
+    linenoise = callPackage ../development/ocaml-modules/linenoise { };
+
     llvm = callPackage ../development/ocaml-modules/llvm {
       llvm = pkgs.llvm_39;
     };
@@ -518,6 +520,8 @@ let
     ojquery = callPackage ../development/ocaml-modules/ojquery { };
 
     omd = callPackage ../development/ocaml-modules/omd { };
+
+    opam-file-format = callPackage ../development/ocaml-modules/opam-file-format { };
 
     otfm = callPackage ../development/ocaml-modules/otfm { };
 

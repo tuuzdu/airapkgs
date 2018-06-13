@@ -195,11 +195,19 @@ in {
     inherit (pkgs) augeas;
   };
 
+  autograd = callPackage ../development/python-modules/autograd { };
+
   automat = callPackage ../development/python-modules/automat { };
+
+  aws-sam-translator = callPackage ../development/python-modules/aws-sam-translator { };
 
   aws-xray-sdk = callPackage ../development/python-modules/aws-xray-sdk { };
 
   # packages defined elsewhere
+
+  amazon_kclpy = callPackage ../development/python-modules/amazon_kclpy { };
+
+  ansiconv = callPackage ../development/python-modules/ansiconv { };
 
   backports_csv = callPackage ../development/python-modules/backports_csv {};
 
@@ -311,6 +319,10 @@ in {
 
   outcome = callPackage ../development/python-modules/outcome {};
 
+  pdf2image = callPackage ../development/python-modules/pdf2image { };
+
+  pdfminer = callPackage ../development/python-modules/pdfminer_six { };
+
   plantuml = callPackage ../tools/misc/plantuml { };
 
   Pmw = callPackage ../development/python-modules/Pmw { };
@@ -380,6 +392,10 @@ in {
     callPackage = pkgs.callPackage;
   };
 
+  pykdtree = callPackage ../development/python-modules/pykdtree {
+    inherit (pkgs.llvmPackages) openmp;
+  };
+
   pyparser = callPackage ../development/python-modules/pyparser { };
 
   pyqt4 = callPackage ../development/python-modules/pyqt/4.x.nix {
@@ -407,6 +423,8 @@ in {
   };
 
   pytest-tornado = callPackage ../development/python-modules/pytest-tornado { };
+
+  python-hosts = callPackage ../development/python-modules/python-hosts { };
 
   python-openid = callPackage (if isPy3k
     then ../development/python-modules/python3-openid
@@ -1197,8 +1215,8 @@ in {
   cufflinks = callPackage ../development/python-modules/cufflinks { };
 
   cupy = callPackage ../development/python-modules/cupy {
-    cudatoolkit = pkgs.cudatoolkit8;
-    cudnn = pkgs.cudnn6_cudatoolkit8;
+    cudatoolkit = pkgs.cudatoolkit_8;
+    cudnn = pkgs.cudnn6_cudatoolkit_8;
     nccl = pkgs.nccl;
   };
 
@@ -1243,6 +1261,8 @@ in {
   py4j = callPackage ../development/python-modules/py4j { };
 
   pyechonest = callPackage ../development/python-modules/pyechonest { };
+
+  pyezminc = callPackage ../development/python-modules/pyezminc { };
 
   billiard = callPackage ../development/python-modules/billiard { };
 
@@ -1323,7 +1343,7 @@ in {
     #setupPyBuildFlags = [ "--berkeley-db=${pkgs.db}" ];
     # We can also use a variable
     preConfigure = ''
-      export BERKELEYDB_DIR=${pkgs.db};
+      export BERKELEYDB_DIR=${pkgs.db.dev};
     '';
 
     meta = {
@@ -2101,6 +2121,8 @@ in {
 
   demjson = callPackage ../development/python-modules/demjson { };
 
+  deprecation = callPackage ../development/python-modules/deprecation { };
+
   derpconf = callPackage ../development/python-modules/derpconf { };
 
   deskcon = self.buildPythonPackage rec {
@@ -2817,9 +2839,10 @@ in {
   };
 
   gnutls = buildPythonPackage rec {
-    name = "python-gnutls";
+    pname = "python-gnutls";
+    version = "3.0.0";
     src = pkgs.fetchurl {
-      url = "mirror://pypi/p/python-gnutls/python-gnutls-3.0.0.tar.gz";
+      url = "mirror://pypi/p/python-gnutls/${pname}-${version}.tar.gz";
       sha256 = "1yrdxcj5rzvz8iglircz6icvyggz5fmdcd010n6w3j60yp4p84kc";
     };
 
@@ -3716,6 +3739,8 @@ in {
   # These used to be here but were moved to all-packages, but I'll leave them around for a while.
   pants = pkgs.pants;
 
+  paperspace = callPackage ../development/python-modules/paperspace { };
+
   paperwork-backend = callPackage ../applications/office/paperwork/backend.nix { };
 
   papis-python-rofi = callPackage ../development/python-modules/papis-python-rofi { };
@@ -3785,28 +3810,6 @@ in {
       homepage = https://github.com/joeyespo/path-and-address;
       license = licenses.mit;
       maintainers = with maintainers; [ koral];
-    };
-  };
-
-
-  pdfminer = buildPythonPackage rec {
-    version = "20140328";
-    name = "pdfminer-${version}";
-
-    disabled = ! isPy27;
-
-    src = pkgs.fetchurl {
-      url = "mirror://pypi/p/pdfminer/pdfminer-${version}.tar.gz";
-      sha256 = "0qpjv4b776dwvpf5a7v19g41qsz97bv0qqsyvm7a31k50n9pn65s";
-    };
-
-    propagatedBuildInputs = with self; [  ];
-
-    meta = {
-      description = "Tool for extracting information from PDF documents";
-      homepage = http://euske.github.io/pdfminer/index.html;
-      license = licenses.mit;
-      maintainers = with maintainers; [ ];
     };
   };
 
@@ -3985,7 +3988,7 @@ in {
   };
 
   pycuda = callPackage ../development/python-modules/pycuda rec {
-    cudatoolkit = pkgs.cudatoolkit75;
+    cudatoolkit = pkgs.cudatoolkit_7_5;
     inherit (pkgs.stdenv) mkDerivation;
   };
 
@@ -5617,14 +5620,14 @@ in {
     # https://github.com/pytorch/pytorch/issues/5831
     # https://devtalk.nvidia.com/default/topic/1028112
     # We should be able to remove this when CUDA 9.2 is released.
-    cudatoolkit9 = pkgs.cudatoolkit9.override {
+    cudatoolkit_9 = pkgs.cudatoolkit_9.override {
       gcc6 = pkgs.gcc5;
     };
   in callPackage ../development/python-modules/pytorch {
     cudaSupport = pkgs.config.cudaSupport or false;
-    cudatoolkit = cudatoolkit9;
-    cudnn = pkgs.cudnn_cudatoolkit9.override {
-      inherit cudatoolkit9;
+    cudatoolkit = cudatoolkit_9;
+    cudnn = pkgs.cudnn_cudatoolkit_9.override {
+      inherit cudatoolkit_9;
     };
   };
 
@@ -6962,6 +6965,9 @@ in {
 
   pylru = callPackage ../development/python-modules/pylru { };
 
+  libnl-python = disabledIf isPy3k
+    (toPythonModule (pkgs.libnl.override{pythonSupport=true; inherit python; })).py;
+
   lark-parser = callPackage ../development/python-modules/lark-parser { };
 
   lazy-object-proxy = buildPythonPackage rec {
@@ -8088,6 +8094,8 @@ in {
 
   mysqlclient = callPackage ../development/python-modules/mysqlclient { };
 
+  mypy = callPackage ../development/python-modules/mypy { };
+
   mwclient = buildPythonPackage rec {
     version = "0.8.3";
     pname = "mwclient";
@@ -9100,16 +9108,16 @@ in {
   });
 
   osc = buildPythonPackage {
-    name = "osc-0.159.0-4-g2d44589";
+    name = "osc-0.162.0-55-gb730f88";
     disabled = isPy3k;
     src = pkgs.fetchFromGitHub {
       owner = "openSUSE";
       repo = "osc";
-      rev = "2d44589886845af7da911aaec9403344e396cd91";
-      sha256 = "0s8p7gkp64w6r5rnxpbvl2dgb5p85kq2skcqm6qxn5ddadhw2sfz";
+      rev = "b730f880cfe85a8547f569355a21706f27ebfa78";
+      sha256 = "0hh9j5zd2kc0804d2jmf1q3w5xm9l9s69hhgysbncrv5fw0414lh";
     };
     buildInputs = with pkgs; [ bashInteractive ]; # needed for bash-completion helper
-    propagatedBuildInputs = with self; [ urlgrabber m2crypto pyyaml ];
+    propagatedBuildInputs = with self; [ urlgrabber m2crypto pyyaml lxml ];
     postInstall = ''
       ln -s $out/bin/osc-wrapper.py $out/bin/osc
       install -D -m444 osc.fish $out/etc/fish/completions/osc.fish
@@ -9894,6 +9902,8 @@ in {
     name = "${python.libPrefix}-${pkgs.kmsxx.name}";
   });
 
+  pvlib = callPackage ../development/python-modules/pvlib { };
+
   pybase64 = callPackage ../development/python-modules/pybase64 { };
 
   pylibconfig2 = callPackage ../development/python-modules/pylibconfig2 { };
@@ -10368,7 +10378,7 @@ in {
   };
 
   pybcrypt = buildPythonPackage rec {
-    name = "pybcrypt";
+    pname = "pybcrypt";
     version = "0.4";
 
     src = pkgs.fetchurl {
@@ -10837,12 +10847,19 @@ in {
   };
 
   PyICU = buildPythonPackage rec {
-    name = "PyICU-1.9.7";
+    name = "PyICU-2.0.3";
 
     src = pkgs.fetchurl {
       url = "mirror://pypi/P/PyICU/${name}.tar.gz";
-      sha256 = "0qavhngmn7c90fz25a8a2k50wd5gzp3vwwjq8v2pkf2hq4fcs9yv";
+      sha256 = "0pzss3l0b0vcsyr7wlqdd6pkcqldspajfgd9k2iijf6r152d2ln4";
     };
+
+    patches = [
+      (pkgs.fetchpatch {
+        url = https://sources.debian.org/data/main/p/pyicu/2.0.3-1/debian/patches/icu_test.patch;
+        sha256 = "1iavdkyqixm9i753svl17barla93b7jzgkw09dn3hnggamx7zwx9";
+      })
+    ];
 
     buildInputs = [ pkgs.icu self.pytest ];
 
@@ -11265,6 +11282,12 @@ in {
 
     buildInputs = with self; [ pyasn1 pycrypto ];
   };
+
+  python-language-server = callPackage ../development/python-modules/python-language-server {};
+
+  pyls-mypy = callPackage ../development/python-modules/pyls-mypy {};
+
+  pyls-isort = callPackage ../development/python-modules/pyls-isort {};
 
   pyudev = callPackage ../development/python-modules/pyudev {
     inherit (pkgs) fetchurl systemd;
@@ -12439,6 +12462,8 @@ in {
 
   typing = callPackage ../development/python-modules/typing { };
 
+  typing-extensions = callPackage ../development/python-modules/typing-extensions { };
+
   typeguard = callPackage ../development/python-modules/typeguard { };
 
   ruamel_yaml = buildPythonPackage rec {
@@ -13410,27 +13435,7 @@ in {
     };
   };
 
-  supervisor = buildPythonPackage rec {
-    name = "supervisor-3.1.4";
-
-    disabled = isPy3k;
-
-    src = pkgs.fetchurl {
-      url = "mirror://pypi/s/supervisor/${name}.tar.gz";
-      sha256 = "0kk0sv7780m4dzmrcb2m284krz907jh8jp7khz5a79qryy4m1xw2";
-    };
-
-    buildInputs = with self; [ mock ];
-    propagatedBuildInputs = with self; [ meld3 ];
-
-    # failing tests when building under chroot as root user doesn't exist
-    doCheck = false;
-
-    meta = {
-      description = "A system for controlling process state under UNIX";
-      homepage = http://supervisord.org/;
-    };
-  };
+  supervisor = callPackage ../development/python-modules/supervisor {};
 
   subprocess32 = callPackage ../development/python-modules/subprocess32 { };
 
@@ -14271,25 +14276,7 @@ in {
 
   TurboCheetah = callPackage ../development/python-modules/TurboCheetah { };
 
-  tweepy = buildPythonPackage (rec {
-    name = "tweepy-3.5.0";
-
-    src = pkgs.fetchurl {
-      url = "mirror://pypi/t/tweepy/${name}.tar.gz";
-      sha256 = "0n2shilamgwhzmvf534xg7f6hrnznbixyl5pw2f5a3f391gwy37h";
-    };
-
-    doCheck = false;
-    propagatedBuildInputs = with self; [ requests six requests_oauthlib ];
-
-    meta = {
-      homepage = "https://github.com/tweepy/tweepy";
-      description = "Twitter library for python";
-      license = licenses.mit;
-      maintainers = with maintainers; [ garbas ];
-      platforms = platforms.linux;
-    };
-  });
+  tweepy = callPackage ../development/python-modules/tweepy { };
 
   twiggy = buildPythonPackage rec {
     name = "Twiggy-${version}";
@@ -16246,6 +16233,10 @@ EOF
     };
   };
 
+  libversion = callPackage ../development/python-modules/libversion {
+    inherit (pkgs) libversion;
+  };
+
   libvirt = callPackage ../development/python-modules/libvirt {
     inherit (pkgs) libvirt;
   };
@@ -16981,6 +16972,11 @@ EOF
       sha256 = "0v8ziaam2r637v94ra4dbjw6jzxz99gs5x4i585kgag1v204yb9b";
     };
 
+    checkPhase = ''
+      # The tests assume that test_xmlast does not run before test_pyPEG2.
+      python -m unittest pypeg2.test.test_pyPEG2 pypeg2.test.test_xmlast
+    '';
+
     #https://bitbucket.org/fdik/pypeg/issues/36/test-failures-on-py35
     doCheck = !isPy3k;
 
@@ -17620,11 +17616,11 @@ EOF
   tensorflow =
     if stdenv.isDarwin
     then callPackage ../development/python-modules/tensorflow/bin.nix { }
-    else callPackage ../development/python-modules/tensorflow rec {
+    else callPackage ../development/python-modules/tensorflow/bin.nix rec {
       cudaSupport = pkgs.config.cudaSupport or false;
       inherit (pkgs.linuxPackages) nvidia_x11;
-      cudatoolkit = pkgs.cudatoolkit9;
-      cudnn = pkgs.cudnn_cudatoolkit9;
+      cudatoolkit = pkgs.cudatoolkit_9_0;
+      cudnn = pkgs.cudnn_cudatoolkit_9_0;
     };
 
   tensorflowWithoutCuda = self.tensorflow.override {
@@ -18164,6 +18160,8 @@ EOF
 
   voluptuous = callPackage ../development/python-modules/voluptuous { };
 
+  voluptuous-serialize = callPackage ../development/python-modules/voluptuous-serialize { };
+
   pysigset = callPackage ../development/python-modules/pysigset { };
 
   us = callPackage ../development/python-modules/us { };
@@ -18215,6 +18213,17 @@ EOF
   pysdl2 = callPackage ../development/python-modules/pysdl2 { };
 
   pyogg = callPackage ../development/python-modules/pyogg { };
+
+  rubymarshal = callPackage ../development/python-modules/rubymarshal { };
+
+  radio_beam = callPackage ../development/python-modules/radio_beam { };
+
+  spectral-cube = callPackage ../development/python-modules/spectral-cube { };
+
+  astunparse = callPackage ../development/python-modules/astunparse { };
+
+  gast = callPackage ../development/python-modules/gast { };
+
 });
 
 in fix' (extends overrides packages)

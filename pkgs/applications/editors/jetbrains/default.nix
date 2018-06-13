@@ -237,12 +237,12 @@ in
 
   clion = buildClion rec {
     name = "clion-${version}";
-    version = "2018.1.2"; /* updated by script */
+    version = "2018.1.3";
     description  = "C/C++ IDE. New. Intelligent. Cross-platform";
     license = stdenv.lib.licenses.unfree;
     src = fetchurl {
       url = "https://download.jetbrains.com/cpp/CLion-${version}.tar.gz";
-      sha256 = "158ydbr0bbzm1nqi4xhrcp6bwk7kmiw78v959h7bxg3y7z55hbwa"; /* updated by script */
+      sha256 = "0daj1ha7d9kxgb60mx2yzyj01m6ahw5d6wzs0vvwp5fh5qf4mpw5";
     };
     wmClass = "jetbrains-clion";
     update-channel = "CLion_Release"; # channel's id as in http://www.jetbrains.com/updates/updates.xml
@@ -276,12 +276,12 @@ in
 
   idea-community = buildIdea rec {
     name = "idea-community-${version}";
-    version = "2018.1.3"; /* updated by script */
+    version = "2018.1.4"; /* updated by script */
     description = "Integrated Development Environment (IDE) by Jetbrains, community edition";
     license = stdenv.lib.licenses.asl20;
     src = fetchurl {
       url = "https://download.jetbrains.com/idea/ideaIC-${version}.tar.gz";
-      sha256 = "0ws5s8bvjpz60pdyak3vb22x27qi00ajxx18wia1hql8831gsk3m"; /* updated by script */
+      sha256 = "1qb425wg4690474g348yizhkcqcgigz2synp4blcfv4p0pg79ri6"; /* updated by script */
     };
     wmClass = "jetbrains-idea-ce";
     update-channel = "IDEA_Release";
@@ -289,12 +289,12 @@ in
 
   idea-ultimate = buildIdea rec {
     name = "idea-ultimate-${version}";
-    version = "2018.1.3"; /* updated by script */
+    version = "2018.1.4"; /* updated by script */
     description = "Integrated Development Environment (IDE) by Jetbrains, requires paid license";
     license = stdenv.lib.licenses.unfree;
     src = fetchurl {
       url = "https://download.jetbrains.com/idea/ideaIU-${version}-no-jdk.tar.gz";
-      sha256 = "14h71x3jidwiwv73g48f6bd0y4p3s33jb4wdr5grdhm677pqb702"; /* updated by script */
+      sha256 = "0jn771z09bscnk283kwrki0zyzhh4v4n6mr2swbd0ccs9v12dx71"; /* updated by script */
     };
     wmClass = "jetbrains-idea";
     update-channel = "IDEA_Release";

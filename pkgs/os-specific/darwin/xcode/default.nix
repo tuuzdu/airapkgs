@@ -17,13 +17,13 @@ let requireXcode = version: sha256:
             '';
     app = requireFile rec {
       name     = "Xcode.app";
-      url      = "https://download.developer.apple.com/Developer_Tools/Xcode_" + version + "/" + xip;
+      url      = "https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_${version}/${xip}";
       hashMode = "recursive";
       inherit sha256;
       message  = ''
         Unfortunately, we cannot download ${name} automatically.
         Please go to ${url}
-        to download it yourself, and add it to the Nix store by running the following commands."
+        to download it yourself, and add it to the Nix store by running the following commands.
         Note: download (~ 5GB), extraction and storing of Xcode will take a while
 
         ${unxip}

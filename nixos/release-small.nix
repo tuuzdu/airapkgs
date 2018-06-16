@@ -80,7 +80,6 @@ in rec {
       subversion
       tarball
       vim
-      parity-beta
       parity
       solc
       robonomics_dev
@@ -102,7 +101,6 @@ in rec {
         (all nixpkgs.robonomics_dev)
         (all nixpkgs.robonomics_comm)
         (all nixpkgs.robonomics_game)
-        (all nixpkgs.parity-beta)
         (all nixpkgs.parity)
       ]
       ++ lib.collect lib.isDerivation nixos;

@@ -29,6 +29,7 @@
   ./config/vpnc.nix
   ./config/zram.nix
   ./hardware/all-firmware.nix
+  ./hardware/brightnessctl.nix
   ./hardware/ckb.nix
   ./hardware/cpu/amd-microcode.nix
   ./hardware/cpu/intel-microcode.nix
@@ -50,6 +51,7 @@
   ./hardware/video/bumblebee.nix
   ./hardware/video/displaylink.nix
   ./hardware/video/nvidia.nix
+  ./hardware/video/uvcvideo/default.nix
   ./hardware/video/webcam/facetimehd.nix
   ./i18n/input-method/default.nix
   ./i18n/input-method/fcitx.nix
@@ -473,6 +475,7 @@
   ./services/networking/dnschain.nix
   ./services/networking/dnscrypt-proxy.nix
   ./services/networking/dnscrypt-wrapper.nix
+  ./services/networking/dnsdist.nix
   ./services/networking/dnsmasq.nix
   ./services/networking/ejabberd.nix
   ./services/networking/fakeroute.nix
@@ -539,6 +542,7 @@
   ./services/networking/openvpn.nix
   ./services/networking/ostinato.nix
   ./services/networking/parity.nix
+  ./services/networking/owamp.nix
   ./services/networking/pdnsd.nix
   ./services/networking/polipo.nix
   ./services/networking/powerdns.nix

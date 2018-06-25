@@ -42,11 +42,15 @@ let
     inherit (bootGhcjs) version;
     isGhcjs = true;
 
+    enableShared = true;
+
     socket-io = nodePackages."socket.io";
 
     # Relics of the old GHCJS build system
     stage1Packages = [];
     mkStage2 = _: {};
+
+    haskellCompilerName = "ghcjs-${bootGhcjs.version}";
   };
 
   bootGhcjs = haskellLib.justStaticExecutables passthru.bootPkgs.ghcjs;
@@ -67,7 +71,8 @@ in stdenv.mkDerivation {
     ] ++ lib.optionals stdenv.isDarwin [
       gcc # https://github.com/ghcjs/ghcjs/issues/663
     ];
-    phases = ["unpackPhase" "buildPhase"];
+    dontConfigure = true;
+    dontInstall = true;
     buildPhase = ''
       export HOME=$TMP
       mkdir $HOME/.cabal
@@ -93,4 +98,3 @@ in stdenv.mkDerivation {
 
     meta.platforms = passthru.bootPkgs.ghc.meta.platforms;
   }
-

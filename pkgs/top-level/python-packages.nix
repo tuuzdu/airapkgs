@@ -239,6 +239,8 @@ in {
 
   dbfread = callPackage ../development/python-modules/dbfread { };
 
+  deap = callPackage ../development/python-modules/deap { };
+
   dkimpy = callPackage ../development/python-modules/dkimpy { };
 
   diff_cover = callPackage ../development/python-modules/diff_cover { };
@@ -396,6 +398,8 @@ in {
     inherit (pkgs.llvmPackages) openmp;
   };
 
+  pynisher = callPackage ../development/python-modules/pynisher { };
+
   pyparser = callPackage ../development/python-modules/pyparser { };
 
   pyqt4 = callPackage ../development/python-modules/pyqt/4.x.nix {
@@ -459,6 +463,8 @@ in {
   simpleeval = callPackage ../development/python-modules/simpleeval { };
 
   sip = callPackage ../development/python-modules/sip { };
+
+  spglib = callPackage ../development/python-modules/spglib { };
 
   supervise_api = callPackage ../development/python-modules/supervise_api { };
 
@@ -1233,9 +1239,9 @@ in {
   cypari2 = callPackage ../development/python-modules/cypari2 { };
 
   dlib = buildPythonPackage rec {
-    inherit (pkgs.dlib) name src nativeBuildInputs meta;
+    inherit (pkgs.dlib) name src nativeBuildInputs meta buildInputs;
 
-    buildInputs = pkgs.dlib.buildInputs ++ [ self.boost ];
+    patches = [ ../development/python-modules/dlib/build-cores.patch ];
 
     checkInputs = with self; [ pytest ];
   };
@@ -6922,6 +6928,8 @@ in {
   keyutils = callPackage ../development/python-modules/keyutils { };
 
   kiwisolver = callPackage ../development/python-modules/kiwisolver { };
+
+  klaus = callPackage ../development/python-modules/klaus {};
 
   klein = callPackage ../development/python-modules/klein { };
 
@@ -15043,6 +15051,8 @@ EOF
     };
   });
 
+  xml2rfc = callPackage ../development/python-modules/xml2rfc { };
+
   xmltodict = callPackage ../development/python-modules/xmltodict { };
 
   xarray = callPackage ../development/python-modules/xarray { };
@@ -18224,6 +18234,11 @@ EOF
 
   gast = callPackage ../development/python-modules/gast { };
 
+  IBMQuantumExperience = callPackage ../development/python-modules/ibmquantumexperience { };
+
+  qiskit = callPackage ../development/python-modules/qiskit { };
+
+  qasm2image = callPackage ../development/python-modules/qasm2image { };
 });
 
 in fix' (extends overrides packages)

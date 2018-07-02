@@ -23,7 +23,7 @@ let
     "armv7a-unknown-linux-androideabi" = {
       arch = "arm";
       triple = "arm-linux-androideabi";
-      gccVer = "4.8";
+      gccVer = "4.9";
     };
     "aarch64-unknown-linux-android" = {
       arch = "arm64";
@@ -58,13 +58,19 @@ rec {
   binutils = wrapBintoolsWith {
     bintools = binaries;
     libc = targetAndroidndkPkgs.libraries;
+    extraBuildCommands = ''
+      echo "--build-id" >> $out/nix-support/libc-ldflags
+    '';
   };
 
   gcc = wrapCCWith {
     cc = binaries;
     bintools = binutils;
     libc = targetAndroidndkPkgs.libraries;
-    extraBuildCommands = lib.optionalString targetPlatform.isAarch32 (let
+    extraBuildCommands = ''
+      echo "-D__ANDROID_API__=${targetPlatform.sdkVer}" >> $out/nix-support/cc-cflags
+    ''
+    + lib.optionalString targetPlatform.isAarch32 (let
         p =  targetPlatform.platform.gcc or {}
           // targetPlatform.parsed.abi;
         flags = lib.concatLists [

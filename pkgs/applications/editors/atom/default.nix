@@ -36,7 +36,7 @@ let
         --set-rpath "${atomEnv.libPath}" \
         $share/resources/app/apm/bin/node
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        $out/share/atom/resources/app.asar.unpacked/node_modules/symbols-view/vendor/ctags-linux
+        $share/resources/app.asar.unpacked/node_modules/symbols-view/vendor/ctags-linux
 
       dugite=$share/resources/app.asar.unpacked/node_modules/dugite
       rm -f $dugite/git/bin/git
@@ -60,12 +60,12 @@ let
   };
 in stdenv.lib.mapAttrs common {
   atom = {
-    version = "1.27.2";
-    sha256 = "0xriv142asc82mjxzkqsafaqalxa3icz4781z2fsgyfkkw6zbz2v";
+    version = "1.28.0";
+    sha256 = "0k09316897qb9ypkqm6w78nz7sj5385xfdm9bm97m8pka7v61g7h";
   };
 
   atom-beta = {
-    version = "1.28.0-beta3";
-    sha256 = "07mmzkbc7xzcwh6ylrs2w1g3l5gmyfk0gdmr2kzr6jdr00cq73y0";
+    version = "1.29.0-beta0";
+    sha256 = "05xk63wsjfssf8ckph2bgrxaf99fhz3gs8n8pira8cc9yjk7diz7";
   };
 }

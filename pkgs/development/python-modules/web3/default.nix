@@ -1,6 +1,7 @@
 { lib
 , fetchFromGitHub
 , buildPythonPackage
+, pythonOlder
 , lru-dict 
 , requests
 , eth-abi
@@ -10,7 +11,7 @@
 
 let
   pname = "web3";
-  version = "4.3.0";
+  version = "4.4.1";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
@@ -18,10 +19,12 @@ in buildPythonPackage rec {
     owner = "ethereum";
     repo = "${pname}.py";
     rev = "v${version}";
-    sha256 = "0zvcbfcdxx8pmc7q8yiiv2dy83qw4v7nazxps42h866syz36ablv";
+    sha256 = "118ifch3r5bhzgjr6b73n0jvc7dkpl1x5k8k79l0hzc2i9cn7hhp";
   };
 
   propagatedBuildInputs = [ lru-dict requests eth-abi eth-account websockets ];
+
+  disabled = pythonOlder "3.3";
 
   # No testing
   doCheck = false;

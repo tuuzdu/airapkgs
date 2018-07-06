@@ -12,7 +12,8 @@
 
 let
   pname = "actionlib";
-  version = "1.11.11";
+  version = "1.11.14";
+  rosdistro = "melodic";
 
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -20,8 +21,8 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "${pname}-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "1cg1mzrpp55dfqii5jivh02304c76pr7rgd2d46yqkiw2rg8if2b";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "1h5gjjf1yqqi0p115x2x0drgvlfhipvx37xnglsyqzv5dg1plj1k";
   };
 
   propagatedBuildInputs =

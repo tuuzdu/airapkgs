@@ -18,6 +18,12 @@ in {
         description = "Lighthouse contract address.";
       };
 
+      gasprice = mkOption {
+        type = types.int;
+        default = 0;
+        description = "Lighthouse transaction gasprice in gwei, default: 0 - auto.";
+      };
+
       user = mkOption {
         type = types.str;
         default = "lighthouse";
@@ -57,7 +63,7 @@ in {
       script = ''
         source ${pkgs.robonomics_comm}/setup.bash \
           && roslaunch robonomics_lighthouse lighthouse.launch \
-            lighthouse_contract:="${cfg.contract}"
+            lighthouse_contract:="${cfg.contract}" gas_price_gwei:=${builtins.toString cfg.gasprice}
       '';
 
       serviceConfig = {

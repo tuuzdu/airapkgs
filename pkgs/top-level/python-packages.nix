@@ -195,6 +195,8 @@ in {
     inherit (pkgs) augeas;
   };
 
+  authres = callPackage ../development/python-modules/authres { };
+
   autograd = callPackage ../development/python-modules/autograd { };
 
   automat = callPackage ../development/python-modules/automat { };
@@ -262,6 +264,8 @@ in {
   discordpy = callPackage ../development/python-modules/discordpy { };
 
   distorm3 = callPackage ../development/python-modules/distorm3 { };
+
+  dogtail = callPackage ../development/python-modules/dogtail { };
 
   diff-match-patch = callPackage ../development/python-modules/diff-match-patch { };
 
@@ -439,6 +443,8 @@ in {
   python3-openid = callPackage ../development/python-modules/python3-openid { };
 
   python-periphery = callPackage ../development/python-modules/python-periphery { };
+
+  python-prctl = callPackage ../development/python-modules/python-prctl { };
 
   python-sql = callPackage ../development/python-modules/python-sql { };
 
@@ -6247,8 +6253,6 @@ in {
 
   google_cloud_speech = callPackage ../development/python-modules/google_cloud_speech { };
 
-  google_gax = callPackage ../development/python-modules/google_gax { };
-
   gpgme = toPythonModule (pkgs.gpgme.override { withPython=true; });
 
   grammalecte = callPackage ../development/python-modules/grammalecte { };
@@ -6262,6 +6266,8 @@ in {
     }));
 
   grpcio = callPackage ../development/python-modules/grpcio { };
+
+  grpcio-tools = callPackage ../development/python-modules/grpcio-tools { };
 
   gspread = buildPythonPackage rec {
     version = "0.2.3";
@@ -6310,9 +6316,6 @@ in {
   };
 
   guessit = callPackage ../development/python-modules/guessit { };
-
-  # used by flexget
-  guessit_2_0 = callPackage ../development/python-modules/guessit/2.0.nix { };
 
   rebulk = callPackage ../development/python-modules/rebulk { };
 
@@ -8276,6 +8279,8 @@ in {
       license = licenses.mit;
     };
   };
+
+  monosat = disabledIf (!isPy3k) (pkgs.monosat.python { inherit buildPythonPackage; inherit (self) cython; });
 
   monotonic = buildPythonPackage rec {
     pname = "monotonic";

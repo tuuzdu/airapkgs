@@ -510,8 +510,14 @@ self: super: {
   doctest-prop = dontCheck super.doctest-prop;
 
   # Depends on itself for testing
-  doctest-discover = addBuildTool super.doctest-discover (dontCheck super.doctest-discover);
-  tasty-discover = addBuildTool super.tasty-discover (dontCheck super.tasty-discover);
+  doctest-discover = addBuildTool super.doctest-discover
+    (if pkgs.buildPlatform != pkgs.hostPlatform
+     then self.buildHaskellPackages.doctest-discover
+     else dontCheck super.doctest-discover);
+  tasty-discover = addBuildTool super.tasty-discover
+    (if pkgs.buildPlatform != pkgs.hostPlatform
+     then self.buildHaskellPackages.tasty-discover
+     else dontCheck super.tasty-discover);
 
   # generic-deriving bound is too tight
   aeson = doJailbreak super.aeson;
@@ -597,7 +603,7 @@ self: super: {
   # Install icons, metadata and cli program.
   bustle = overrideCabal super.bustle (drv: {
     buildDepends = [ pkgs.libpcap ];
-    buildTools = with pkgs; [ gettext perl help2man intltool ];
+    buildTools = with pkgs.buildPackages; [ gettext perl help2man intltool ];
     patches = [
       # Add missing gio-unix-2.0 dependency
       (pkgs.fetchpatch {
@@ -665,7 +671,7 @@ self: super: {
   # Need newer versions of their dependencies than the ones we have in LTS-11.x.
   cabal2nix = super.cabal2nix.overrideScope (self: super: { hpack = self.hpack_0_28_2; hackage-db = self.hackage-db_2_0_1; });
   dbus-hslogger = super.dbus-hslogger.overrideScope (self: super: { dbus = self.dbus_1_0_1; });
-  graphviz = (addBuildTool super.graphviz pkgs.graphviz).overrideScope (self: super: { wl-pprint-text = self.wl-pprint-text_1_2_0_0; base-compat = self.base-compat_0_10_1; });
+  graphviz = (addBuildTool super.graphviz pkgs.buildPackages.graphviz).overrideScope (self: super: { wl-pprint-text = self.wl-pprint-text_1_2_0_0; base-compat = self.base-compat_0_10_4; });
   status-notifier-item = super.status-notifier-item.overrideScope (self: super: { dbus = self.dbus_1_0_1; });
 
   # https://github.com/bos/configurator/issues/22
@@ -698,8 +704,8 @@ self: super: {
   jsaddle = dontCheck super.jsaddle;
 
   # Tools that use gtk2hs-buildtools now depend on them in a custom-setup stanza
-  cairo = addBuildTool super.cairo self.gtk2hs-buildtools;
-  pango = disableHardening (addBuildTool super.pango self.gtk2hs-buildtools) ["fortify"];
+  cairo = addBuildTool super.cairo self.buildHaskellPackages.gtk2hs-buildtools;
+  pango = disableHardening (addBuildTool super.pango self.buildHaskellPackages.gtk2hs-buildtools) ["fortify"];
   gtk =
     if pkgs.stdenv.isDarwin
     then appendConfigureFlag super.gtk "-fhave-quartz-gtk"
@@ -989,7 +995,7 @@ self: super: {
       cp -v embeddedfiles/*.info* $out/share/info/
     '';
   });
-  hledger-ui = overrideCabal super.hledger-ui (drv: {
+  hledger-ui = (overrideCabal super.hledger-ui (drv: {
     postInstall = ''
       for i in $(seq 1 9); do
         for j in *.$i; do
@@ -999,8 +1005,8 @@ self: super: {
       done
       mkdir -p $out/share/info
       cp -v *.info* $out/share/info/
-    '';
-  });
+    '';  # hledger-ui 1.10 needs newer fsnotify than lts-11 provides.
+  })).overrideScope (self: super: { fsnotify = self.fsnotify_0_3_0_1; });
   hledger-web = overrideCabal super.hledger-web (drv: {
     postInstall = ''
       for i in $(seq 1 9); do
@@ -1063,14 +1069,17 @@ self: super: {
   });
 
   # dhall-json requires a very particular dhall version
-  dhall-json_1_2_1 = super.dhall-json_1_2_1.override { dhall = self.dhall_1_14_0; };
+  dhall-json_1_2_1 = super.dhall-json_1_2_1.override { dhall = self.dhall_1_15_0; };
+
+  # dhall-nix requires a very particular dhall version
+  dhall-nix = super.dhall-nix.override { dhall = self.dhall_1_15_0; };
 
   # https://github.com/fpco/streaming-commons/issues/49
   streaming-commons = dontCheck super.streaming-commons;
 
   # cabal2nix generates a dependency on base-compat, which is the wrong version
   base-compat-batteries = super.base-compat-batteries.override {
-    base-compat = super.base-compat_0_10_1;
+    base-compat = super.base-compat_0_10_4;
   };
 
 }

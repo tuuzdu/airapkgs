@@ -222,7 +222,7 @@ in {
       user_allow_other
     ''; };
 
-    users.extraUsers = mkIf (cfg.user == "ipfs") {
+    users.users = mkIf (cfg.user == "ipfs") {
       ipfs = {
         group = cfg.group;
         home = cfg.dataDir;
@@ -232,7 +232,7 @@ in {
       };
     };
 
-    users.extraGroups = mkIf (cfg.group == "ipfs") {
+    users.groups = mkIf (cfg.group == "ipfs") {
       ipfs.gid = config.ids.gids.ipfs;
     };
 

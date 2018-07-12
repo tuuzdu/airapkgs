@@ -21,7 +21,7 @@ buildGoPackage rec {
   meta = with stdenv.lib; {
     homepage = https://github.com/FreifunkBremen/yanic;
     description = "Yet another node info collector - for respondd to be used with meshviewer";
-    license = liceses.apl3;
+    license = licenses.agpl3;
     maintainers = [ maintainers.akru ];
     platforms = platforms.linux;
   };

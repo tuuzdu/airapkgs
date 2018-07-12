@@ -23432,4 +23432,35 @@ in
   robonomics_dev = callPackage ../applications/science/robotics/aira/robonomics_dev { };
 
   aira-quick-start = callPackage ../applications/science/robotics/aira/aira-quick-start.nix { };
+
+  xml2rfc = callPackage ../tools/typesetting/xml2rfc { };
+
+  mmark = callPackage ../tools/typesetting/mmark { };
+
+  wire-desktop = callPackage ../applications/networking/instant-messengers/wire-desktop { };
+
+  teseq = callPackage ../applications/misc/teseq {  };
+
+  ape = callPackage ../applications/misc/ape { };
+  attemptoClex = callPackage ../applications/misc/ape/clex.nix { };
+  apeClex = callPackage ../applications/misc/ape/apeclex.nix { };
+
+  # Unix tools
+  unixtools = recurseIntoAttrs (callPackages ./unix-tools.nix { });
+  inherit (unixtools) hexdump ps logger eject umount
+                      mount wall hostname more sysctl getconf
+                      getent locale killall;
+
+  fts = if hostPlatform.isMusl then netbsd.fts else null;
+
+  inherit (recurseIntoAttrs (callPackages ../os-specific/bsd { }))
+          netbsd;
+
+  yrd = callPackage ../tools/networking/yrd { };
+
+  powershell = callPackage ../shells/powershell { };
+
+  yanic = callPackage ../servers/mesh/yanic { };
+
+  meshviewer = callPackage ../servers/mesh/meshviewer { };
 }

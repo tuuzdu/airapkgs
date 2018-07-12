@@ -21988,4 +21988,8 @@ with pkgs;
 
   powershell = callPackage ../shells/powershell { };
 
+  yanic = callPackage ../servers/mesh/yanic { };
+
+  meshviewer = callPackage ../servers/mesh/meshviewer { };
+
 }

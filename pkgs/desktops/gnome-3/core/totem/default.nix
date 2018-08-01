@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, meson, ninja, intltool, gst_all_1, clutter
+{ stdenv, fetchurl, meson, ninja, intltool, gst_all_1
 , clutter-gtk, clutter-gst, python3Packages, shared-mime-info
 , pkgconfig, gtk3, glib, gobjectIntrospection
-, bash, wrapGAppsHook, itstool, libxml2, vala, gnome3, librsvg
+, wrapGAppsHook, itstool, libxml2, vala, gnome3
 , gdk_pixbuf, tracker, nautilus }:
 
 stdenv.mkDerivation rec {
@@ -34,6 +34,10 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dwith-nautilusdir=lib/nautilus/extensions-3.0"
+    # https://bugs.launchpad.net/ubuntu/+source/totem/+bug/1712021
+    # https://bugzilla.gnome.org/show_bug.cgi?id=784236
+    # https://github.com/mesonbuild/meson/issues/1994
+    "-Denable-vala=no"
   ];
 
   wrapPrefixVariables = [ "PYTHONPATH" ];

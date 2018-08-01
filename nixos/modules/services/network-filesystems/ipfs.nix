@@ -15,7 +15,7 @@ let
     (optionalString cfg.pubsubExperiment             "--enable-pubsub-experiment")
   ] ++ cfg.extraFlags);
 
-  defaultDataDir = if versionAtLeast config.system.nixos.stateVersion "17.09" then
+  defaultDataDir = if versionAtLeast config.system.stateVersion "17.09" then
     "/var/lib/ipfs" else
     "/var/lib/ipfs/.ipfs";
 

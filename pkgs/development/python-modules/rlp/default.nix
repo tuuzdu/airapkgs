@@ -1,4 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage, pytest }:
+{ lib, fetchPypi, buildPythonPackage, eth-utils }:
 
 buildPythonPackage rec {
   pname = "rlp";
@@ -9,8 +9,8 @@ buildPythonPackage rec {
     sha256 = "492c11b18e89af42f98e96bca7671ffee4ad4cf5e69ea23b4d2221157d81b512";
   };
 
-  checkInputs = [ pytest ];
-  propagatedBuildInputs = [ ];
+  propagatedBuildInputs = [ eth-utils ];
+  doCheck = false;
 
   meta = {
     description = "A package for encoding and decoding data in and from Recursive Length Prefix notation";

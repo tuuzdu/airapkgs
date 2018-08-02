@@ -14520,6 +14520,8 @@ EOF
 
   webencodings = callPackage ../development/python-modules/webencodings { };
 
+  websockets5 = callPackage ../development/python-modules/websockets/legacy.nix { };
+
   websockets = callPackage ../development/python-modules/websockets { };
 
   Wand = callPackage ../development/python-modules/Wand {

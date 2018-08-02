@@ -23413,6 +23413,8 @@ in
 
   mavlink = callPackage ../development/ros-modules/mavlink { };
 
+  orocos_kdl = callPackage ../development/ros-modules/orocos_kdl { };
+
   ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
 
   robonomics_comm_lighthouse = callPackage ../applications/science/robotics/aira/robonomics_comm/lighthouse.nix { };

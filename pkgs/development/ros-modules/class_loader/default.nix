@@ -18,7 +18,7 @@ in mkRosPackage {
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
-    repo = "class_loader-release";
+    repo = "${pname}-release";
     rev = "release/${rosdistro}/${pname}/${version}-0";
     sha256 = "0mw0zx8ifmh7aid7b3lj8mhw7ms1wmk6d0l06br9ridhpc2qmna6";
   };

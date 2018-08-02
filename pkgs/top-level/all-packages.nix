@@ -22082,6 +22082,8 @@ with pkgs;
 
   ros_opcua_impl_freeopcua = callPackage ../development/ros-modules/ros_opcua_communication/impl_freeopcua.nix { };
 
+  mavlink = callPackage ../development/ros-modules/mavlink { };
+
   ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
 
   robonomics_comm_lighthouse = callPackage ../applications/science/robotics/aira/robonomics_comm/lighthouse.nix { };
@@ -22107,6 +22109,7 @@ with pkgs;
   robonomics_dev = callPackage ../applications/science/robotics/aira/robonomics_dev { };
 
   aira-quick-start = callPackage ../applications/science/robotics/aira/aira-quick-start.nix { };
+
   xml2rfc = callPackage ../tools/typesetting/xml2rfc { };
 
   mmark = callPackage ../tools/typesetting/mmark { };

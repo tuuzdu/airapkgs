@@ -22072,6 +22072,8 @@ with pkgs;
 
   actionlib = callPackage ../development/ros-modules/actionlib { };
 
+  class_loader = callPackage ../development/ros-modules/class_loader { };
+
   ros = callPackage ../development/ros-modules/ros { };
 
   rosauth = callPackage ../development/ros-modules/rosauth { };

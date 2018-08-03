@@ -23513,4 +23513,6 @@ in
   #meshviewer = callPackage ../servers/mesh/meshviewer { };
 
   geographiclib = callPackage ../development/libraries/science/geographiclib { };
+
+  djiosdk = callPackage ../development/libraries/science/robotics/djiosdk { };
 }

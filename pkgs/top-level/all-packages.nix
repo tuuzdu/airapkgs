@@ -21980,6 +21980,8 @@ with pkgs;
 
   catkin = callPackage ../development/ros-modules/catkin { };
 
+  catkin_simple = callPackage ../development/ros-modules/catkin_simple { };
+
   cmake_modules = callPackage ../development/ros-modules/cmake_modules { };
 
   xmlrpcpp = callPackage ../development/ros-modules/xmlrpcpp { };
@@ -22023,6 +22025,8 @@ with pkgs;
   rosbuild = callPackage ../development/ros-modules/rosbuild { };
 
   rosconsole = callPackage ../development/ros-modules/rosconsole { };
+
+  rosconsole_bridge = callPackage ../development/ros-modules/rosconsole_bridge { };
 
   roslang = callPackage ../development/ros-modules/roslang { };
 
@@ -22074,6 +22078,8 @@ with pkgs;
 
   class_loader = callPackage ../development/ros-modules/class_loader { };
 
+  pluginlib = callPackage ../development/ros-modules/pluginlib { };
+
   ros = callPackage ../development/ros-modules/ros { };
 
   rosauth = callPackage ../development/ros-modules/rosauth { };
@@ -22086,7 +22092,41 @@ with pkgs;
 
   mavlink = callPackage ../development/ros-modules/mavlink { };
 
+  libmavconn = callPackage ../development/ros-modules/libmavconn { };
+
+  mavros = callPackage ../development/ros-modules/mavros { };
+
+  mavros_msgs = callPackage ../development/ros-modules/mavros_msgs { };
+
   orocos_kdl = callPackage ../development/ros-modules/orocos_kdl { };
+
+  angles = callPackage ../development/ros-modules/angles { };
+
+  nav_msgs = callPackage ../development/ros-modules/nav_msgs { };
+
+  sensor_msgs = callPackage ../development/ros-modules/sensor_msgs { };
+
+  geometry_msgs = callPackage ../development/ros-modules/geometry_msgs { };
+
+  diagnostic_msgs = callPackage ../development/ros-modules/diagnostic_msgs { };
+
+  diagnostic_updater = callPackage ../development/ros-modules/diagnostic_updater { };
+
+  geographic_msgs = callPackage ../development/ros-modules/geographic_msgs { };
+
+  uuid_msgs = callPackage ../development/ros-modules/uuid_msgs { };
+
+  tf2 = callPackage ../development/ros-modules/tf2 { };
+
+  tf2_py = callPackage ../development/ros-modules/tf2_py { };
+
+  tf2_ros = callPackage ../development/ros-modules/tf2_ros { };
+
+  tf2_msgs = callPackage ../development/ros-modules/tf2_msgs { };
+
+  tf2_eigen = callPackage ../development/ros-modules/tf2_eigen { };
+
+  eigen_conversions = callPackage ../development/ros-modules/eigen_conversions { };
 
   ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
 
@@ -22144,5 +22184,7 @@ with pkgs;
   yanic = callPackage ../servers/mesh/yanic { };
 
   #meshviewer = callPackage ../servers/mesh/meshviewer { };
+
+  geographiclib = callPackage ../development/libraries/science/geographiclib { };
 
 }

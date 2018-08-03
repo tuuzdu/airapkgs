@@ -22187,4 +22187,6 @@ with pkgs;
 
   geographiclib = callPackage ../development/libraries/science/geographiclib { };
 
+  djiosdk = callPackage ../development/libraries/science/robotics/djiosdk { };
+
 }

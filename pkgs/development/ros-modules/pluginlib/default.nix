@@ -2,17 +2,13 @@
 , mkRosPackage
 , fetchFromGitHub
 , catkin
-, boost
-, cpp_common
-, log4cxx
-, rosbuild
-, rostime
-, rosunit
+, class_loader
+, rosconsole
 }:
 
 let
-  pname = "rosconsole";
-  version = "1.13.7";
+  pname = "pluginlib";
+  version = "1.12.1";
   rosdistro = "melodic";
 
 in mkRosPackage {
@@ -22,14 +18,14 @@ in mkRosPackage {
     owner = "ros-gbp";
     repo = "${pname}-release";
     rev = "release/${rosdistro}/${pname}/${version}-0";
-    sha256 = "0y8avp88hq0h1qi83j9c4jhp92ir8awx82mkgh29r1cp0cyj4nfi";
+    sha256 = "06knk7hk17xhblf2g59czjhgk81wjrd8fcws6rj564p8jp9l7b4h";
   };
 
-  propagatedBuildInputs = [ catkin boost cpp_common log4cxx rosbuild rostime rosunit ];
+  propagatedBuildInputs = [ catkin class_loader rosconsole ];
 
   meta = with stdenv.lib; {
-    description = "ROS console output library";
-    homepage = http://wiki.ros.org/rosconsole;
+    description = "Tools for writing and dynamically loading plugins using the ROS build infrastructure.";
+    homepage = http://wiki.ros.org/pluginlib;
     license = licenses.bsd3;
     maintainers = [ maintainers.akru ];
   };

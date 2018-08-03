@@ -2,17 +2,13 @@
 , mkRosPackage
 , fetchFromGitHub
 , catkin
-, boost
-, cpp_common
-, log4cxx
-, rosbuild
-, rostime
-, rosunit
+, console_bridge
+, rosconsole
 }:
 
 let
-  pname = "rosconsole";
-  version = "1.13.7";
+  pname = "rosconsole_bridge";
+  version = "0.5.1";
   rosdistro = "melodic";
 
 in mkRosPackage {
@@ -22,14 +18,14 @@ in mkRosPackage {
     owner = "ros-gbp";
     repo = "${pname}-release";
     rev = "release/${rosdistro}/${pname}/${version}-0";
-    sha256 = "0y8avp88hq0h1qi83j9c4jhp92ir8awx82mkgh29r1cp0cyj4nfi";
+    sha256 = "1l733r4zd6417k5alk921hbrz6xnk98rvfdvm9llpd4dihf01hj8";
   };
 
-  propagatedBuildInputs = [ catkin boost cpp_common log4cxx rosbuild rostime rosunit ];
+  propagatedBuildInputs = [ catkin console_bridge rosconsole ];
 
   meta = with stdenv.lib; {
     description = "ROS console output library";
-    homepage = http://wiki.ros.org/rosconsole;
+    homepage = http://wiki.ros.org/rosconsole_bridge;
     license = licenses.bsd3;
     maintainers = [ maintainers.akru ];
   };

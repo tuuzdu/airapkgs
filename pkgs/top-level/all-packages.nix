@@ -23455,6 +23455,8 @@ in
 
   eigen_conversions = callPackage ../development/ros-modules/eigen_conversions { };
 
+  dji_sdk = callPackage ../development/ros-modules/dji_sdk { };
+
   ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
 
   robonomics_comm_lighthouse = callPackage ../applications/science/robotics/aira/robonomics_comm/lighthouse.nix { };

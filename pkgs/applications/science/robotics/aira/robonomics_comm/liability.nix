@@ -7,7 +7,7 @@
 
 let
   pname = "robonomics_liability";
-  version = "0.2";
+  version = "0.2.1";
 
 in mkRosPackage rec {
   name = "${pname}-${version}";
@@ -16,7 +16,7 @@ in mkRosPackage rec {
     owner = "airalab";
     repo = "robonomics_comm";
     rev = "release/${name}";
-    sha256 = "1nwkq8xddzqbw5ysfr6r2bmlrwx2221n8ww0v7bal9h1qpfn4ip8";
+    sha256 = "0a4qi2ncc6gi7ldqimyn230wcd9nxxm0y6b4v44shhx1a3yip8w7";
   };
 
   propagatedBuildInputs = with python3Packages; [ robonomics_comm_lighthouse web3 ipfsapi ];

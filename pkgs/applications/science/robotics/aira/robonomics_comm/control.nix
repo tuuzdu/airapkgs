@@ -16,7 +16,7 @@ in mkRosPackage rec {
     owner = "airalab";
     repo = "robonomics_comm";
     rev = "release/${name}";
-    sha256 = "1drs3d53ry0zmvp3xqqx5fhapc2sxi6yb1xzlaxm4mm64kh4fav3";
+    sha256 = "1wb5115ld6im50b3kk4d8wawqr56h9d4vaqlvmxkzn166w9a98ha";
   };
 
   propagatedBuildInputs = with python3Packages; [ robonomics_comm_lighthouse web3 numpy ];

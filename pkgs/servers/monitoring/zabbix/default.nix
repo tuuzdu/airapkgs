@@ -1,12 +1,12 @@
-{ stdenv, fetchurl, pkgconfig, postgresql, curl, openssl, zlib }:
+{ stdenv, fetchurl, pkgconfig, postgresql, curl, openssl, zlib, libxml2, pcre, libiconv, net_snmp, libevent }:
 
 let
 
-  version = "1.8.22";
+  version = "3.4.12";
 
   src = fetchurl {
     url = "mirror://sourceforge/zabbix/zabbix-${version}.tar.gz";
-    sha256 = "0cjj3c4j4b9sl3hgh1fck330z9q0gz2k68g227y0paal6k6f54g7";
+    sha256 = "d7e55b2be8ea69921f18bc7f08bdd7d1b87c268513286f46286744bf4da729fe";
   };
 
   preConfigure =
@@ -27,19 +27,32 @@ in
 
     inherit src preConfigure;
 
-    configureFlags = "--enable-agent --enable-server --with-pgsql --with-libcurl";
+    configureFlags = [
+      "--enable-agent"
+      "--enable-server"
+      "--with-postgresql"
+      "--with-libcurl"
+      "--enable-ipv6"
+      "--with-net-snmp"
+      "--with-libxml2"
+      "--with-libpcre=${pcre.dev}"
+      "--with-iconv=${libiconv}"
+      "--with-libevent=${libevent}"
+      "--enable-ipv6"
+    ];
 
   nativeBuildInputs = [ pkgconfig ];
-    buildInputs = [ postgresql curl openssl zlib ];
+    buildInputs = [ postgresql curl openssl zlib libxml2 pcre libiconv net_snmp libevent];
 
     postInstall =
       ''
         mkdir -p $out/share/zabbix
         cp -prvd frontends/php $out/share/zabbix/php
         mkdir -p $out/share/zabbix/db/data
-        cp -prvd create/data/*.sql $out/share/zabbix/db/data
+        cp -prvd database/postgresql/data.sql $out/share/zabbix/db/data/data.sql
+        cp -prvd database/postgresql/images.sql $out/share/zabbix/db/data/images_pgsql.sql
         mkdir -p $out/share/zabbix/db/schema
-        cp -prvd create/schema/*.sql $out/share/zabbix/db/schema
+        cp -prvd database/postgresql/schema.sql $out/share/zabbix/db/schema/postgresql.sql
       '';
 
     meta = {
@@ -56,7 +69,14 @@ in
 
     inherit src preConfigure;
 
-    configureFlags = "--enable-agent";
+     configureFlags = [
+      "--enable-agent"
+      "--with-libpcre=${pcre.dev}"
+      "--with-iconv=${libiconv}"
+      "--enable-ipv6"
+    ];
+
+    buildInputs = [ pcre libiconv ];
 
     meta = with stdenv.lib; {
       description = "An enterprise-class open source distributed monitoring solution (client-side agent)";
@@ -66,5 +86,4 @@ in
       platforms = platforms.linux;
     };
   };
-
 }

@@ -26,7 +26,7 @@ in mkRosPackage {
   propagatedBuildInputs = with python3Packages;
   [ catkin ros_comm actionlib ros_opcua_communication
     base58 pexpect ipfsapi numpy web3 google_api_python_client
-    robonomics_comm_ethereum_common
+    robonomics_comm_ethereum_common voluptuous
   ];
 
   meta = with stdenv.lib; {

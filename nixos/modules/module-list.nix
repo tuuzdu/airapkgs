@@ -523,6 +523,7 @@
   ./services/networking/ejabberd.nix
   ./services/networking/epmd.nix
   ./services/networking/eternal-terminal.nix
+  ./services/networking/ethereum.nix
   ./services/networking/fakeroute.nix
   ./services/networking/ferm.nix
   ./services/networking/firefox/sync-server.nix

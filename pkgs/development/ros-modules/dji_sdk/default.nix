@@ -24,6 +24,8 @@ in mkRosPackage {
     rev = "${version}";
     sha256 = "08icpaja0kk231l8w0np4wxi2rlk4jbf91sm0ybqsddcyw6akka7";
   };
+
+  patches = [ ./catkin_python_setup.patch ];
   
   propagatedBuildInputs = [ tf glibcLocales catkin djiosdk nav_msgs roscpp rospy sensor_msgs ];
 

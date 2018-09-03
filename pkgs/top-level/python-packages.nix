@@ -3035,15 +3035,14 @@ in {
   imaplib2 = callPackage ../development/python-modules/imaplib2 { };
 
   ipfsapi = buildPythonPackage rec {
-    name = "ipfsapi-${version}";
-    version = "0.4.2.post1";
+    name = "${pname}-${version}";
+    pname = "ipfsapi"; 
+    version = "0.4.3";
     disabled = isPy27;
 
-    src = pkgs.fetchFromGitHub {
-      owner = "ipfs";
-      repo = "py-ipfs-api";
-      rev = "0c485544a114f580c65e2ffbb5782efbf7fd9f61";
-      sha256 = "1v7f77cv95yv0v80gisdh71mj7jcq41xcfip6bqm57zfdbsa0xpn";
+    src = self.fetchPypi {
+      inherit pname version;
+      sha256 = "13lz063ghspn2pwca7xrm1h1hvm73js2l1rq0rrrcfqz7w6crrzj";
     };
 
     propagatedBuildInputs = with self; [ six requests ];

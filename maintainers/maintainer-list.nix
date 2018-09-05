@@ -4162,6 +4162,11 @@
     github = "ttuegel";
     name = "Thomas Tuegel";
   };
+  tuuzdu = {
+    email = "tvvzdv@gmail.com";
+    github = "tuuzdu";
+    name = "Ivan Biriuk";
+  };
   tv = {
     email = "tv@shackspace.de";
     github = "4z3";

@@ -7,6 +7,8 @@
 , roscpp
 , rospy
 , sensor_msgs
+, glibcLocales
+, tf
 }:
 
 let
@@ -22,10 +24,13 @@ in mkRosPackage {
     rev = "${version}";
     sha256 = "08icpaja0kk231l8w0np4wxi2rlk4jbf91sm0ybqsddcyw6akka7";
   };
+
+  patches = [ ./catkin_python_setup.patch ];
   
-  propagatedBuildInputs = [ catkin djiosdk nav_msgs roscpp rospy sensor_msgs ];
+  propagatedBuildInputs = [ tf glibcLocales catkin djiosdk nav_msgs roscpp rospy sensor_msgs ];
 
   preConfigure = ''
+    export LC_ALL="en_US.UTF-8"
     rm -rf dji_sdk_demo
     mv dji_sdk/* .
     rmdir dji_sdk

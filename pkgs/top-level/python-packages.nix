@@ -3674,6 +3674,8 @@ in {
 
   ptest = callPackage ../development/python-modules/ptest { };
 
+  websockets = callPackage ../development/python-modules/websockets { };
+
   ptyprocess = callPackage ../development/python-modules/ptyprocess { };
 
   pylibacl = callPackage ../development/python-modules/pylibacl { };

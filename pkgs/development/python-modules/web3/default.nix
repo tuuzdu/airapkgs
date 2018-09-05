@@ -6,12 +6,12 @@
 , requests
 , eth-abi
 , eth-account
-, websockets5
+, websockets
 }:
 
 let
   pname = "web3";
-  version = "4.5.0";
+  version = "4.6.0";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
@@ -19,10 +19,10 @@ in buildPythonPackage rec {
     owner = "ethereum";
     repo = "${pname}.py";
     rev = "v${version}";
-    sha256 = "1x9yqf8gfi741sf1n3ag2zbkd9l486yngfs101jw5z1rq7fjjz20";
+    sha256 = "1qvmnxq9j8j6mfbr56jrag9vh4pi3zv859nvzmh8jshhph5gsnnc";
   };
 
-  propagatedBuildInputs = [ lru-dict requests eth-abi eth-account websockets5 ];
+  propagatedBuildInputs = [ lru-dict requests eth-abi eth-account websockets ];
 
   disabled = pythonOlder "3.3";
 

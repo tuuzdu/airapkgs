@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.services.lighthouse;
 
-  defaultContract = "airalab.lighthouse.0.robonomics.eth";
+  defaultContract = "airalab.lighthouse.1.robonomics.eth";
 
 in {
   options = {

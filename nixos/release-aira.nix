@@ -4,7 +4,7 @@
 
 { nixpkgs ? { outPath = (import ../lib).cleanSource ./..; revCount = 56789; shortRev = "gfedcba"; }
 , stableBranch ? false
-, supportedSystems ? [ "x86_64-linux" ] # no i686-linux
+, supportedSystems ? [ "x86_64-linux" "aarch64-linux" ] # no i686-linux
 }:
 
 let
@@ -28,7 +28,7 @@ let
 in rec {
 
   nixos = {
-    inherit (nixos') channel manual iso_minimal dummy;
+    inherit (nixos') channel manual iso_minimal docker_image dummy;
     tests = {
       inherit (nixos'.tests)
         containers-imperative
@@ -36,18 +36,13 @@ in rec {
         firewall
         ipv6
         login
-        misc
         nat
-        nfs3
         openssh
-        php-pcre
         predictable-interface-names
         proxy
         simple;
       installer = {
         inherit (nixos'.tests.installer)
-          lvm
-          separateBoot
           simple;
       };
       boot = {
@@ -59,39 +54,38 @@ in rec {
 
   nixpkgs = {
     inherit (nixpkgs')
-      apacheHttpd
-      cmake
-      cryptsetup
-      emacs
-      gettext
       git
-      imagemagick
-      jdk
       linux
-      mysql
-      nginx
-      nodejs
       openssh
-      php
-      postgresql
       python
-      rsyslog
       stdenv
-      subversion
       tarball
-      vim;
+      vim
+
+      parity
+      parity-beta
+
+      ros_comm
+      mavros
+      dji_sdk
+
+      robonomics_dev
+      robonomics_comm;
   };
 
   tested = lib.hydraJob (pkgs.releaseTools.aggregate {
     name = "nixos-${nixos.channel.version}";
     meta = {
-      description = "Release-critical builds for the NixOS channel";
-      maintainers = [ lib.maintainers.eelco ];
+      description = "Release-critical builds for the AIRA channel";
+      maintainers = [ lib.maintainers.akru ];
     };
     constituents =
       let all = x: map (system: x.${system}) supportedSystems; in
       [ nixpkgs.tarball
-        (all nixpkgs.jdk)
+        (all nixpkgs.robonomics_dev)
+        (all nixpkgs.robonomics_comm)
+        (all nixpkgs.parity)
+        (all nixpkgs.parity-beta)
       ]
       ++ lib.collect lib.isDerivation nixos;
   });

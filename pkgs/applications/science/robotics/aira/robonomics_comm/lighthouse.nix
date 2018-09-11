@@ -9,7 +9,7 @@
 
 let
   pname = "robonomics_lighthouse";
-  version = "0.4";
+  version = "0.4.0";
 
 in mkRosPackage rec {
   name = "${pname}-${version}";
@@ -18,7 +18,7 @@ in mkRosPackage rec {
     owner = "airalab";
     repo = "robonomics_comm";
     rev = "release/${name}";
-    sha256 = "11w4rv9krnlx29qjfh91s1cfw1l4v57h3dnhlwx7pyxx81hskh66";
+    sha256 = "1080q3di2nzrqcqn1hydxbr6w75271z28ml7davyllz7qlw5271z";
   };
 
   propagatedBuildInputs = with python3Packages;

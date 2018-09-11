@@ -9,7 +9,7 @@
 
 let
   pname = "robonomics_comm";
-  version = "0.2";
+  version = "0.2.0";
 
 in mkRosPackage rec {
   name = "${pname}-${version}";

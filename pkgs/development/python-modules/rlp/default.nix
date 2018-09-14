@@ -1,10 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, eth-utils
-, hypothesis
-, pytest
-}:
+{ lib, fetchPypi, buildPythonPackage, pytest, hypothesis, eth-utils }:
 
 buildPythonPackage rec {
   pname = "rlp";

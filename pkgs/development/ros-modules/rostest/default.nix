@@ -12,6 +12,7 @@
 let
   pname = "rostest";
   version = "1.13.6";
+  rosdistro = "melodic";
 
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -19,7 +20,7 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros_comm-release";
-    rev = "release/lunar/${pname}/${version}-0";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
     sha256 = "0n33dz7p2h9wpxmwry3p486jbwq8c3akjdzqgx6l83mb1yxg98fv";
   };
 

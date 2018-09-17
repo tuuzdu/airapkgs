@@ -10,11 +10,14 @@ let
   pyEnv = with python3Packages;
     [ cmake python3 empy catkin_pkg rospkg ];
 
-in stdenv.mkDerivation (attrs // {
+in stdenv.mkDerivation (attrs // rec {
   propagatedBuildInputs = pyEnv ++ (attrs.propagatedBuildInputs or []);
 
+  # Disable testing by default
+  doCheck = attrs.doCheck or false;
+
   ROS_LANG_DISABLE = "geneus:genlisp:gennodejs";
-  cmakeFlags = "-DCATKIN_ENABLE_TESTING=no";
+  cmakeFlags = "-DCATKIN_ENABLE_TESTING=${if doCheck then "ON" else "OFF"} -DSETUPTOOLS_DEB_LAYOUT=OFF";
 
   postInstall = attrs.postInstall or ''
     pushd ..

@@ -18,7 +18,7 @@ in mkRosPackage {
     owner = "ros-gbp";
     repo = "rospack-release";
     rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "0m7sa75777w9q45b39gr89fsxl5jmfglpy1qi9yfgcb1hig861gl";
+    sha256 = "1a2wvpqz3qlz6h809f0v5chxbngxhql21kxkqbhpmpnfrl1grba5";
   };
 
   propagatedBuildInputs = [ catkin cmake_modules boost tinyxml-2 ];

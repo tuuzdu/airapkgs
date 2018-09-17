@@ -28,40 +28,15 @@ let
 in rec {
 
   nixos = {
-    inherit (nixos') channel manual iso_minimal docker_image dummy;
+    inherit (nixos') channel iso_minimal;
     tests = {
       inherit (nixos'.tests)
-        containers-imperative
-        containers-ipv4
-        firewall
-        ipv6
-        login
-        nat
-        openssh
-        predictable-interface-names
-        proxy
-        simple;
-      installer = {
-        inherit (nixos'.tests.installer)
-          simple;
-      };
-      boot = {
-        inherit (nixos'.tests.boot)
-          biosCdrom;
-      };
+        parity;
     };
   };
 
   nixpkgs = {
     inherit (nixpkgs')
-      git
-      linux
-      openssh
-      python
-      stdenv
-      tarball
-      vim
-
       parity
       parity-beta
 
@@ -69,6 +44,7 @@ in rec {
       mavros
       dji_sdk
 
+      aira-graph
       robonomics_dev
       robonomics_comm;
   };
@@ -86,6 +62,7 @@ in rec {
         (all nixpkgs.robonomics_comm)
         (all nixpkgs.parity)
         (all nixpkgs.parity-beta)
+        (all nixpkgs.aira-graph)
       ]
       ++ lib.collect lib.isDerivation nixos;
   });

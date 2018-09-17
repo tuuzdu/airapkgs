@@ -23483,7 +23483,7 @@ in
 
   robonomics_dev = callPackage ../applications/science/robotics/aira/robonomics_dev { };
 
-  aira-quick-start = callPackage ../applications/science/robotics/aira/aira-quick-start.nix { };
+  aira-graph = callPackage ../applications/science/robotics/aira/aira-graph.nix { };
 
   xml2rfc = callPackage ../tools/typesetting/xml2rfc { };
 

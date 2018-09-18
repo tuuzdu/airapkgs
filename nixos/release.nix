@@ -207,7 +207,7 @@ in rec {
       modules =
         [ versionModule
           ./modules/installer/virtualbox-minimal.nix
-          ./modules/installer/aira-quick-start.nix
+          ./modules/installer/aira.nix
         ];
     }).config.system.build.virtualBoxOVA)
 

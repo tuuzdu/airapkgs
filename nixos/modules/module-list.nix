@@ -660,8 +660,8 @@
   ./services/networking/zerotierone.nix
   ./services/networking/znc/default.nix
   ./services/printing/cupsd.nix
-  ./services/robonomics/lighthouse.nix
-  ./services/robonomics/aira-quick-start.nix
+  ./services/robonomics/aira-graph.nix
+  ./services/robonomics/liability.nix
   ./services/scheduling/atd.nix
   ./services/scheduling/chronos.nix
   ./services/scheduling/cron.nix

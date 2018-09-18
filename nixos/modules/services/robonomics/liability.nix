@@ -3,30 +3,31 @@
 with lib;
 
 let
-  cfg = config.services.lighthouse;
+  cfg = config.services.liability;
 
+  mainnetEns = "0x314159265dD8dbb310642f98f50C066173C1259b";
   defaultContract = "airalab.lighthouse.1.robonomics.eth";
 
 in {
   options = {
-    services.lighthouse = {
-      enable = mkEnableOption "Enable Robonomics Lighthouse service.";
+    services.liability = {
+      enable = mkEnableOption "Enable Robonomics liability executor service.";
 
-      contract = mkOption {
+      ens = mkOption {
+        type = types.str;
+        default = mainnetEns;
+        description = "Ethereum name regustry address.";
+      };
+
+      lighthouse = mkOption {
         type = types.str;
         default = defaultContract; 
         description = "Lighthouse contract address.";
       };
 
-      gasprice = mkOption {
-        type = types.int;
-        default = 0;
-        description = "Lighthouse transaction gasprice in gwei, default: 0 - auto.";
-      };
-
       user = mkOption {
         type = types.str;
-        default = "lighthouse";
+        default = "liability";
         description = "User account under which service runs.";
       };
     };
@@ -62,8 +63,8 @@ in {
 
       script = ''
         source ${pkgs.robonomics_comm}/setup.bash \
-          && roslaunch robonomics_lighthouse lighthouse.launch \
-            lighthouse_contract:="${cfg.contract}" gas_price_gwei:=${builtins.toString cfg.gasprice}
+          && roslaunch robonomics_liability liability.launch \
+              ens_contract:="${cfg.ens}" lighthouse_contract:="${cfg.lighthouse}"
       '';
 
       serviceConfig = {

@@ -23485,6 +23485,8 @@ in
 
   aira-graph = callPackage ../applications/science/robotics/aira/aira-graph.nix { };
 
+  hello_aira = callPackage ../applications/science/robotics/aira/hello_aira.nix { };
+
   xml2rfc = callPackage ../tools/typesetting/xml2rfc { };
 
   mmark = callPackage ../tools/typesetting/mmark { };

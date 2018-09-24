@@ -1,5 +1,4 @@
-
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... } : {
   name = "parity";
   meta = with pkgs.stdenv.lib.maintainers; {
     maintainers = [ strdn akru ];

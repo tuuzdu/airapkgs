@@ -1,23 +1,25 @@
-{ lib
-, fetchurl
-, buildPythonPackage
-}:
+{ stdenv, fetchFromGitHub, buildPythonPackage, pytest, pyhamcrest }:
 
-let
+buildPythonPackage rec {
   pname = "base58";
-  version = "0.2.4";
-in buildPythonPackage rec {
-  name = "${pname}-${version}";
+  version = "1.0.0";
 
-  src = fetchurl {
-    url = "mirror://pypi/${builtins.substring 0 1 pname}/${pname}/${name}.tar.gz";
-    sha256 = "130mh7sqdlfawi0vyrva88rqdi5nc9aks0s15y0gn6m8qz5lvjwp";
+  src = fetchFromGitHub {
+    owner = "keis";
+    repo = "base58";
+    rev = "v${version}";
+    sha256 = "0f8isdpvbgw0sqn9bj7hk47y8akpvdl8sn6rkszla0xb92ywj0f6";
   };
 
-  meta = {
+  buildInputs = [ pytest pyhamcrest ];
+  checkPhase = ''
+    pytest
+  '';
+
+  meta = with stdenv.lib; {
     description = "Base58 and Base58Check implementation";
     homepage = https://github.com/keis/base58;
-    license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.akru ];
+    license = licenses.mit;
+    maintainers = with maintainers; [ nyanloutre ];
   };
 }

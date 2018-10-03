@@ -3938,6 +3938,11 @@
     github = "stites";
     name = "Sam Stites";
   };
+  strdn = {
+    email = "ilichev.evgenii@gmail.com";
+    github = "strdn";
+    name = "Evgeny Ilyichev";
+  };
   stumoss = {
     email = "samoss@gmail.com";
     github = "stumoss";

@@ -1,10 +1,12 @@
-{ nixpkgs ? { outPath = (import ../lib).cleanSource ./..; revCount = 130979; shortRev = "gfedcba"; }
+with import ../lib;
+
+{ nixpkgs ? { outPath = cleanSource ./..; revCount = 130979; shortRev = "gfedcba"; }
 , stableBranch ? false
 , supportedSystems ? [ "x86_64-linux" "aarch64-linux" ]
+, configuration ? {}
 }:
 
 with import ../pkgs/top-level/release-lib.nix { inherit supportedSystems; };
-with import ../lib;
 
 let
 
@@ -51,7 +53,7 @@ let
 
     hydraJob ((import lib/eval-config.nix {
       inherit system;
-      modules = [ module versionModule { isoImage.isoBaseName = "nixos-${type}"; } ];
+      modules = [ configuration module versionModule { isoImage.isoBaseName = "nixos-${type}"; } ];
     }).config.system.build.isoImage);
 
 
@@ -62,7 +64,7 @@ let
 
     hydraJob ((import lib/eval-config.nix {
       inherit system;
-      modules = [ module versionModule ];
+      modules = [ configuration module versionModule ];
     }).config.system.build.sdImage);
 
 
@@ -75,7 +77,7 @@ let
 
       config = (import lib/eval-config.nix {
         inherit system;
-        modules = [ module versionModule ];
+        modules = [ configuration module versionModule ];
       }).config;
 
       tarball = config.system.build.tarball;
@@ -95,16 +97,19 @@ let
 
   buildFromConfig = module: sel: forAllSystems (system: hydraJob (sel (import ./lib/eval-config.nix {
     inherit system;
-    modules = [ module versionModule ] ++ singleton
+    modules = [ configuration module versionModule ] ++ singleton
       ({ ... }:
       { fileSystems."/".device  = mkDefault "/dev/sda1";
         boot.loader.grub.device = mkDefault "/dev/sda";
       });
   }).config));
 
-  makeNetboot = config:
+  makeNetboot = { module, system, ... }:
     let
-      configEvaled = import lib/eval-config.nix config;
+      configEvaled = import lib/eval-config.nix {
+        inherit system;
+        modules = [ module versionModule ];
+      };
       build = configEvaled.config.system.build;
       kernelTarget = configEvaled.pkgs.stdenv.hostPlatform.platform.kernelTarget;
     in
@@ -128,7 +133,8 @@ in rec {
 
   channel = import lib/make-channel.nix { inherit pkgs nixpkgs version versionSuffix; };
 
-  manual = buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manual);
+  manualHTML = buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manualHTML);
+  manual = manualHTML; # TODO(@oxij): remove eventually
   manualEpub = (buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manualEpub));
   manpages = buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manpages);
   manualGeneratedSources = buildFromConfig ({ ... }: { }) (config: config.system.build.manual.generatedSources);
@@ -139,11 +145,8 @@ in rec {
   initialRamdisk = buildFromConfig ({ ... }: { }) (config: config.system.build.initialRamdisk);
 
   netboot = forMatchingSystems [ "x86_64-linux" "aarch64-linux" ] (system: makeNetboot {
+    module = ./modules/installer/netboot/netboot-minimal.nix;
     inherit system;
-    modules = [
-      ./modules/installer/netboot/netboot-minimal.nix
-      versionModule
-    ];
   });
 
   iso_minimal = forAllSystems (system: makeIso {
@@ -295,6 +298,7 @@ in rec {
   tests.chromium = (callSubTestsOnMatchingSystems ["x86_64-linux"] tests/chromium.nix {}).stable or {};
   tests.cjdns = callTest tests/cjdns.nix {};
   tests.cloud-init = callTest tests/cloud-init.nix {};
+  tests.codimd = callTest tests/codimd.nix {};
   tests.containers-ipv4 = callTest tests/containers-ipv4.nix {};
   tests.containers-ipv6 = callTest tests/containers-ipv6.nix {};
   tests.containers-bridge = callTest tests/containers-bridge.nix {};
@@ -318,7 +322,8 @@ in rec {
   tests.ecryptfs = callTest tests/ecryptfs.nix {};
   tests.etcd = callTestOnMatchingSystems ["x86_64-linux"] tests/etcd.nix {};
   tests.ec2-nixops = (callSubTestsOnMatchingSystems ["x86_64-linux"] tests/ec2.nix {}).boot-ec2-nixops or {};
-  tests.ec2-config = (callSubTestsOnMatchingSystems ["x86_64-linux"] tests/ec2.nix {}).boot-ec2-config or {};
+  # ec2-config doesn't work in a sandbox as the simulated ec2 instance needs network access
+  #tests.ec2-config = (callSubTestsOnMatchingSystems ["x86_64-linux"] tests/ec2.nix {}).boot-ec2-config or {};
   tests.elk = callSubTestsOnMatchingSystems ["x86_64-linux"] tests/elk.nix {};
   tests.env = callTest tests/env.nix {};
   tests.ferm = callTest tests/ferm.nix {};
@@ -391,6 +396,7 @@ in rec {
   tests.netdata = callTest tests/netdata.nix { };
   tests.networking.networkd = callSubTests tests/networking.nix { networkd = true; };
   tests.networking.scripted = callSubTests tests/networking.nix { networkd = false; };
+  tests.nextcloud = callSubTests tests/nextcloud { };
   # TODO: put in networking.nix after the test becomes more complete
   tests.networkingProxy = callTest tests/networking-proxy.nix {};
   tests.nexus = callTest tests/nexus.nix { };
@@ -414,7 +420,7 @@ in rec {
   tests.pgmanage = callTest tests/pgmanage.nix {};
   tests.postgis = callTest tests/postgis.nix {};
   tests.powerdns = callTest tests/powerdns.nix {};
-  #tests.pgjwt = callTest tests/pgjwt.nix {};
+  tests.pgjwt = callTest tests/pgjwt.nix {};
   tests.predictable-interface-names = callSubTests tests/predictable-interface-names.nix {};
   tests.printing = callTest tests/printing.nix {};
   tests.prometheus = callTest tests/prometheus.nix {};

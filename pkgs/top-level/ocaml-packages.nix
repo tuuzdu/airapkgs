@@ -220,6 +220,12 @@ let
 
     digestif =  callPackage ../development/ocaml-modules/digestif { };
 
+    doc-ock =  callPackage ../development/ocaml-modules/doc-ock { };
+
+    doc-ock-html =  callPackage ../development/ocaml-modules/doc-ock-html { };
+
+    doc-ock-xml =  callPackage ../development/ocaml-modules/doc-ock-xml { };
+
     dolmen =  callPackage ../development/ocaml-modules/dolmen { };
 
     dolog = callPackage ../development/ocaml-modules/dolog { };
@@ -234,13 +240,13 @@ let
 
     eliom = callPackage ../development/ocaml-modules/eliom { };
 
+    elpi = callPackage ../development/ocaml-modules/elpi { };
+
     enumerate = callPackage ../development/ocaml-modules/enumerate { };
 
     erm_xml = callPackage ../development/ocaml-modules/erm_xml { };
 
     erm_xmpp = callPackage ../development/ocaml-modules/erm_xmpp { };
-
-    erm_xmpp_0_3 = callPackage ../development/ocaml-modules/erm_xmpp/0.3.nix { };
 
     estring = callPackage ../development/ocaml-modules/estring { };
 
@@ -534,6 +540,8 @@ let
     ocsigen-toolkit = callPackage ../development/ocaml-modules/ocsigen-toolkit { };
 
     octavius = callPackage ../development/ocaml-modules/octavius { };
+
+    odoc = callPackage ../development/ocaml-modules/odoc { };
 
     ojquery = callPackage ../development/ocaml-modules/ojquery { };
 

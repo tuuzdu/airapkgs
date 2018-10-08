@@ -64,7 +64,7 @@ in
       };
 
       security.wrappers = {
-        kcheckpass.source = "${lib.getBin plasma5.plasma-workspace}/lib/libexec/kcheckpass";
+        kcheckpass.source = "${lib.getBin plasma5.kscreenlocker}/lib/libexec/kcheckpass";
         "start_kdeinit".source = "${lib.getBin pkgs.kinit}/lib/libexec/kf5/start_kdeinit";
         kwin_wayland = {
           source = "${lib.getBin plasma5.kwin}/bin/kwin_wayland";
@@ -81,6 +81,7 @@ in
           kconfig
           kconfigwidgets
           kcoreaddons
+          kdoctools
           kdbusaddons
           kdeclarative
           kded

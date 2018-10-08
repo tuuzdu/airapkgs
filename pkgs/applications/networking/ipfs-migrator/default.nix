@@ -13,7 +13,6 @@ buildGoPackage rec {
     repo = "fs-repo-migrations";
     rev = "4e8e0b41d7348646c719d572c678c3d0677e541a";
     sha256 = "1i6izncgc3wgabppglnnrslffvwrv3cazbdhsk4vjfsd66hb4d37";
-
   };
 
   patches = [ ./lru-repo-path-fix.patch ];

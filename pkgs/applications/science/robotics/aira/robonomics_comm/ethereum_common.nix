@@ -8,7 +8,7 @@
 
 let
   pname = "ethereum_common";
-  version = "0.1.0";
+  version = "0.1.1";
 
 in mkRosPackage rec {
   name = "${pname}-${version}";
@@ -17,7 +17,7 @@ in mkRosPackage rec {
     owner = "airalab";
     repo = "robonomics_comm";
     rev = "release/${name}";
-    sha256 = "1lfv2blf8s8262k6n85maj1975nxn37bfci8h8xy6q7s8w1kmgsz";
+    sha256 = "0hs2s3wddf8n9g6m58skkz6bys03z4ha3wj1fac5xn8hyap0c268";
   };
 
   propagatedBuildInputs = with python3Packages; [ ros_comm web3 ];

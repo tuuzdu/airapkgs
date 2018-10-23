@@ -1,6 +1,7 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
+, robonomics_comm_msgs
 , robonomics_comm_control
 , robonomics_comm_liability
 , robonomics_comm_lighthouse
@@ -9,7 +10,7 @@
 
 let
   pname = "robonomics_comm";
-  version = "0.2.0";
+  version = "0.3.0";
 
 in mkRosPackage rec {
   name = "${pname}-${version}";
@@ -18,13 +19,14 @@ in mkRosPackage rec {
     owner = "airalab";
     repo = "robonomics_comm";
     rev = "release/${name}";
-    sha256 = "11f9yfd5b10q8yafwkvmrjsr5rvx1w2g8hh7p7vliqci4xlr8hzn";
+    sha256 = "0r1swvva2ikk7bqmrj5pf6vpalnmkhjkbvrslz059ihklq0ahl4n";
   };
 
   propagatedBuildInputs =
-  [ robonomics_comm_lighthouse
+  [ robonomics_comm_msgs
     robonomics_comm_control
     robonomics_comm_liability
+    robonomics_comm_lighthouse
     robonomics_comm_ethereum_common ];
 
   meta = with stdenv.lib; {

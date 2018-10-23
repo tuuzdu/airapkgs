@@ -1,13 +1,12 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, robonomics_comm_msgs
-, python3Packages
+, ros_comm
 }:
 
 let
-  pname = "robonomics_liability";
-  version = "0.4.0";
+  pname = "robonomics_msgs";
+  version = "0.0.0";
 
 in mkRosPackage rec {
   name = "${pname}-${version}";
@@ -16,13 +15,13 @@ in mkRosPackage rec {
     owner = "airalab";
     repo = "robonomics_comm";
     rev = "release/${name}";
-    sha256 = "09xcc50fxhfz0wwk425rgch0z808q358a550zwzks804ll5zwfj0";
+    sha256 = "0dq3vaijqvcw3r7wx1ab4cl9w713dq7fdvacl6hyxskh2hx2m22j";
   };
 
-  propagatedBuildInputs = with python3Packages; [ robonomics_comm_msgs web3 ipfsapi ];
+  propagatedBuildInputs = [ ros_comm ];
 
   meta = with stdenv.lib; {
-    description = "Robot liability support for ROS";
+    description = "Robonomics communication messages";
     homepage = http://github.com/airalab/robonomics_comm;
     license = licenses.bsd3;
     maintainers = [ maintainers.akru ];

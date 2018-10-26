@@ -46,7 +46,7 @@
 
   # Useful preinstall utils
   environment.systemPackages = with pkgs; [
-    vim git htop screen
+    vim git htop screen cmake gcc
   ];
 
 }

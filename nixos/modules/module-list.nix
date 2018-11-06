@@ -662,6 +662,7 @@
   ./services/printing/cupsd.nix
   ./services/robonomics/aira-graph.nix
   ./services/robonomics/liability.nix
+  ./services/robonomics/erc20.nix
   ./services/scheduling/atd.nix
   ./services/scheduling/chronos.nix
   ./services/scheduling/cron.nix

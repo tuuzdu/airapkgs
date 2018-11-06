@@ -16720,6 +16720,8 @@ EOF
 
   simpy = callPackage ../development/python-modules/simpy { };
 
+  multihash = callPackage ../development/python-modules/multihash { };
+
   z3 = (toPythonModule (pkgs.z3.override {
     inherit python;
   })).python;

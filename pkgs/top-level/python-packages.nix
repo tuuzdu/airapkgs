@@ -5108,6 +5108,8 @@ in {
 
   yattag = callPackage ../development/python-modules/yattag { };
 
+  multihash = callPackage ../development/python-modules/multihash { };
+
   z3 = (toPythonModule (pkgs.z3.override {
     inherit python;
   })).python;

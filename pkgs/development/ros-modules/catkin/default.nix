@@ -1,15 +1,15 @@
 { stdenv
-, mkRosPackage
 , fetchFromGitHub
 , python3Packages
 , python3
+, cmake
 }:
 
 let
   pname = "catkin";
   version = "0.7.11";
 
-in mkRosPackage {
+in stdenv.mkDerivation {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
@@ -19,7 +19,7 @@ in mkRosPackage {
     sha256 = "04abn7a1vaxb9ri2qk3rb3g63l3xmg3fp8c10f4y639m1mpixj5n";
   };
   
-  propagatedBuildInputs = with python3Packages; [ catkin_pkg rospkg ];
+  propagatedBuildInputs = with python3Packages; [ catkin_pkg rospkg empy cmake ];
 
   patchPhase = ''
     sed -i 's/PYTHON_EXECUTABLE/SHELL/' ./cmake/catkin_package_xml.cmake

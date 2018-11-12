@@ -16680,6 +16680,10 @@ EOF
 
   catkin_pkg = callPackage ../development/python-modules/catkin_pkg { };
 
+  catkin_tools = callPackage ../development/python-modules/catkin_tools { };
+
+  osrf_pycommon = callPackage ../development/python-modules/osrf_pycommon { };
+
   rospkg = callPackage ../development/python-modules/rospkg { };
 
   wsproto = callPackage ../development/python-modules/wsproto { };

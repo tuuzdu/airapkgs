@@ -1,5 +1,5 @@
 { lib, stdenv, makeWrapper, fetchurl, requireFile, perl, ncurses, expat, python27, zlib
-, gcc48, gcc49, gcc5, gcc6
+, gcc48, gcc49, gcc5, gcc6, gcc7
 , xorg, gtk2, glib, fontconfig, freetype, unixODBC, alsaLib, glibc
 }:
 
@@ -210,6 +210,13 @@ in {
       })
     ];
     gcc = gcc6;
+  };
+
+  cudatoolkit_10_0 = common {
+    version = "10.0.130";
+    url = "https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux";
+    sha256 = "16p3bv1lwmyqpxil8r951h385sy9asc578afrc7lssa68c71ydcj";
+    gcc = gcc7;
   };
 
 }

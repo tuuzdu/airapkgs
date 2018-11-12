@@ -23461,16 +23461,6 @@ in
 
   ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
 
-  robonomics_comm_lighthouse = callPackage ../applications/science/robotics/aira/robonomics_comm/lighthouse.nix { };
-
-  robonomics_comm_control = callPackage ../applications/science/robotics/aira/robonomics_comm/control.nix { };
-
-  robonomics_comm_liability = callPackage ../applications/science/robotics/aira/robonomics_comm/liability.nix { };
-
-  robonomics_comm_ethereum_common = callPackage ../applications/science/robotics/aira/robonomics_comm/ethereum_common.nix { };
-
-  robonomics_comm_msgs = callPackage ../applications/science/robotics/aira/robonomics_comm/msgs.nix { };
-
   robonomics_comm = callPackage ../applications/science/robotics/aira/robonomics_comm { };
 
   robonomics_game_transport = callPackage ../applications/science/robotics/aira/robonomics_game/transport.nix { };

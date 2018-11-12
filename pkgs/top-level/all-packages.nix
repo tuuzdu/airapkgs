@@ -2142,7 +2142,7 @@ in
     cudatoolkit_10
     cudatoolkit_10_0;
 
-  cudatoolkit = cudatoolkit_9;
+  cudatoolkit = cudatoolkit_10_0;
 
   inherit (callPackages ../development/libraries/science/math/cudnn { })
     cudnn_cudatoolkit_7

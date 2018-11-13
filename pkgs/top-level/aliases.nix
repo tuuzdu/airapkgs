@@ -54,6 +54,7 @@ mapAliases ({
   buildbot-pkg = pythonPackages.buildbot-pkg; # added 2018-10-11
   buildbot-ui = pythonPackages.buildbot-ui; # added 2018-10-11
   buildbot-worker = pythonPackages.buildbot-worker; # added 2018-10-11
+  buildPerlPackage = perlPackages.buildPerlPackage; # added 2018-10-12
   bundler_HEAD = bundler; # added 2015-11-15
   cantarell_fonts = cantarell-fonts; # added 2018-03-03
   checkbashism = checkbashisms; # added 2016-08-16
@@ -204,11 +205,14 @@ mapAliases ({
   opencascade_oce = opencascade; # added 2018-04-25
   opencl-icd = ocl-icd; # added 2017-01-20
   openexr_ctl = ctl; # added 2018-04-25
+  openjpeg_2_1 = openjpeg_2; # added 2018-10-25
   openssh_with_kerberos = openssh; # added 2018-01-28
   owncloudclient = owncloud-client;  # added 2016-08
   p11_kit = p11-kit; # added 2018-02-25
   parquet-cpp = arrow-cpp; # added 2018-09-08
   pass-otp = pass.withExtensions (ext: [ext.pass-otp]); # added 2018-05-04
+  perlXMLParser = perlPackages.XMLParser; # added 2018-10-12
+  perlArchiveCpio = perlPackages.ArchiveCpio; # added 2018-10-12
   pgp-tools = signing-party; # added 2017-03-26
   pidgin-with-plugins = pidgin; # added 2016-06
   pidginlatex = pidgin-latex; # added 2018-01-08
@@ -220,7 +224,13 @@ mapAliases ({
   pidginwindowmerge = pidgin-window-merge; # added 2018-01-08
   piwik = matomo; # added 2018-01-16
   pltScheme = racket; # just to be sure
+  pmtools = acpica-tools; # added 2018-11-01
   poppler_qt5 = libsForQt5.poppler;  # added 2015-12-19
+  postgresql93 = postgresql_9_3;
+  postgresql94 = postgresql_9_4;
+  postgresql95 = postgresql_9_5;
+  postgresql96 = postgresql_9_6;
+  postgresql100 = throw "deprecated 2018-10-21: use postgresql_10 instead";
   procps-ng = procps; # added 2018-06-08
   prometheus-statsd-bridge = prometheus-statsd-exporter;  # added 2017-08-27
   pulseaudioLight = pulseaudio; # added 2018-04-25
@@ -231,6 +241,7 @@ mapAliases ({
   qwt6 = libsForQt5.qwt;  # added 2015-12-19
   rdiff_backup = rdiff-backup;  # added 2014-11-23
   rdmd = dtools;  # added 2017-08-19
+  rng_tools = rng-tools; # added 2018-10-24
   robomongo = robo3t; #added 2017-09-28
   rssglx = rss-glx; #added 2015-03-25
   ruby_2_0_0 = throw "deprecated 2018-0213: use a newer version of ruby";
@@ -245,6 +256,7 @@ mapAliases ({
   s6Networking = s6-networking; # added 2018-07-23
   s6LinuxUtils = s6-linux-utils; # added 2018-07-23
   s6PortableUtils = s6-portable-utils; # added 2018-07-23
+  sagemath = sage; # added 2018-10-27
   sam = deadpixi-sam; # added 2018-04-25
   samsungUnifiedLinuxDriver = samsung-unified-linux-driver; # added 2016-01-25
   saneBackends = sane-backends; # added 2016-01-02
@@ -295,6 +307,7 @@ mapAliases ({
   trang = jing-trang; # added 2018-04-25
   transmission_gtk = transmission-gtk; # added 2018-01-06
   transmission_remote_gtk = transmission-remote-gtk; # added 2018-01-06
+  truecrypt = veracrypt; # added 2018-10-24
   tshark = wireshark-cli; # added 2018-04-25
   ucsFonts = ucs-fonts; # added 2016-07-15
   ultrastardx-beta = ultrastardx; # added 2017-08-12
@@ -316,7 +329,11 @@ mapAliases ({
   xmonad_log_applet_gnome3 = xmonad_log_applet; # added 2018-05-01
   xf86_video_nouveau = xorg.xf86videonouveau; # added 2015-09
   xlibs = xorg; # added 2015-09
+  xpraGtk3 = xpra; # added 2018-09-13
   youtubeDL = youtube-dl;  # added 2014-10-26
+
+  # TODO(ekleog): add ‘wasm’ alias to ‘ocamlPackages.wasm’ after 19.03
+  # branch-off
 
   # added 2017-05-27
   wineMinimal = winePackages.minimal;

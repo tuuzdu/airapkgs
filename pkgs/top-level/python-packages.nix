@@ -1774,16 +1774,7 @@ in {
 
   logilab_astng = callPackage ../development/python-modules/logilab_astng { };
 
-  ipfsapi = buildPythonPackage rec {
-    name = "${pname}-${version}";
-    pname = "ipfsapi"; 
-    version = "0.4.3";
-    disabled = isPy27;
-    src = self.fetchPypi {
-      inherit pname version;
-      sha256 = "13lz063ghspn2pwca7xrm1h1hvm73js2l1rq0rrrcfqz7w6crrzj";
-    };
-  };
+  ipfsapi = callPackage ../development/python-modules/ipfsapi { };
 
   lpod = callPackage ../development/python-modules/lpod { };
 

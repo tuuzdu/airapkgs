@@ -46,7 +46,8 @@ in rec {
 
       aira-graph
       robonomics_dev
-      robonomics_comm;
+      robonomics_comm
+      robonomics-tools;
   };
 
   tested = lib.hydraJob (pkgs.releaseTools.aggregate {
@@ -58,11 +59,12 @@ in rec {
     constituents =
       let all = x: map (system: x.${system}) supportedSystems; in
       [ nixpkgs.tarball
+        (all nixpkgs.aira-graph)
         (all nixpkgs.robonomics_dev)
         (all nixpkgs.robonomics_comm)
+        (all nixpkgs.robonomics-tools)
         (all nixpkgs.parity)
         (all nixpkgs.parity-beta)
-        (all nixpkgs.aira-graph)
       ]
       ++ lib.collect lib.isDerivation nixos;
   });

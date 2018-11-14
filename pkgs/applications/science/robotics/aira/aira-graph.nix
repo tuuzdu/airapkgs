@@ -15,7 +15,7 @@ buildPythonApplication rec {
     owner = "airalab";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0zbgd26pljc6li4i5r3khqg20jwxh7y0zywglgmd2m1hhr9yqrnr";
+    sha256 = "1vshvsznzazg2iz2fswj125g5gzyh54n5125lvz8iwdj1fmrc7nk";
   };
 
   propagatedBuildInputs = [ python3 web3 ipfsapi ];

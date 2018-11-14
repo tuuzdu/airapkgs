@@ -22,7 +22,7 @@ in buildPythonApplication rec {
   meta = with stdenv.lib; {
     description = "Command line tools for working with catkin";
     homepage = http://catkin-tools.readthedocs.org;
-    license = licenses.apl2;
+    license = licenses.asl20;
     maintainers = [ maintainers.akru ];
   }; 
 }

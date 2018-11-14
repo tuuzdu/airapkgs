@@ -23010,6 +23010,8 @@ with pkgs;
 
   ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
 
+  robonomics-tools = haskellPackages.callPackage ../applications/science/robotics/aira/robonomics-tools.nix { };
+
   robonomics_comm = callPackage ../applications/science/robotics/aira/robonomics_comm { };
 
   robonomics_game_transport = callPackage ../applications/science/robotics/aira/robonomics_game/transport.nix { };

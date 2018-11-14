@@ -9,22 +9,42 @@ in {
   options = {
     services.aira-graph = {
       enable = mkEnableOption "Robonomics.network graph agent.";
+
+      graph = mkOption {
+        type = types.str;
+        description = "AIRA graph topic";
+      };
+
+      lighthouse = mkOption {
+        type = types.str;
+        description = "Lighthouse topic";
+      };
+
+      keyfile = mkOption {
+        type = types.str;
+        default = config.services.liability.keyfile;
+        description = "Default keyfile for signing messages.";
+      };
+
+      keyfile_password_file = mkOption {
+        type = types.str;
+        default = config.services.liability.keyfile_password_file;
+        description = "Password file for keyfile.";
+      };
+
     };
   };
 
   config = mkIf cfg.enable {
-    services.liability.enable = true;
-
     systemd.services.aira-graph = {
-      wants = [ "parity.service" "ipfs.service" ];
+      wants = [ "ipfs.service" ];
       wantedBy = [ "multi-user.target" ];
 
-      script = ''
-        KEY=`ls /var/lib/parity/.local/share/io.parity.ethereum/keys/*/UTC--*|head -n1`
-        ${pkgs.aira-graph}/bin/aira-graph ${config.services.liability.lighthouse} -k $KEY -w /var/lib/parity/${config.services.parity.chain}-psk
-      '';
-
       serviceConfig = {
+        ExecStart = ''
+          ${pkgs.aira-graph}/bin/aira-graph ${cfg.graph} ${cfg.lighthouse} \
+            -k ${cfg.keyfile} -w ${cfg.keyfile_password_file} 
+        '';
         Restart = "on-failure";
         RestartSec = 5;
       };

@@ -17,6 +17,8 @@
 
   # Enable graph monitoring
   services.aira-graph.enable = true;
+  services.aira-graph.graph = "graph.3.robonomics.eth";
+  services.aira-graph.lighthouse = "airalab.lighthouse.3.robonomics.eth";
 
   # Root autologin by default
   services.mingetty.autologinUser = "root";

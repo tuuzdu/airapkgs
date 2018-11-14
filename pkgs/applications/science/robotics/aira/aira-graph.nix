@@ -6,18 +6,16 @@
 
 with python3Packages;
 
-let
-  pname = "aira-graph";
-  version = "0.1";
-
-in buildPythonApplication rec {
+buildPythonApplication rec {
   name = "${pname}-${version}";
+  pname = "aira-graph";
+  version = "0.2";
 
   src = fetchFromGitHub {
     owner = "airalab";
-    repo = "aira-graph";
-    rev = "master";
-    sha256 = "1h9cpx0aisrmy8z9f9zbb4dj9j977ibwd76h5c3d4m84jx22f3cw";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "0zbgd26pljc6li4i5r3khqg20jwxh7y0zywglgmd2m1hhr9yqrnr";
   };
 
   propagatedBuildInputs = [ python3 web3 ipfsapi ];

@@ -1,4 +1,8 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub }:
+{ stdenv
+, buildPythonPackage
+, fetchFromGitHub
+, base58
+}:
 
 buildPythonPackage rec {
   pname = "multihash";
@@ -10,6 +14,8 @@ buildPythonPackage rec {
     rev = "3b4ea39e132b5f713cdd745fc6ff117f65116c40";
     sha256 = "0wdxrxss1rv7rrydnwnb2wbfv5nazlm6n6mv7hx61hpblwhyfq9y";
   };
+
+  propagatedBuildInputs = [ base58 ];
 
   meta = with stdenv.lib; {
     description = "Implementation of the multihash specification in Python";

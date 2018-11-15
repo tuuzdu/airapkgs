@@ -2,9 +2,15 @@
 
 {
 
+  # Use AIRA channel by default
+  # https://github.com/airalab/aira/issues/43
   system.defaultChannel = "https://hydra.aira.life/channels/nixos-unstable";
 
   nix = {
+    # Disable sandbox by default
+    # https://github.com/airalab/aira/issues/67 
+    useSandbox = false;
+
     binaryCaches = [
       https://cache.nixos.org
       https://hydra.aira.life

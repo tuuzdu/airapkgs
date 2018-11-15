@@ -41,6 +41,7 @@ in rec {
       parity-beta
 
       ros_comm
+      rosserial
       mavros
       dji_sdk
 

@@ -18,8 +18,8 @@ mkRosPackage rec {
   src = fetchFromGitHub {
     owner = "akru";
     repo = pname;
-    rev = "eda32bcfa5294f4ca128a834cd54de9f8f39471d";
-    sha256 = "0j243jp3vqr0h90dsx2sqzw2jmmqb1nsnczby6shrb2m4ll3jh3k";
+    rev = "${rosdistro}-devel";
+    sha256 = "0rs7ymz37y4wa1gshk1n8fyr504g7lg8bqd0rib7k5hkwar5bsxd";
   };
 
   propagatedBuildInputs = with python3Packages;

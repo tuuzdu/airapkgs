@@ -2,6 +2,8 @@
 
 {
 
+  system.defaultChannel = "https://hydra.aira.life/channels/nixos-unstable";
+
   nix = {
     binaryCaches = [
       https://cache.nixos.org

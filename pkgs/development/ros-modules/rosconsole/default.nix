@@ -12,7 +12,7 @@
 
 let
   pname = "rosconsole";
-  version = "1.13.7";
+  version = "1.14.4";
   rosdistro = "melodic";
 
 in mkRosPackage {
@@ -22,7 +22,7 @@ in mkRosPackage {
     owner = "ros-gbp";
     repo = "${pname}-release";
     rev = "release/${rosdistro}/${pname}/${version}-0";
-    sha256 = "0y8avp88hq0h1qi83j9c4jhp92ir8awx82mkgh29r1cp0cyj4nfi";
+    sha256 = "06sjhlx8cs4xmcxgwnw7jxs5xgzpjs31n6fsjbrxz659dw234al3";
   };
 
   propagatedBuildInputs = [ catkin boost cpp_common log4cxx rosbuild rostime rosunit ];

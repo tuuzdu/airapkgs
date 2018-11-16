@@ -10,6 +10,7 @@
 let
   pname = "rosgraph_msgs";
   version = "1.11.2";
+  rosdistro = "melodic";
 
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -17,7 +18,7 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros_comm_msgs-release";
-    rev = "release/lunar/${pname}/${version}-0";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
     sha256 = "1acyvalskr9hk23g2rsavpanjvnhq1cz467lnymyh4xd5g7xkrza";
   };
 

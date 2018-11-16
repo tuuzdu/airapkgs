@@ -10,7 +10,8 @@
 
 let
   pname = "rostopic";
-  version = "1.13.6";
+  version = "1.14.4";
+  rosdistro = "melodic";
 
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -18,8 +19,8 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros_comm-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "1r9hjmn47n2pmhbr0la3b4g6c0d4myww50z9m8x5dbl347kbqc7q";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "10vnn8pvcsav1hzarsv8nqfd57z63lfhhc3fcxhjf76yg2p1nv1q";
   };
 
   propagatedBuildInputs = [ catkin genpy rosbag rospy rostest ];

@@ -11,7 +11,8 @@
 
 let
   pname = "rosservice";
-  version = "1.13.6";
+  version = "1.14.4";
+  rosdistro = "melodic";
   
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -19,8 +20,8 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros_comm-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "110n85fvr9lmg7jij07fi1arwi596zhsg4j0f1ibjp06p9dg0jgw";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "0bwfvjkf33ykwkv01a3mjs38wp3q93cj2hkvghxlqn60x0hlddnp";
   };
 
   propagatedBuildInputs = [ catkin genpy rosgraph roslib rosmsg rospy ];

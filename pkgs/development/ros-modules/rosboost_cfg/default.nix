@@ -6,7 +6,8 @@
 
 let
   pname = "rosboost_cfg";
-  version = "1.14.1";
+  version = "1.14.4";
+  rosdistro = "melodic";
 
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -14,8 +15,8 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "051psvfx6qw9swia21azk45cwzm9wvpnfjyfh3sy7b6ri0h8zyhj";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "0ymdfrdhr0kkk4cxbrqs13jk5cjx4dc2w0s7ac78bv1sa91dhlgn";
   };
 
   propagatedBuildInputs = [ catkin ];

@@ -7,7 +7,8 @@
 
 let
   pname = "catkin";
-  version = "0.7.11";
+  version = "0.7.14";
+  rosdistro = "melodic";
 
 in stdenv.mkDerivation {
   name = "${pname}-${version}";
@@ -15,8 +16,8 @@ in stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "${pname}-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "04abn7a1vaxb9ri2qk3rb3g63l3xmg3fp8c10f4y639m1mpixj5n";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "0dhfm1mya467dv6qc6j86f0yxbwqgvf2319p2r6bpvngjby51d86";
   };
   
   propagatedBuildInputs = with python3Packages; [ catkin_pkg rospkg empy cmake ];

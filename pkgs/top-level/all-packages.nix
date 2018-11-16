@@ -23006,6 +23006,8 @@ with pkgs;
 
   rosserial = callPackage ../development/ros-modules/rosserial { };
 
+  image_transport = callPackage ../development/ros-modules/image_transport { };
+
   dji_sdk = callPackage ../development/ros-modules/dji_sdk { };
 
   ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };

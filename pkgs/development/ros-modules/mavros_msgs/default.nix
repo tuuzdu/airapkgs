@@ -1,29 +1,26 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, catkin
 , message_generation
 , message_runtime
 , geographic_msgs
 , sensor_msgs
 }:
 
-let
-  pname = "mavros_msgs";
-  version = "0.26.1";
-  rosdistro = "melodic";
-
-in mkRosPackage {
+mkRosPackage rec {
   name = "${pname}-${version}";
+  pname = "mavros_msgs";
+  version = "0.27.0";
+  rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "mavlink";
     repo = "mavros-release";
     rev = "release/${rosdistro}/${pname}/${version}-0";
-    sha256 = "0y1jknssvgpaz6hrj9wnrbynhqxpi9b58qli09lwl89qs5rm5rf4";
+    sha256 = "0kcjwjqkgg43skg62xxkjqmzkr0g13xgs5lc32sl73i6ss298rck";
   };
 
-  propagatedBuildInputs = [ catkin message_generation message_runtime geographic_msgs sensor_msgs ];
+  propagatedBuildInputs = [ message_generation message_runtime geographic_msgs sensor_msgs ];
 
   meta = with stdenv.lib; {
     description = "MAVLink extendable communication node messages.";

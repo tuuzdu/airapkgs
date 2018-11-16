@@ -1,19 +1,17 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, catkin
 , orocos_kdl
 , geometry_msgs
+, cmake_modules
 , eigen
 }:
 
-let
+mkRosPackage rec {
+  name = "${pname}-${version}";
   pname = "eigen_conversions";
   version = "1.12.0";
   rosdistro = "melodic";
-
-in mkRosPackage {
-  name = "${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
@@ -22,11 +20,10 @@ in mkRosPackage {
     sha256 = "17fz7dpn8m300bdb8xmx5mpld35i19psyr9nksv4qxxa1f6rxgr4";
   };
 
-  propagatedBuildInputs = [ catkin orocos_kdl geometry_msgs eigen ];
+  propagatedBuildInputs = [ orocos_kdl geometry_msgs cmake_modules eigen ];
 
-  # https://stackoverflow.com/questions/12249140/find-package-eigen3-for-cmake
-  preConfigure = ''
-    sed -i 's/find_package(Eigen3 REQUIRED)//g' CMakeLists.txt
+  postPatch = ''
+    sed -i '/find_package(Eigen3 REQUIRED)/d' CMakeLists.txt
   '';
 
   meta = with stdenv.lib; {

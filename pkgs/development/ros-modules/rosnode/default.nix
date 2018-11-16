@@ -8,7 +8,9 @@
 
 let
   pname = "rosnode";
-  version = "1.13.6";
+  version = "1.14.4";
+  rosdistro = "melodic";
+
 
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -16,8 +18,8 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros_comm-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "0f3m6ndmzdlj7cgxzcg0m5jk3sl2kc3jj92jb2631n5h4fw6ix2v";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "0prsfdvnh17d0ig3gz25k0zif0gbdc80fwy0s6z4ffn97nap6sd0";
   };
 
   propagatedBuildInputs = [ catkin rosgraph rostopic ];

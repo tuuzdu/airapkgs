@@ -5,16 +5,14 @@
 
 stdenv.mkDerivation rec {
   name = "djiosdk-${version}";
-  version = "3.6.1";
+  version = "3.7.0";
 
   src = fetchFromGitHub {
     owner = "dji-sdk";
     repo = "Onboard-SDK";
-    rev = "${version}";
-    sha256 = "1nq9b97ywh3fm4hza66fqmr4fd6y6kjz2ch02k7xnywyrarssv3a";
+    rev = version;
+    sha256 = "0vyphabyh7m9i60kiw111rscmjcazw9n1a5xhf6dwcpjb35yqb7g";
   };
-
-  patches = [ ./sys_select.patch ];
 
   buildInputs = [ cmake ];
 
@@ -24,6 +22,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = [ maintainers.akru ];
   };
-
-  
 }

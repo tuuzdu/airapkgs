@@ -1,25 +1,25 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, catkin
 , rospack
+, boost
 }:
 
-let
-  pname = "roslib";
-  version = "1.14.1";
-
-in mkRosPackage {
+mkRosPackage rec {
   name = "${pname}-${version}";
+  pname = "roslib";
+  version = "1.14.4";
+  rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "1qnwclzym3shvf68vls6nxaxsdkh0cl3c5q20446c4j5shfj3gx6";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "1a9xp0qfihhsls8ab89qdxvn4cr0kw4r7516ddi7h4d8j9cx9crd";
   };
 
-  propagatedBuildInputs = [ catkin rospack ];
+  buildInputs = [ boost ];
+  propagatedBuildInputs = [ rospack ];
 
   meta = with stdenv.lib; {
     description = "Base dependencies and support libraries for ROS";

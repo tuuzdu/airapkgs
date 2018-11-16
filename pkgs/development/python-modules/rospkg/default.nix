@@ -1,19 +1,20 @@
 { stdenv
 , fetchPypi
 , buildPythonPackage
+, catkin_pkg
 , pyyaml
 }:
 
 let
-  version = "1.1.4";
+  version = "1.1.7";
   pname = "rospkg";
-  sha256 = "0g2hjqia34l57zkyq2n4lzxhnjv7j63wcjv8m7d7rf35yq2xzvs2";
+  sha256 = "1axj16vc145njnn6hq8yxrkb0k2fysca5f87zmib6lba7bhiisf6";
 
 in buildPythonPackage rec { 
   name = "${pname}-${version}";
   src = fetchPypi { inherit pname version sha256; };
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [ catkin_pkg pyyaml ];
 
   meta = with stdenv.lib; {
     description = "Standalone Python library for the ROS package system";

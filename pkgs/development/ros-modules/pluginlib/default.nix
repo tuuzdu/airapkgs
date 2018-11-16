@@ -1,18 +1,16 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, catkin
 , class_loader
 , rosconsole
+, tinyxml-2
 }:
 
-let
-  pname = "pluginlib";
-  version = "1.12.1";
-  rosdistro = "melodic";
-
-in mkRosPackage {
+mkRosPackage rec {
   name = "${pname}-${version}";
+  pname = "pluginlib";
+  version = "2.1.1";
+  rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
@@ -21,7 +19,8 @@ in mkRosPackage {
     sha256 = "06knk7hk17xhblf2g59czjhgk81wjrd8fcws6rj564p8jp9l7b4h";
   };
 
-  propagatedBuildInputs = [ catkin class_loader rosconsole ];
+  buildInputs = [ tinyxml-2 ];
+  propagatedBuildInputs = [ class_loader rosconsole ];
 
   meta = with stdenv.lib; {
     description = "Tools for writing and dynamically loading plugins using the ROS build infrastructure.";

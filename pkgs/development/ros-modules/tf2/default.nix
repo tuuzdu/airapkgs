@@ -1,27 +1,24 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, catkin
 , console_bridge
 , tf2_msgs
 }:
 
-let
-  pname = "tf2";
-  version = "0.5.18";
-  rosdistro = "melodic";
-
-in mkRosPackage {
+mkRosPackage rec {
   name = "${pname}-${version}";
+  pname = "tf2";
+  version = "0.6.4";
+  rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "geometry2-release";
     rev = "release/${rosdistro}/${pname}/${version}-0";
-    sha256 = "07iq5c1yy3k3hy5a383xrwl91fb7518jlvafj9wccngysw069r7x";
+    sha256 = "1376h9rjpfi39qh0r1d8wwc7f76b1dl5jk1a7wlv4vra4b1w281y";
   };
 
-  propagatedBuildInputs = [ catkin console_bridge tf2_msgs ];
+  propagatedBuildInputs = [ console_bridge tf2_msgs ];
 
   meta = with stdenv.lib; {
     description = "ROS bindings for the tf2 library, for both Python and C++.";

@@ -13,9 +13,12 @@
   services.liability.enable = true;
   services.liability.web3_http_provider = "https://mainnet.infura.io/v3/cd7368514cbd4135b06e2c5581a4fff7";
   services.liability.web3_ws_provider = "wss://mainnet.infura.io/ws";
+  services.liability.lighthouse = "airalab.lighthouse.3.robonomics.eth";
 
   # Enable graph monitoring
   services.aira-graph.enable = true;
+  services.aira-graph.graph = "graph.3.robonomics.eth";
+  services.aira-graph.lighthouse = "airalab.lighthouse.3.robonomics.eth";
 
   # Root autologin by default
   services.mingetty.autologinUser = "root";
@@ -27,7 +30,7 @@
     syntaxHighlighting.enable = true;
     loginShellInit = ''
       echo -e "Starting..."
-      sleep 7
+      sleep 5
       ${pkgs.figlet}/bin/figlet AIRA
       export ADDRESS=`cat /var/lib/liability/keyfile|${pkgs.jq}/bin/jq ".address"`
       echo -e "\nMy Ethereum address is $ADDRESS"

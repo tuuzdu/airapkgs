@@ -753,6 +753,10 @@ let
 
     zed = callPackage ../development/ocaml-modules/zed { };
 
+    zmq = callPackage ../development/ocaml-modules/zmq { };
+
+    zmq-lwt = callPackage ../development/ocaml-modules/zmq/lwt.nix { };
+
     ocsigen_deriving = callPackage ../development/ocaml-modules/ocsigen-deriving {
       oasis = ocaml_oasis;
     };
@@ -1019,12 +1023,6 @@ let
     trv = callPackage ../development/tools/misc/trv { };
 
     omake_rc1 = callPackage ../development/tools/ocaml/omake/0.9.8.6-rc1.nix { };
-
-    verasco = callPackage ../development/tools/analysis/verasco (
-      if system == "x86_64-linux"
-      then { tools = pkgs.pkgsi686Linux.stdenv.cc; }
-      else {}
-    );
 
     google-drive-ocamlfuse = callPackage ../applications/networking/google-drive-ocamlfuse { };
 

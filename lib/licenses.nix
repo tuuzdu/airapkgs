@@ -309,6 +309,12 @@ lib.mapAttrs (n: v: v // { shortName = n; }) rec {
     fullName = "GNU General Public License v2.0 only";
   };
 
+  gpl2Classpath = {
+    spdxId = "GPL-2.0-with-classpath-exception";
+    fullName = "GNU General Public License v2.0 only (with Classpath exception)";
+    url = https://fedoraproject.org/wiki/Licensing/GPL_Classpath_Exception;
+  };
+
   gpl2ClasspathPlus = {
     fullName = "GNU General Public License v2.0 or later (with Classpath exception)";
     url = https://fedoraproject.org/wiki/Licensing/GPL_Classpath_Exception;
@@ -394,6 +400,10 @@ lib.mapAttrs (n: v: v // { shortName = n; }) rec {
     free = false;
   };
 
+  jasper = spdx {
+    spdxId = "JasPer-2.0";
+    fullName = "JasPer License";
+  };
 
   lgpl2 = spdx {
     spdxId = "LGPL-2.0";
@@ -583,6 +593,11 @@ lib.mapAttrs (n: v: v // { shortName = n; }) rec {
   ruby = spdx {
     spdxId = "Ruby";
     fullName = "Ruby License";
+  };
+
+  sendmail = spdx {
+    spdxId = "Sendmail";
+    fullName = "Sendmail License";
   };
 
   sgi-b-20 = spdx {

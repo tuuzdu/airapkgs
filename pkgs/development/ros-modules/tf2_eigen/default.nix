@@ -1,28 +1,25 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, catkin
 , cmake_modules
 , tf2
 , eigen
 }:
 
-let
-  pname = "tf2_eigen";
-  version = "0.5.18";
-  rosdistro = "melodic";
-
-in mkRosPackage {
+mkRosPackage rec {
   name = "${pname}-${version}";
+  pname = "tf2_eigen";
+  version = "0.6.4";
+  rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "geometry2-release";
     rev = "release/${rosdistro}/${pname}/${version}-0";
-    sha256 = "0zi39f8cqy45rjwk7lf7gjv7bkzz9n5y6qpnrqmsncz4k60kls7q";
+    sha256 = "0awsmhmam4dg9qshd38r1d0flqf0lf2yk6jhjbzbfyhw8gapxzm4";
   };
 
-  propagatedBuildInputs = [ catkin cmake_modules tf2 eigen ];
+  propagatedBuildInputs = [ cmake_modules tf2 eigen ];
 
   meta = with stdenv.lib; {
     description = "Convert tf2 data to eigen data structures.";

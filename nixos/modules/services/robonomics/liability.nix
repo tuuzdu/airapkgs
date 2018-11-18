@@ -6,7 +6,6 @@ let
   cfg = config.services.liability;
 
   mainnetEns = "0x314159265dD8dbb310642f98f50C066173C1259b";
-  defaultContract = "airalab.lighthouse.1.robonomics.eth";
   liabilityHome = "/var/lib/liability";
   keyfile = "${liabilityHome}/keyfile";
   keyfile_password_file = "${liabilityHome}/keyfile-psk";
@@ -26,7 +25,6 @@ in {
 
       lighthouse = mkOption {
         type = types.str;
-        default = defaultContract; 
         description = "Lighthouse contract address.";
       };
 

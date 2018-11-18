@@ -1,5 +1,6 @@
 { stdenv
 , cmake
+, catkin
 , python3
 , python3Packages
 }:
@@ -8,7 +9,7 @@ attrs:
 
 let
   pyEnv = with python3Packages;
-    [ cmake python3 empy catkin_pkg rospkg ];
+    [ python3 empy catkin_pkg rospkg catkin cmake ];
 
 in stdenv.mkDerivation (attrs // rec {
   propagatedBuildInputs = pyEnv ++ (attrs.propagatedBuildInputs or []);
@@ -17,7 +18,14 @@ in stdenv.mkDerivation (attrs // rec {
   doCheck = attrs.doCheck or false;
 
   ROS_LANG_DISABLE = "geneus:genlisp:gennodejs";
+
   cmakeFlags = "-DCATKIN_ENABLE_TESTING=${if doCheck then "ON" else "OFF"} -DSETUPTOOLS_DEB_LAYOUT=OFF";
+
+  preConfigure = ''
+    if [ ! -e CMakeLists.txt ]; then
+      catkin_init_workspace
+    fi
+  '';
 
   postInstall = attrs.postInstall or ''
     pushd ..

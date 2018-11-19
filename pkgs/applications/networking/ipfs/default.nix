@@ -1,6 +1,14 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, fetchgx }:
+{ stdenv, buildGo111Package, go_1_11, gx, gx-go, fetchFromGitHub, fetchgx }:
 
-buildGoPackage rec {
+let
+  fetchgx' = fetchgx.override {
+    go = go_1_11;
+    gx = gx.override { buildGoPackage = buildGo111Package; };
+    gx-go = gx-go.override { buildGoPackage = buildGo111Package; }; 
+  };
+  buildGoPackage = buildGo111Package; 
+
+in buildGoPackage rec {
   name = "ipfs-${version}";
   version = "0.4.18";
   rev = "v${version}";
@@ -8,7 +16,7 @@ buildGoPackage rec {
   goPackagePath = "github.com/ipfs/go-ipfs";
 
   extraSrcPaths = [
-    (fetchgx {
+    (fetchgx' {
       inherit name src;
       sha256 = "05d5m6c2i2kl4rvb0hddyqbidn76ljr2zryi8v2r9i8dbi0164gm";
     })

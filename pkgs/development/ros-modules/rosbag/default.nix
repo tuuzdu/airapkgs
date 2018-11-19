@@ -1,6 +1,7 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
+, python3Packages
 , catkin
 , cpp_common
 , genmsg
@@ -15,7 +16,6 @@
 , topic_tools
 , xmlrpcpp
 , pluginlib
-, gpgme
 , openssl
 }:
 
@@ -37,7 +37,7 @@ in mkRosPackage {
   propagatedBuildInputs =
   [ catkin cpp_common genmsg genpy rosbag_storage rosconsole std_srvs
     roscpp roscpp_serialization roslib rospy topic_tools xmlrpcpp
-    pluginlib gpgme openssl ];
+    pluginlib openssl python3Packages.python-gnupg ];
 
   meta = with stdenv.lib; {
     description = "Set of tools for recording from and playing back to ROS topics";

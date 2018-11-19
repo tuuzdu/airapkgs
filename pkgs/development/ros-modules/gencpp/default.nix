@@ -1,25 +1,23 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, catkin
 , genmsg
 }:
 
-let
-  pname = "gencpp";
-  version = "0.5.5";
-
-in mkRosPackage {
+mkRosPackage rec {
   name = "${pname}-${version}";
+  pname = "gencpp";
+  version = "0.6.0";
+  rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "${pname}-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "1x3kf64yywc9d2s071i8hizgqkv38r2dpz1gs8qk916r8yizsa7f";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "1wjizls8h2qjjq8aliwqvxd86p2jzll4cq66grzf8j7aj3dxvyl2";
   };
 
-  propagatedBuildInputs = [ catkin genmsg ];
+  propagatedBuildInputs = [ genmsg ];
 
   patchPhase = ''
     sed -i 's/''${PYTHON_EXECUTABLE} //' ./cmake/gencpp-extras.cmake.em

@@ -37,6 +37,7 @@ in rec {
 
   nixpkgs = {
     inherit (nixpkgs')
+      ipfs
       parity
       parity-beta
 
@@ -64,6 +65,7 @@ in rec {
         (all nixpkgs.robonomics_dev)
         (all nixpkgs.robonomics_comm)
         (all nixpkgs.robonomics-tools)
+        (all nixpkgs.ipfs)
         (all nixpkgs.parity)
         (all nixpkgs.parity-beta)
       ]

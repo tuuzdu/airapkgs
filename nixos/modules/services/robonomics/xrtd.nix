@@ -11,7 +11,7 @@ in {
       enable = mkEnableOption "Robonomics.network provider daemon.";
 
       hexKeyfile = mkOption {
-        type = types.path;
+        type = types.str;
         description = "Hex encoded private key file";
       };
 
@@ -47,14 +47,13 @@ in {
       wants = [ "ipfs.service" ];
       wantedBy = [ "multi-user.target" ];
 
+      path = with pkgs; [ bash ipfs ];
+
+      script = ''
+        ${pkgs.robonomics-tools}/bin/xrtd --private "$(cat ${cfg.hexKeyfile})" ${optionalString (cfg.web3_provider != "") "--web3 \"${cfg.web3_provider}\""} ${optionalString (cfg.ipfs_provider != "") "--ipfs \"${cfg.ipfs_provider}\""} ${optionalString (cfg.lighthouse != "") "--lighthouse \"${cfg.lighthouse}\""} ${optionalString (cfg.ens != "") "--ens \"${cfg.ens}\""} 
+      '';
+
       serviceConfig = {
-        ExecStart = ''
-          ${pkgs.robonomics-tools}/bin/xrtd --private "$(cat ${cfg.hexKeyfile})" \
-            ${optionalString (cfg.web3_provider != "") "--web3 ${cfg.web3_provider}"} \
-            ${optionalString (cfg.ipfs_provider != "") "--ipfs ${cfg.ipfs_provider}"} \
-            ${optionalString (cfg.lighthouse != "") "--lighthouse ${cfg.lighthouse}"} \
-            ${optionalString (cfg.ens != "") "--ens ${cfg.ens}"} 
-        '';
         Restart = "on-failure";
         RestartSec = 5;
       };

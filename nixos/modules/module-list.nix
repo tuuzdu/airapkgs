@@ -650,6 +650,7 @@
   ./services/robonomics/aira-graph.nix
   ./services/robonomics/liability.nix
   ./services/robonomics/erc20.nix
+  ./services/robonomics/xrtd.nix
   ./services/scheduling/atd.nix
   ./services/scheduling/chronos.nix
   ./services/scheduling/cron.nix

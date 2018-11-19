@@ -6,17 +6,16 @@
 , rostime
 }:
 
-let
+mkRosPackage rec {
+  name = "${pname}-${version}";
   pname = "xmlrpcpp";
   version = "1.13.6";
-
-in mkRosPackage {
-  name = "${pname}-${version}";
+  rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros_comm-release";
-    rev = "release/lunar/${pname}/${version}-0";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
     sha256 = "1q773y8wkp88agkzz2q06flv2glhxmq18k76jlwf5knm4vhnicrm";
   };
 

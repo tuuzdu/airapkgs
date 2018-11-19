@@ -1,26 +1,24 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, catkin
 , genmsg
 , python3Packages
 }:
 
-let
-  pname = "genpy";
-  version = "0.6.6";
-
-in mkRosPackage {
+mkRosPackage rec {
   name = "${pname}-${version}";
+  pname = "genpy";
+  version = "0.6.7";
+  rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "${pname}-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "1rhmni7l1iwdkkb3wp3l3c8rrhrq27zj39zlkmdrd1f7isis3ijb";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "1mvyiwn98n07nfsd2igx8g7laink4c7g5f7g1ljqqpsighrxn5jd";
   };
 
-  propagatedBuildInputs = [ catkin genmsg python3Packages.pyyaml ];
+  propagatedBuildInputs = with python3Packages; [ genmsg pyyaml ];
 
   patchPhase = ''
     sed -i 's/''${PYTHON_EXECUTABLE} //' ./cmake/genpy-extras.cmake.em

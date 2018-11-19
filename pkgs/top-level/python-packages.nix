@@ -8191,6 +8191,8 @@ EOF
 
   websockets = callPackage ../development/python-modules/websockets { };
 
+  websockets6 = callPackage ../development/python-modules/websockets/6.nix { };
+
   Wand = callPackage ../development/python-modules/Wand {
     imagemagick = pkgs.imagemagickBig;
   };

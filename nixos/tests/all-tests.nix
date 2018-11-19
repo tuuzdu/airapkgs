@@ -158,6 +158,7 @@ in
   ostree = handleTest ./ostree.nix {};
   owncloud = handleTest ./owncloud.nix {};
   pam-oath-login = handleTest ./pam-oath-login.nix {};
+  parity = handleTest ./parity.nix {};
   peerflix = handleTest ./peerflix.nix {};
   pgjwt = handleTest ./pgjwt.nix {};
   pgmanage = handleTest ./pgmanage.nix {};

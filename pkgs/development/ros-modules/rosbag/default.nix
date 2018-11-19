@@ -14,11 +14,15 @@
 , rospy
 , topic_tools
 , xmlrpcpp
+, pluginlib
+, gpgme
+, openssl
 }:
 
 let
   pname = "rosbag";
-  version = "1.13.6";
+  version = "1.14.4";
+  rosdistro = "melodic";
 
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -26,13 +30,14 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros_comm-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "1v9r4fybd594ks2gj7k2yxyyx0c5h177y69i29p6zf2vbvsa0jrh";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "1fl50gmnd6p5wlyjfvhh547bmffy9f9kkrfvrsb4g6mcpr2k6hn9";
   };
 
   propagatedBuildInputs =
   [ catkin cpp_common genmsg genpy rosbag_storage rosconsole std_srvs
-    roscpp roscpp_serialization roslib rospy topic_tools xmlrpcpp ];
+    roscpp roscpp_serialization roslib rospy topic_tools xmlrpcpp
+    pluginlib gpgme openssl ];
 
   meta = with stdenv.lib; {
     description = "Set of tools for recording from and playing back to ROS topics";

@@ -229,7 +229,7 @@ in rec {
         sha256 = "1kx6l4yzsamk6q1f4vllcpywhbfr2j5wfl4h5zx8v6dgfpsjm2lw";
       })
     ];
-    gcc = gcc6;
+    gcc = gcc7;
   };
 
   cudatoolkit_9 = cudatoolkit_9_2;
@@ -238,6 +238,7 @@ in rec {
     version = "10.0.130";
     url = "https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux";
     sha256 = "16p3bv1lwmyqpxil8r951h385sy9asc578afrc7lssa68c71ydcj";
+
     gcc = gcc7;
   };
 

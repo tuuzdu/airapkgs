@@ -20,6 +20,8 @@ in stdenv.mkDerivation {
     sha256 = "0dhfm1mya467dv6qc6j86f0yxbwqgvf2319p2r6bpvngjby51d86";
   };
   
+  cmakeFlags = "-DCATKIN_ENABLE_TESTING=OFF -DSETUPTOOLS_DEB_LAYOUT=OFF";
+
   propagatedBuildInputs = with python3Packages; [ catkin_pkg rospkg empy cmake ];
 
   patchPhase = ''

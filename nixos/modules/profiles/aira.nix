@@ -4,7 +4,7 @@
 
   # Use AIRA channel by default
   # https://github.com/airalab/aira/issues/43
-  system.defaultChannel = "https://hydra.aira.life/channels/nixos-unstable";
+  system.defaultChannel = "https://hydra.aira.life/channels/aira-release";
 
   nix = {
     # Disable sandbox by default

@@ -14213,6 +14213,8 @@ in
 
   alfred = callPackage ../os-specific/linux/batman-adv/alfred.nix { };
 
+  alfred-json = callPackage ../os-specific/linux/batman-adv/alfred-json.nix { };
+
   alienfx = callPackage ../os-specific/linux/alienfx { };
 
   alsa-firmware = callPackage ../os-specific/linux/alsa-firmware { };

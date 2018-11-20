@@ -31,7 +31,7 @@ in rec {
     inherit (nixos') channel iso_minimal;
     tests = {
       inherit (nixos'.tests)
-        ipfs
+      #ipfs
         ipv6
         cjdns
         parity;

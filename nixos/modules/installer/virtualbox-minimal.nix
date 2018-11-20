@@ -11,4 +11,7 @@ with lib;
 
   # FIXME: UUID detection is currently broken
   boot.loader.grub.fsIdentifier = "provided";
+
+  # Disable X11 for minimal image
+  virtualisation.virtualbox.guest.x11 = false;
 }

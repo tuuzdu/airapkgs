@@ -19,7 +19,7 @@ in {
       };
       memorySize = mkOption {
         type = types.int;
-        default = 1536;
+        default = 2048;
         description = ''
           The amount of RAM the VirtualBox appliance can use in MiB.
         '';

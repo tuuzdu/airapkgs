@@ -8,7 +8,7 @@
 
 let
   pname = "rosconsole_bridge";
-  version = "0.5.1";
+  version = "0.5.2";
   rosdistro = "melodic";
 
 in mkRosPackage {
@@ -18,7 +18,7 @@ in mkRosPackage {
     owner = "ros-gbp";
     repo = "${pname}-release";
     rev = "release/${rosdistro}/${pname}/${version}-0";
-    sha256 = "1l733r4zd6417k5alk921hbrz6xnk98rvfdvm9llpd4dihf01hj8";
+    sha256 = "0y6j9w8p3gifq6jv5931d15gv3c12yfsaikncfrf628abp037sj8";
   };
 
   propagatedBuildInputs = [ catkin console_bridge rosconsole ];

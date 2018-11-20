@@ -6,7 +6,8 @@
 
 let
   pname = "roslang";
-  version = "1.14.1";
+  version = "1.14.4";
+  rosdistro = "melodic";
 
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -14,8 +15,8 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "04hj3qv0gyc9ld0pyxjmw54y6jxag5x5dg864zc1jah09mz3sxvh";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "18p5ncr4qq3shhmrf3zsmx7sqpzli2n2k9lbb1s64fqljcwnzkd1";
   };
 
   propagatedBuildInputs = [ catkin ];

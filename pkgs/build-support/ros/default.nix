@@ -1,18 +1,15 @@
 { stdenv
 , cmake
 , catkin
-, python3
 , python3Packages
+, python3
 }:
 
 attrs:
 
-let
-  pyEnv = with python3Packages;
-    [ python3 empy catkin_pkg rospkg catkin cmake ];
-
-in stdenv.mkDerivation (attrs // rec {
-  propagatedBuildInputs = pyEnv ++ (attrs.propagatedBuildInputs or []);
+stdenv.mkDerivation (attrs // rec {
+  propagatedBuildInputs = with python3Packages;
+    [ python3 cmake catkin_pkg rospkg catkin ] ++ (attrs.propagatedBuildInputs or []);
 
   # Disable testing by default
   doCheck = attrs.doCheck or false;
@@ -27,30 +24,20 @@ in stdenv.mkDerivation (attrs // rec {
     fi
   '';
 
-  postInstall = attrs.postInstall or ''
-    pushd ..
-    if [ -f 'package.xml' ]; then
-      cp package.xml ''$out
-    fi
-    if [ -d 'resources' ]; then
-      cp -r resources ''$out
-    fi
-    if [ -d 'images' ]; then
-      cp -r images ''$out
-    fi
-    if [ -d 'env-hooks' ]; then
-      cp -r env-hooks ''$out
-    fi
-    popd
-  '';
-
   postFixup = attrs.postFixup or ''
-    find "''$prefix" -type f -perm -0100 | while read f; do
-      if [ "''$(head -1 "''$f" | head -c+2)" != '#!' ]; then
-        # missing shebang => not a script
-        continue
-      fi
-      sed -i 's|#!\(/nix/store/.*/python\)|#!/usr/bin/env \1|' "''$f"
-    done
+    mkdir -p $out/nix-support && printf "${catkin}:''$out" > ros-paths
+
+    # Collect ROS paths
+    test -f $pkg/nix-support/propagated-build-inputs && \
+      for i in $propagatedBuildInputs; do
+        test -f $i/nix-support/ros-paths && \
+          printf ":$i:$(cat $i/nix-support/ros-paths)" >> ros-paths
+      done
+
+    # Optimize ROS paths
+    ${python3.interpreter} -c "print(':'.join(set(open('ros-paths').read().split(':'))))" > ''$out/nix-support/ros-paths
+
+    # Store ROS paths to env file
+    echo "export ROS_PACKAGE_PATH=\"`cat ''$out/nix-support/ros-paths`\"" >> ''$out/setup.sh
   '';
 })

@@ -1,27 +1,25 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, catkin
 , genmsg
 , gencpp
 , genpy
 }:
 
-let
+mkRosPackage rec {
+  name = "${pname}-${version}";
   pname = "message_generation";
   version = "0.4.0";
-
-in mkRosPackage {
-  name = "${pname}-${version}";
+  rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "${pname}-release";
-    rev = "release/lunar/${pname}/${version}-0";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
     sha256 = "0vnwr3jx0dapmyqgiy7h4qxkf837cv1wacqpxm5j10c864vmcrb3";
   };
 
-  propagatedBuildInputs = [ catkin genmsg gencpp genpy ];
+  propagatedBuildInputs = [ genmsg gencpp genpy ];
 
   postPatch = ''
     sed -i 's/geneus gennodejs genlisp //g' CMakeLists.txt

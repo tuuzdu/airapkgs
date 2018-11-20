@@ -31,12 +31,18 @@ in rec {
     inherit (nixos') channel iso_minimal;
     tests = {
       inherit (nixos'.tests)
+      #ipfs
+        ipv6
+        cjdns
         parity;
     };
   };
 
   nixpkgs = {
     inherit (nixpkgs')
+      tarball
+
+      ipfs
       parity
       parity-beta
 
@@ -64,6 +70,7 @@ in rec {
         (all nixpkgs.robonomics_dev)
         (all nixpkgs.robonomics_comm)
         (all nixpkgs.robonomics-tools)
+        (all nixpkgs.ipfs)
         (all nixpkgs.parity)
         (all nixpkgs.parity-beta)
       ]

@@ -27,7 +27,8 @@
 
 let
   pname = "ros_comm";
-  version = "1.13.6";
+  version = "1.14.4";
+  rosdistro = "melodic";
 
 in mkRosPackage {
   name = "${pname}-${version}";
@@ -35,8 +36,8 @@ in mkRosPackage {
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros_comm-release";
-    rev = "release/lunar/${pname}/${version}-0";
-    sha256 = "1scbxsilx3xrv5lk57nk2crw8cchh0yp1216bmphyqjfp9vi987r";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
+    sha256 = "0csdbk0hksvl08831brvnk7yg8p5gyxb4va822zyh31k17axnks2";
   };
 
   propagatedBuildInputs =

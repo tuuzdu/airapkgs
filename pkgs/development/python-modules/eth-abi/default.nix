@@ -9,7 +9,7 @@
 
 let
   pname = "eth-abi";
-  version = "1.1.1";
+  version = "1.2.2";
 in buildPythonPackage rec {
   name = "${pname}-${version}";
 
@@ -17,7 +17,7 @@ in buildPythonPackage rec {
     owner = "ethereum";
     repo = "${pname}";
     rev = "v${version}";
-    sha256 = "0irnn656rmwm23b7p88sfdgnfm1dbpqra08l6x3lkdj2ajnq6lsh";
+    sha256 = "0v3y2qp6k6z9my6cxjbq2jkjb5qcf1bkngca04pqv8i73y5k7v3q";
   };
 
   buildInputs = [ pytest hypothesis ];

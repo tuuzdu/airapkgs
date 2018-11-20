@@ -1,26 +1,24 @@
 { stdenv
 , mkRosPackage
 , fetchFromGitHub
-, catkin
 , message_generation
 , message_runtime
 }:
 
-let
+mkRosPackage rec {
+  name = "${pname}-${version}";
   pname = "std_srvs";
   version = "1.11.2";
-
-in mkRosPackage {
-  name = "${pname}-${version}";
+  rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros_comm_msgs-release";
-    rev = "release/lunar/${pname}/${version}-0";
+    rev = "release/${rosdistro}/${pname}/${version}-0";
     sha256 = "1lrc01bxlh4arcjaxa1vlzvhvcp5xd4ia0g01pbblmmhvyfy06s7";
   };
 
-  propagatedBuildInputs = [ catkin message_generation message_runtime ];
+  propagatedBuildInputs = [ message_generation message_runtime ];
 
   meta = with stdenv.lib; {
     description = "Common service definitions";

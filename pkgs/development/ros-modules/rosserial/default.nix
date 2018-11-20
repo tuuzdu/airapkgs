@@ -19,7 +19,7 @@ mkRosPackage rec {
     owner = "akru";
     repo = pname;
     rev = "${rosdistro}-devel";
-    sha256 = "0rs7ymz37y4wa1gshk1n8fyr504g7lg8bqd0rib7k5hkwar5bsxd";
+    sha256 = "11pa0xxjcqr4lc4x80ymsw3d4i1cs7n8k2j583ywfv1sy9q9aghw";
   };
 
   propagatedBuildInputs = with python3Packages;

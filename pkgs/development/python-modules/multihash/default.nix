@@ -15,6 +15,8 @@ buildPythonPackage rec {
     sha256 = "0wdxrxss1rv7rrydnwnb2wbfv5nazlm6n6mv7hx61hpblwhyfq9y";
   };
 
+  patches = [ ./base58-encoding-fix.patch ];
+
   propagatedBuildInputs = [ base58 ];
 
   meta = with stdenv.lib; {

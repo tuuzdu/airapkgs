@@ -20,6 +20,8 @@ in mkRosPackage {
     sha256 = "0czgdsy7acg32a6vhshfk61m8gqay1qv65v8i9fi4r4zc235d0sh";
   };
 
+  patches = [ ./print_report_stream_write_argument_type_fix.patch ];
+
   propagatedBuildInputs = [ catkin roslib ];
 
   meta = with stdenv.lib; {

@@ -23,9 +23,6 @@
     aira-graph.enable = true;
     aira-graph.graph = "graph.3.robonomics.eth";
     aira-graph.lighthouse = "airalab.lighthouse.3.robonomics.eth";
-
-    # Root autologin by default
-    mingetty.autologinUser = "root";
   };
 
   programs.zsh = {
@@ -47,10 +44,7 @@
   };
 
   # Allow the user to log in as root without a password.
-  users.extraUsers.root = {
-    initialHashedPassword = "";
-    shell = pkgs.zsh;
-  };
+  users.extraUsers.root.shell = pkgs.zsh;
 
   # Useful preinstall utils
   environment.systemPackages = with pkgs; [

@@ -23,7 +23,7 @@ in mkRosPackage {
 
   propagatedBuildInputs = with python3Packages;
   [ ros_comm actionlib ros_opcua_communication ipfsapi
-    numpy web3 google_api_python_client voluptuous multihash
+    numpy web3 google_api_python_client voluptuous multihash python-persistent-queue
   ];
 
   meta = with stdenv.lib; {

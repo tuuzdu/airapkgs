@@ -11076,6 +11076,8 @@ EOF
 
   multihash = callPackage ../development/python-modules/multihash { };
 
+  python-persistent-queue = callPackage ../development/python-modules/python-persistent-queue { };
+
   z3 = (toPythonModule (pkgs.z3.override {
     inherit python;
   })).python;

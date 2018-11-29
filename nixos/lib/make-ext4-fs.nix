@@ -54,9 +54,13 @@ pkgs.stdenv.mkDerivation {
         echo cd /nix
         echo mkdir store
 
-        # XXX: This explodes in exciting ways if anything in /nix/store has a space in it.
-        find $storePaths -printf '%y %f %h %m\n'| while read -r type file dir perms; do
-          # echo "TYPE=$type DIR=$dir FILE=$file PERMS=$perms" >&2
+        IFS=$'\n' # make newlines the only separator
+        for line in `find $storePaths -printf '%y|%f|%h|%m\n'`; do
+          type=`echo $line | cut -f1 -d '|'`
+          file=`echo $line | cut -f2 -d '|'`
+          dir=`echo $line | cut -f3 -d '|'`
+          perms=`echo $line | cut -f4 -d '|'`
+          #echo "TYPE=$type DIR=$dir FILE=$file PERMS=$perms" >&2
 
           echo "cd $dir"
           case $type in

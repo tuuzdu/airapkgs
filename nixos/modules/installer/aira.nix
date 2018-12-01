@@ -37,9 +37,10 @@
       export ADDRESS=`cat /var/lib/liability/keyfile|${pkgs.jq}/bin/jq ".address"`
       echo -e "\nMy Ethereum address is $ADDRESS"
       export ID=`${pkgs.ipfs}/bin/ipfs --api /ip4/127.0.0.1/tcp/5001 id|${pkgs.jq}/bin/jq ".ID"`
-      echo -e "\nLook me at https://status.robonomics.network by $ID"
+      echo -e "\nLook me at https://status.robonomics.network by $ID\n\n"
+    '';
+    shellInit = ''
       source ${pkgs.hello_aira}/setup.zsh
-      echo -e "\n\n"
     '';
   };
 
@@ -48,7 +49,7 @@
 
   # Useful preinstall utils
   environment.systemPackages = with pkgs; [
-    vim git htop screen cmake gcc robonomics-tools
+    vim git htop screen mosh cmake gcc robonomics-tools
   ];
 
 }

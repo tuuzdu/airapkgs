@@ -23471,6 +23471,8 @@ in
 
   robonomics_comm = callPackage ../applications/science/robotics/aira/robonomics_comm { };
 
+  robonomics_contracts = callPackage ../applications/science/robotics/aira/robonomics_contracts { };
+
   robonomics_game_transport = callPackage ../applications/science/robotics/aira/robonomics_game/transport.nix { };
 
   robonomics_game_warehouse = callPackage ../applications/science/robotics/aira/robonomics_game/warehouse.nix { };

@@ -6,14 +6,14 @@
 }:
 
 buildPythonPackage rec {
-  version = "0.7.0";
+  version = "0.8.1";
   pname = "parsimonious";
 
   src = fetchFromGitHub {
     repo = "parsimonious";
     owner = "erikrose";
     rev = version;
-    sha256 = "087npc8ccryrxabmqifcz56w4wd0hzmv0mc91wrbhc1sil196j0a";
+    sha256 = "1c6nb3jl9zpp7lbi2x12663xxnavrqi421rlch0gyaknnl680z2s";
   };
 
   propagatedBuildInputs = [ nose six ];

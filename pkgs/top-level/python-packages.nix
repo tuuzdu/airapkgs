@@ -4306,16 +4306,6 @@ in {
 
   sphinxcontrib-blockdiag = callPackage ../development/python-modules/sphinxcontrib-blockdiag { };
 
-  parsimonious = buildPythonPackage rec {
-    version = "0.8.0";
-    name = "parsimonious-${version}";
-    src = pkgs.fetchFromGitHub {
-      repo = "parsimonious";
-      owner = "erikrose";
-      rev = version;
-      sha256 = "0inm0393kv2yghik36m34jqhbv5zl1fpcpzshp1nsb6d4lwm0jcv";
-    };
-
   sphinxcontrib-openapi = callPackage ../development/python-modules/sphinxcontrib-openapi { };
 
   sphinxcontrib_httpdomain = callPackage ../development/python-modules/sphinxcontrib_httpdomain { };

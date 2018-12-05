@@ -58,6 +58,12 @@ in {
         description = "Web3 websocket provider address";
       };
 
+      enable_aira_graph = mkOption {
+        type = types.str;
+        default = "true";
+        description = "Enable aira_graph node";
+      };
+
     };
   };
 
@@ -100,7 +106,8 @@ in {
               keyfile:="${cfg.keyfile}" \
               keyfile_password_file:="${cfg.keyfile_password_file}" \
               web3_http_provider:="${cfg.web3_http_provider}" \
-              web3_ws_provider:="${cfg.web3_ws_provider}"
+              web3_ws_provider:="${cfg.web3_ws_provider}" \
+              enable_aira_graph:="${cfg.enable_aira_graph}"
       '';
 
       serviceConfig = {

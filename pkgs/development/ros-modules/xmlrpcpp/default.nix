@@ -9,14 +9,14 @@
 mkRosPackage rec {
   name = "${pname}-${version}";
   pname = "xmlrpcpp";
-  version = "1.13.6";
+  version = "1.14.4";
   rosdistro = "melodic";
 
   src = fetchFromGitHub {
     owner = "ros-gbp";
     repo = "ros_comm-release";
     rev = "release/${rosdistro}/${pname}/${version}-0";
-    sha256 = "1q773y8wkp88agkzz2q06flv2glhxmq18k76jlwf5knm4vhnicrm";
+    sha256 = "0yj9wiwmd95cp6y06mb0bni6adqv9ph1k4vw5z3k0s469wq5dg33";
   };
 
   propagatedBuildInputs = [ catkin cpp_common rostime ];

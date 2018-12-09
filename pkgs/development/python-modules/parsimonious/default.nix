@@ -1,6 +1,6 @@
 { stdenv
 , buildPythonPackage
-, fetchFromGitHub
+, fetchPypi
 , nose
 , six
 }:
@@ -16,7 +16,8 @@ buildPythonPackage rec {
     sha256 = "1c6nb3jl9zpp7lbi2x12663xxnavrqi421rlch0gyaknnl680z2s";
   };
 
-  propagatedBuildInputs = [ nose six ];
+  checkInputs = [ nose ];
+  propagatedBuildInputs = [ six ];
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/erikrose/parsimonious";

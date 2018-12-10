@@ -62,9 +62,9 @@ in rec {
     inherit (nixpkgs')
       tarball
 
-      ipfs
       parity
       parity-beta
+      polkadot
 
       ros_comm
       rosserial
@@ -92,9 +92,9 @@ in rec {
         (all nixpkgs.robonomics_comm)
         (all nixpkgs.robonomics_comm-gen4)
         (all nixpkgs.robonomics-tools)
-        (all nixpkgs.ipfs)
         (all nixpkgs.parity)
         (all nixpkgs.parity-beta)
+        (all nixpkgs.polkadot)
       ]
       ++ lib.collect lib.isDerivation nixos;
   });

@@ -1,6 +1,6 @@
 { stdenv
 , buildPythonPackage
-, fetchPypi
+, fetchFromGitHub 
 , nose
 , six
 }:

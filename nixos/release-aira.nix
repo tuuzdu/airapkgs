@@ -34,7 +34,8 @@ in rec {
         ipfs
         ipv6
         cjdns
-        parity;
+        parity
+        liability;
     };
   };
 

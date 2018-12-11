@@ -23217,7 +23217,7 @@ in
 
   robonomics_comm = callPackage ../applications/science/robotics/aira/robonomics_comm { };
 
-  robonomics_comm-gen4 = callPackage ../applications/science/robotics/aira/robonomics_comm-gen4 { };
+  robonomics_comm-nightly = callPackage ../applications/science/robotics/aira/robonomics_comm/nightly.nix { };
 
   robonomics_contracts = callPackage ../applications/science/robotics/aira/robonomics_contracts { };
 

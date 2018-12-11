@@ -654,9 +654,7 @@
   ./services/networking/zerotierone.nix
   ./services/networking/znc/default.nix
   ./services/printing/cupsd.nix
-  ./services/robonomics/aira-graph.nix
   ./services/robonomics/liability.nix
-  ./services/robonomics/liability-gen4.nix
   ./services/robonomics/erc20.nix
   ./services/robonomics/xrtd.nix
   ./services/scheduling/atd.nix

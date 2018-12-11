@@ -119,6 +119,7 @@ in
   ldap = handleTest ./ldap.nix {};
   leaps = handleTest ./leaps.nix {};
   #lightdm = handleTest ./lightdm.nix {};
+  liability = handleTest ./liability.nix {};
   login = handleTest ./login.nix {};
   #logstash = handleTest ./logstash.nix {};
   mathics = handleTest ./mathics.nix {};

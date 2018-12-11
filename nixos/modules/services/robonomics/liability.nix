@@ -17,6 +17,13 @@ in {
     services.liability = {
       enable = mkEnableOption "Enable Robonomics liability executor service.";
 
+      package = mkOption {
+        type = types.package;
+        default = pkgs.robonomics_comm;
+        defaultText = "pkgs.robonomics_comm";
+        description = "Robonomics communication stack to use";
+      };
+
       ens = mkOption {
         type = types.str;
         default = mainnetEns;
@@ -58,17 +65,12 @@ in {
         description = "Web3 websocket provider address";
       };
 
-      enable_aira_graph = mkOption {
-        type = types.str;
-        default = "true";
-        description = "Enable aira_graph node";
-      };
-
+      enable_aira_graph = mkEnableOption "Enable aira_graph node";
     };
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ robonomics_comm ];
+    environment.systemPackages = [ cfg.package ];
 
     # Enable dependencies
     services = {
@@ -99,7 +101,7 @@ in {
       '';
 
       script = ''
-        source ${pkgs.robonomics_comm}/setup.bash \
+        source ${cfg.package}/setup.bash \
           && roslaunch robonomics_liability liability.launch \
               ens_contract:="${cfg.ens}" \
               lighthouse_contract:="${cfg.lighthouse}" \
@@ -107,7 +109,7 @@ in {
               keyfile_password_file:="${cfg.keyfile_password_file}" \
               web3_http_provider:="${cfg.web3_http_provider}" \
               web3_ws_provider:="${cfg.web3_ws_provider}" \
-              enable_aira_graph:="${cfg.enable_aira_graph}"
+              enable_aira_graph:="${if cfg.enable_aira_graph then "true" else "false"}"
       '';
 
       serviceConfig = {

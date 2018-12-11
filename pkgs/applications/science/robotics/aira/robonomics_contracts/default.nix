@@ -26,14 +26,14 @@ let
 in stdenv.mkDerivation rec {
 
   pname = "robonomics_contracts";
-  version = "1.0.0-rc1";
+  version = "1.0.0-rc2";
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
       owner = "airalab";
       repo = "robonomics_contracts";
-      rev = "9c6a3a46182a04cecf4341d6e4769c8c51f7746c";
-      sha256 = "19cjbnp5ndza4vabfvzq1375b8scv555bk5inf9vv4806bzgw3vv";
+      rev = "31edea278a86425fdea12c9ba753c07b3d2d7e8e";
+      sha256 = "1pqjf681r9swb67x34z97xdmzdy6z3g408n0f6ps2fpyz64shq06";
   };
 
   buildInputs = [ makeWrapper nodejs ];

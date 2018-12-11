@@ -72,8 +72,10 @@ reseal_on_txs = "none"
 
   ENS_address = "0x5F3DBa5e45909D1bf126aA0aF0601B1a369dbFD7";
 
+  lighthouse_contract = "test.lighthouse.4.robonomics.eth";
+
 in {
-  name = "liability-gen4";
+  name = "liability";
   meta = with pkgs.stdenv.lib.maintainers; {
     maintainers = [ strdn akru ];
   };
@@ -89,7 +91,7 @@ in {
 
   nodes = {
 
-    liability_gen4_node =
+    liability_node =
       { config, ... }:
 
       {
@@ -104,7 +106,7 @@ in {
         }];
 
         environment.systemPackages = with pkgs;
-        [ robonomics_comm-gen4
+        [ robonomics_comm-nightly
           robonomics_contracts
           robonomics-tools
           parity
@@ -117,15 +119,16 @@ in {
           defaultMode = "norouting";
         };
 
-        services.liability-gen4 = {
+        services.liability = {
           enable = true;
+          package = pkgs.robonomics_comm-nightly;
           web3_http_provider = "http://127.0.0.1:10545";
           web3_ws_provider = "ws://127.0.0.1:10546";
           lighthouse = "test.lighthouse.4.robonomics.eth";
           ens = "0x5F3DBa5e45909D1bf126aA0aF0601B1a369dbFD7";
           keyfile = "/etc/keys/LiabilityTest/user.keyfile";
           keyfile_password_file = "/etc/keys/user.psk";
-          enable_aira_graph = "false";
+          enable_aira_graph = false;
         };
 
         services.parity = {
@@ -151,7 +154,7 @@ user'';
         environment.etc."liability-test-chain.json".text = chain_spec;
 
         environment.etc."xrtc-launch".text = "xrtd --private 3df8095dfbae93d8c7f1143b217a483d57a7f745e2542425dfe2fa25264cb2e8 --web3 http://localhost:10545 --ens 0x5F3DBa5e45909D1bf126aA0aF0601B1a369dbFD7 --chain 8995 --lighthouse test.lighthouse.4.robonomics.eth > /tmp/xrtd.log 2>&1 &";
-        environment.etc."rostest-launch".text = "source ${pkgs.robonomics_comm-gen4}/setup.bash && rostest -r robonomics_liability liability.test ens_contract:=0x5F3DBa5e45909D1bf126aA0aF0601B1a369dbFD7 lighthouse_contract:='test.lighthouse.4.robonomics.eth'  web3_http_provider:='http://127.0.0.1:10545'  test_token:=0xDfE46C9140819979D4d02297EC37DAa224f512f2";
+        environment.etc."rostest-launch".text = "source ${pkgs.robonomics_comm-nightly}/setup.bash && rostest -r robonomics_liability liability.test ens_contract:=0x5F3DBa5e45909D1bf126aA0aF0601B1a369dbFD7 lighthouse_contract:='test.lighthouse.4.robonomics.eth'  web3_http_provider:='http://127.0.0.1:10545'  test_token:=0xDfE46C9140819979D4d02297EC37DAa224f512f2";
 
         networking.firewall.enable = false;
       };
@@ -161,26 +164,25 @@ user'';
     startAll;
 
     #parity
-    $liability_gen4_node->waitForUnit("parity");
-    $liability_gen4_node->waitForOpenPort("10545");
-    $liability_gen4_node->waitForOpenPort("10546");
+    $liability_node->waitForUnit("parity");
+    $liability_node->waitForOpenPort("10545");
+    $liability_node->waitForOpenPort("10546");
 
     #liability
-    $liability_gen4_node->waitForUnit("liability-gen4");
+    $liability_node->waitForUnit("liability");
 
     #all units started, run robonomics_contracts creation
-    $liability_gen4_node->mustSucceed("
+    $liability_node->mustSucceed("
       truffle migrate --network testing
     ");
 
     #run xrtd. TODO: systemd service
-    $liability_gen4_node->mustSucceed("
-      xrtd --private 3df8095dfbae93d8c7f1143b217a483d57a7f745e2542425dfe2fa25264cb2e8 --web3 http://localhost:10545 --ens 0x5F3DBa5e45909D1bf126aA0aF0601B1a369dbFD7 --chain 8995 --lighthouse test.lighthouse.4.robonomics.eth > /tmp/xrtd.log 2>&1 &
+    $liability_node->mustSucceed("
+      xrtd --private 3df8095dfbae93d8c7f1143b217a483d57a7f745e2542425dfe2fa25264cb2e8 --web3 http://localhost:10545 --ens ${ENS_address} --chain 8995 --lighthouse ${lighthouse_contract} > /tmp/xrtd.log 2>&1 &
     ");
 
-    $liability_gen4_node->mustSucceed("
-      source ${pkgs.robonomics_comm-gen4}/setup.bash && rostest -r robonomics_liability liability.test ens_contract:=0x5F3DBa5e45909D1bf126aA0aF0601B1a369dbFD7 lighthouse_contract:='test.lighthouse.4.robonomics.eth'  web3_http_provider:='http://127.0.0.1:10545'  test_token:=0xDfE46C9140819979D4d02297EC37DAa224f512f2 >&2
+    $liability_node->mustSucceed("
+      source ${pkgs.robonomics_comm-nightly}/setup.bash && rostest -r robonomics_liability liability.test ens_contract:=${ENS_address} lighthouse_contract:=${lighthouse_contract}  web3_http_provider:='http://127.0.0.1:10545'  test_token:=0xDfE46C9140819979D4d02297EC37DAa224f512f2 >&2
     ");
-
   '';
 })

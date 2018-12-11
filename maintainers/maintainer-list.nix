@@ -4283,6 +4283,11 @@
     github = "talyz";
     name = "Kim Lindberger";
   };
+  taneb = {
+    email = "nvd1234@gmail.com";
+    github = "Taneb";
+    name = "Nathan van Doorn";
+  };
   tari = {
     email = "peter@taricorp.net";
     github = "tari";

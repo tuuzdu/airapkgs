@@ -21,11 +21,6 @@
     liability.web3_http_provider = "https://mainnet.infura.io/v3/cd7368514cbd4135b06e2c5581a4fff7";
     liability.web3_ws_provider = "wss://mainnet.infura.io/ws";
     liability.lighthouse = "airalab.lighthouse.3.robonomics.eth";
-
-    # Enable graph monitoring
-    aira-graph.enable = true;
-    aira-graph.graph = "graph.3.robonomics.eth";
-    aira-graph.lighthouse = "airalab.lighthouse.3.robonomics.eth";
   };
 
   programs.zsh = {

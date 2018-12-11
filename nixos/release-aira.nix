@@ -72,10 +72,9 @@ in rec {
       mavros
       dji_sdk
 
-      aira-graph
       robonomics_dev
       robonomics_comm
-      robonomics_comm-gen4
+      robonomics_comm-nightly
       robonomics-tools;
   };
 
@@ -88,10 +87,9 @@ in rec {
     constituents =
       let all = x: map (system: x.${system}) supportedSystems; in
       [ nixpkgs.tarball
-        (all nixpkgs.aira-graph)
         (all nixpkgs.robonomics_dev)
         (all nixpkgs.robonomics_comm)
-        (all nixpkgs.robonomics_comm-gen4)
+        (all nixpkgs.robonomics_comm-nightly)
         (all nixpkgs.robonomics-tools)
         (all nixpkgs.parity)
         (all nixpkgs.parity-beta)

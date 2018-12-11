@@ -23233,8 +23233,6 @@ in
 
   robonomics_dev = callPackage ../applications/science/robotics/aira/robonomics_dev { };
 
-  aira-graph = callPackage ../applications/science/robotics/aira/aira-graph.nix { };
-
   hello_aira = callPackage ../applications/science/robotics/aira/hello_aira.nix { };
 
   de_dev = callPackage ../applications/science/robotics/aira/de_dev { };

@@ -66,6 +66,12 @@ in {
       };
 
       enable_aira_graph = mkEnableOption "Enable aira_graph node";
+
+      ros_master_uri = mkOption {
+        type = types.str or null;
+        default = null;
+        description = "ROS master node location";
+      };
     };
   };
 
@@ -91,6 +97,10 @@ in {
       wants = [ "ipfs.service" ];
       wantedBy = [ "multi-user.target" ];
 
+      environment =
+        if cfg.ros_master_uri != null
+        then { ROS_MASTER_URI = cfg.ros_master_uri; }
+        else {};
 
       preStart = ''
         if [ ! -e ${cfg.keyfile} ]; then

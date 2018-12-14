@@ -726,13 +726,13 @@ let
         sha1 = "a7d0558bd89c42f795dd42328f740831ca53bc25";
       };
     };
-    "colors-1.3.2" = {
+    "colors-1.3.3" = {
       name = "colors";
       packageName = "colors";
-      version = "1.3.2";
+      version = "1.3.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/colors/-/colors-1.3.2.tgz";
-        sha512 = "rhP0JSBGYvpcNQj4s5AdShMeE5ahMop96cTeDl/v9qQQm2fYClE2QXZRi8wLzc+GmXSxdIqqbOIAhyObEXDbfQ==";
+        url = "https://registry.npmjs.org/colors/-/colors-1.3.3.tgz";
+        sha512 = "mmGt/1pZqYRjMxB1axhTo16/snVZ5krrKkcmMeVKxzECMMXoCgnvTPp10QgHfcbQZw8Dq2jMNG6je4JlWU0gWg==";
       };
     };
     "combined-stream-1.0.7" = {
@@ -1721,7 +1721,7 @@ let
       packageName = "is-accessor-descriptor";
       version = "0.1.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-accessor-descriptor/-/is-accessor-descriptor-0.1.6.tgz";
+        url = "http://registry.npmjs.org/is-accessor-descriptor/-/is-accessor-descriptor-0.1.6.tgz";
         sha1 = "a9e12cb3ae8d876727eeef3843f8a0897b5c98d6";
       };
     };
@@ -1775,7 +1775,7 @@ let
       packageName = "is-data-descriptor";
       version = "0.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-data-descriptor/-/is-data-descriptor-0.1.4.tgz";
+        url = "http://registry.npmjs.org/is-data-descriptor/-/is-data-descriptor-0.1.4.tgz";
         sha1 = "0b5ee648388e2c860282e793f1856fec3f301b56";
       };
     };
@@ -2666,7 +2666,7 @@ let
       packageName = "path-browserify";
       version = "0.0.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/path-browserify/-/path-browserify-0.0.0.tgz";
+        url = "http://registry.npmjs.org/path-browserify/-/path-browserify-0.0.0.tgz";
         sha1 = "a0b870729aae214005b7d5032ec2cbbb0fb4451a";
       };
     };
@@ -2814,13 +2814,13 @@ let
         sha1 = "f052a28da70e618917ef0a8ac34c1ae5a68286b3";
       };
     };
-    "psl-1.1.29" = {
+    "psl-1.1.31" = {
       name = "psl";
       packageName = "psl";
-      version = "1.1.29";
+      version = "1.1.31";
       src = fetchurl {
-        url = "https://registry.npmjs.org/psl/-/psl-1.1.29.tgz";
-        sha512 = "AeUmQ0oLN02flVHXWh9sSJF7mcdFq0ppid/JkErufc3hGIV/AMa8Fo9VgDo/cT2jFdOWoFvHp90qqBH54W+gjQ==";
+        url = "https://registry.npmjs.org/psl/-/psl-1.1.31.tgz";
+        sha512 = "/6pt4+C+T+wZUieKR620OpzN/LlnNKuWjy1iFLQ/UG35JqHlR/89MP1d96dUfkf6Dne3TuLQzOYEYshJ+Hx8mw==";
       };
     };
     "public-encrypt-4.0.3" = {
@@ -3363,13 +3363,13 @@ let
         sha1 = "3e935d7ddd73631b97659956d55128e87b5084a3";
       };
     };
-    "spdx-correct-3.0.2" = {
+    "spdx-correct-3.1.0" = {
       name = "spdx-correct";
       packageName = "spdx-correct";
-      version = "3.0.2";
+      version = "3.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/spdx-correct/-/spdx-correct-3.0.2.tgz";
-        sha512 = "q9hedtzyXHr5S0A1vEPoK/7l8NpfkFYTq6iCY+Pno2ZbdZR6WexZFtqeVGkGxW3TEJMN914Z55EnAGMmenlIQQ==";
+        url = "https://registry.npmjs.org/spdx-correct/-/spdx-correct-3.1.0.tgz";
+        sha512 = "lr2EZCctC2BNR7j7WzJ2FpDznxky1sjfxvvYEyzxNyb6lZXHODmEoJeFu4JupYlkfha1KZpJyoqiJ7pgA1qq8Q==";
       };
     };
     "spdx-exceptions-2.2.0" = {
@@ -3746,7 +3746,7 @@ let
       packageName = "tty-browserify";
       version = "0.0.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tty-browserify/-/tty-browserify-0.0.0.tgz";
+        url = "http://registry.npmjs.org/tty-browserify/-/tty-browserify-0.0.0.tgz";
         sha1 = "a157ba402da24e9bf957f9aa69d524eed42901a6";
       };
     };
@@ -3944,7 +3944,7 @@ let
       packageName = "vm-browserify";
       version = "0.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/vm-browserify/-/vm-browserify-0.0.4.tgz";
+        url = "http://registry.npmjs.org/vm-browserify/-/vm-browserify-0.0.4.tgz";
         sha1 = "5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73";
       };
     };
@@ -4233,7 +4233,7 @@ in
       sources."caseless-0.12.0"
       sources."charenc-0.0.2"
       sources."cli-table3-0.5.1"
-      sources."colors-1.3.2"
+      sources."colors-1.3.3"
       sources."combined-stream-1.0.7"
       sources."commander-2.11.0"
       sources."concat-map-0.0.1"
@@ -4294,7 +4294,7 @@ in
       sources."performance-now-2.1.0"
       sources."process-nextick-args-2.0.0"
       sources."promise-8.0.2"
-      sources."psl-1.1.29"
+      sources."psl-1.1.31"
       sources."punycode-2.1.1"
       sources."qs-6.5.2"
       sources."readable-stream-2.3.6"
@@ -4762,7 +4762,7 @@ in
       sources."source-map-resolve-0.5.2"
       sources."source-map-support-0.5.9"
       sources."source-map-url-0.4.0"
-      sources."spdx-correct-3.0.2"
+      sources."spdx-correct-3.1.0"
       sources."spdx-exceptions-2.2.0"
       sources."spdx-expression-parse-3.0.0"
       sources."spdx-license-ids-3.0.2"
@@ -5072,6 +5072,40 @@ in
     meta = {
       description = "Truffle Flattener concats solidity files developed under Truffle with all of their dependencies";
       homepage = https://github.com/nomiclabs/truffle-flattener;
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+  };
+  "truffle-hdwallet-provider-1.0.0-web3one.4" = nodeEnv.buildNodePackage {
+    name = "truffle-hdwallet-provider";
+    packageName = "truffle-hdwallet-provider";
+    version = "1.0.0-web3one.4";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/truffle-hdwallet-provider/-/truffle-hdwallet-provider-1.0.0-web3one.4.tgz";
+      sha512 = "YUGkj5B9SUjSggh2Bb3JHPJ2JApvED1lUKhOprTfd86mn5rkZt7vPwKc5KrVCaMIgaTsGDsq2547fPr/vlCnKA==";
+    };
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "HD Wallet-enabled Web3 provider";
+      homepage = "https://github.com/trufflesuite/truffle-hdwallet-provider#readme";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+  };
+  any-promise = nodeEnv.buildNodePackage {
+    name = "any-promise";
+    packageName = "any-promise";
+    version = "1.3.0";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/any-promise/-/any-promise-1.3.0.tgz";
+      sha1 = "abc6afeedcea52e809cdc0376aed3ce39635d17f";
+    };
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Resolve any installed ES6 compatible promise";
+      homepage = http://github.com/kevinbeaty/any-promise;
       license = "MIT";
     };
     production = true;

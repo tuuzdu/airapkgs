@@ -20,20 +20,22 @@ let
           nodePackages."ganache-cli-7.0.0-beta.0"
           nodePackages."truffle-5.0.0-beta.2"
           nodePackages.truffle-flattener
+          nodePackages."truffle-hdwallet-provider-1.0.0-web3one.4"
+          nodePackages.any-promise
     ];
   };
 
 in stdenv.mkDerivation rec {
 
   pname = "robonomics_contracts";
-  version = "1.0.0-rc2";
+  version = "1.0-rc2";
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
       owner = "airalab";
-      repo = "robonomics_contracts";
-      rev = "31edea278a86425fdea12c9ba753c07b3d2d7e8e";
-      sha256 = "1pqjf681r9swb67x34z97xdmzdy6z3g408n0f6ps2fpyz64shq06";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "1mxcw4vvhx0fqgrxzgmi73bnf9qm5fhkasi1hf96agxz1jvb6qxd";
   };
 
   buildInputs = [ makeWrapper nodejs ];

@@ -8,4 +8,6 @@
 , { "ganache-cli": "7.0.0-beta.0" }
 , { "truffle": "5.0.0-beta.2" }
 , "truffle-flattener"
+, { "truffle-hdwallet-provider": "1.0.0-web3one.4" }
+, "any-promise"
 ]

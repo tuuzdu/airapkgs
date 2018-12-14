@@ -13,7 +13,7 @@ mkDerivation rec {
     owner = "airalab";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1s3wcq8ib1miabddasq12cpxzxm5sxwgrn2vkj0c67cyfs1ksiz7";
+    sha256 = "05jqf6nr6l0nqi5pnzk2d341j9f9y3zk863zh4mnfdh9yfxmhszz";
   };
 
   isLibrary = true;

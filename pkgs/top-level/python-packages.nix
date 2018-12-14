@@ -422,6 +422,8 @@ in {
 
   mail-parser = callPackage ../development/python-modules/mail-parser { };
 
+  manhole = callPackage ../development/python-modules/manhole { };
+
   markerlib = callPackage ../development/python-modules/markerlib { };
 
   matchpy = callPackage ../development/python-modules/matchpy { };
@@ -714,6 +716,8 @@ in {
 
   slicerator = callPackage ../development/python-modules/slicerator { };
 
+  slither-analyzer = callPackage ../development/python-modules/slither-analyzer { };
+
   snapcast = callPackage ../development/python-modules/snapcast { };
 
   spglib = callPackage ../development/python-modules/spglib { };
@@ -834,6 +838,8 @@ in {
   application = callPackage ../development/python-modules/application { };
 
   appnope = callPackage ../development/python-modules/appnope { };
+
+  approvaltests = callPackage ../development/python-modules/approvaltests { };
 
   apsw = callPackage ../development/python-modules/apsw {};
 
@@ -1173,6 +1179,8 @@ in {
   cassandra-driver = callPackage ../development/python-modules/cassandra-driver { };
 
   cccolutils = callPackage ../development/python-modules/cccolutils {};
+
+  cchardet = callPackage ../development/python-modules/cchardet { };
 
   CDDB = callPackage ../development/python-modules/cddb { };
 
@@ -2564,7 +2572,10 @@ in {
 
   google_resumable_media = callPackage ../development/python-modules/google_resumable_media { };
 
-  gpgme = toPythonModule (pkgs.gpgme.override { pythonSupport=true; });
+  gpgme = toPythonModule (pkgs.gpgme.override {
+    pythonSupport = true;
+    inherit python;
+  });
 
   gphoto2 = callPackage ../development/python-modules/gphoto2 {
     inherit (pkgs) pkgconfig;
@@ -2699,6 +2710,8 @@ in {
   jedi = callPackage ../development/python-modules/jedi { };
 
   jellyfish = callPackage ../development/python-modules/jellyfish { };
+
+  jeepney = callPackage ../development/python-modules/jeepney { };
 
   j2cli = callPackage ../development/python-modules/j2cli { };
 
@@ -2962,6 +2975,8 @@ in {
   mock = callPackage ../development/python-modules/mock { };
 
   mock-open = callPackage ../development/python-modules/mock-open { };
+
+  mockito = callPackage ../development/python-modules/mockito { };
 
   modestmaps = callPackage ../development/python-modules/modestmaps { };
 
@@ -3802,9 +3817,13 @@ in {
 
   robotframework-ride = callPackage ../development/python-modules/robotframework-ride { };
 
+  robotframework-seleniumlibrary = callPackage ../development/python-modules/robotframework-seleniumlibrary { };
+
   robotframework-selenium2library = callPackage ../development/python-modules/robotframework-selenium2library { };
 
   robotframework-tools = callPackage ../development/python-modules/robotframework-tools { };
+
+  robotstatuschecker = callPackage ../development/python-modules/robotstatuschecker { };
 
   robotsuite = callPackage ../development/python-modules/robotsuite { };
 
@@ -4627,9 +4646,7 @@ in {
 
   trollius = callPackage ../development/python-modules/trollius {};
 
-  neovim = callPackage ../development/python-modules/neovim {};
-
-  neovim_gui = callPackage ../development/python-modules/neovim_gui { };
+  pynvim = callPackage ../development/python-modules/pynvim {};
 
   typogrify = callPackage ../development/python-modules/typogrify { };
 

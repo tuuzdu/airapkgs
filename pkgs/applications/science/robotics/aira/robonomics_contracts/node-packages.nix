@@ -94,13 +94,13 @@ let
         sha1 = "73b5eeca3fab653e3d3f9422b341ad42205dc965";
       };
     };
-    "ajv-6.6.1" = {
+    "ajv-6.6.2" = {
       name = "ajv";
       packageName = "ajv";
-      version = "6.6.1";
+      version = "6.6.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-6.6.1.tgz";
-        sha512 = "ZoJjft5B+EJBjUyu9C9Hc0OZyPZSSlOF+plzouTrg6UlA8f+e/n8NIgBFG/9tppJtpPWfthHakK7juJdNDODww==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-6.6.2.tgz";
+        sha512 = "FBHEW6Jf5TB9MGBgUUA9XHkTbjXYfAUjY43ACMfmdMRHniyoMHjHjzD50OK8LGDWQwp4rWEsIq5kEqq7rvIM1g==";
       };
     };
     "ajv-keywords-3.2.0" = {
@@ -2400,13 +2400,13 @@ let
         sha512 = "tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==";
       };
     };
-    "nan-2.11.1" = {
+    "nan-2.12.0" = {
       name = "nan";
       packageName = "nan";
-      version = "2.11.1";
+      version = "2.12.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/nan/-/nan-2.11.1.tgz";
-        sha512 = "iji6k87OSXa0CcrLl9z+ZiYSuR2o+c0bGuNmXdrhTQTakxytAFsC56SArGYoiHlJlFoHSnvmhpceZJaXkVuOtA==";
+        url = "https://registry.npmjs.org/nan/-/nan-2.12.0.tgz";
+        sha512 = "zT5nC0JhbljmyEf+Z456nvm7iO7XgRV2hYxoBtPpnyp+0Q4aCoP6uWNn76v/I6k2kCYNLWqWbwBWQcjsNI/bjw==";
       };
     };
     "nanomatch-1.2.13" = {
@@ -3066,13 +3066,13 @@ let
         sha1 = "97f717b69d48784f5f526a6c5aa8ffdda055a4d1";
       };
     };
-    "resolve-1.8.1" = {
+    "resolve-1.9.0" = {
       name = "resolve";
       packageName = "resolve";
-      version = "1.8.1";
+      version = "1.9.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/resolve/-/resolve-1.8.1.tgz";
-        sha512 = "AicPrAC7Qu1JxPCZ9ZgCZlY35QgFnNqc+0LtbRNxnVw4TXvjQ72wnuL9JQcEBgXkI9JM8MsT9kaQoHcpCRJOYA==";
+        url = "https://registry.npmjs.org/resolve/-/resolve-1.9.0.tgz";
+        sha512 = "TZNye00tI67lwYvzxCxHGjwTNlUV70io54/Ed4j6PscB8xVfuBJpRenI/o6dVk0cY0PYTY27AgCoGGxRnYuItQ==";
       };
     };
     "resolve-from-3.0.0" = {
@@ -3458,7 +3458,7 @@ let
       packageName = "string-width";
       version = "1.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/string-width/-/string-width-1.0.2.tgz";
+        url = "http://registry.npmjs.org/string-width/-/string-width-1.0.2.tgz";
         sha1 = "118bdf5b8cdc51a2a7e70d211e07e2b0b9b107d3";
       };
     };
@@ -4216,7 +4216,7 @@ in
       sources."@types/node-9.6.40"
       sources."@types/qs-6.5.1"
       sources."abi-decoder-1.2.0"
-      sources."ajv-6.6.1"
+      sources."ajv-6.6.2"
       sources."ansi-regex-3.0.0"
       sources."asap-2.0.6"
       sources."asn1-0.2.4"
@@ -4304,7 +4304,7 @@ in
       sources."request-2.88.0"
       sources."request-promise-core-1.1.1"
       sources."request-promise-native-1.0.5"
-      sources."resolve-1.8.1"
+      sources."resolve-1.9.0"
       sources."resolve-from-3.0.0"
       sources."safe-buffer-5.1.2"
       sources."safer-buffer-2.1.2"
@@ -4405,7 +4405,7 @@ in
           sources."acorn-4.0.13"
         ];
       })
-      sources."ajv-6.6.1"
+      sources."ajv-6.6.2"
       sources."ajv-keywords-3.2.0"
       sources."align-text-0.1.4"
       sources."ansi-regex-2.1.1"
@@ -4641,7 +4641,7 @@ in
       sources."mixin-deep-1.3.1"
       sources."mkdirp-0.5.1"
       sources."ms-2.0.0"
-      sources."nan-2.11.1"
+      sources."nan-2.12.0"
       (sources."nanomatch-1.2.13" // {
         dependencies = [
           sources."kind-of-6.0.2"
@@ -4946,7 +4946,7 @@ in
       sources."mkdirp-0.5.1"
       sources."mocha-4.1.0"
       sources."ms-2.0.0"
-      sources."nan-2.11.1"
+      sources."nan-2.12.0"
       sources."npm-run-path-2.0.2"
       sources."number-is-nan-1.0.1"
       sources."once-1.4.0"
@@ -5072,40 +5072,6 @@ in
     meta = {
       description = "Truffle Flattener concats solidity files developed under Truffle with all of their dependencies";
       homepage = https://github.com/nomiclabs/truffle-flattener;
-      license = "MIT";
-    };
-    production = true;
-    bypassCache = true;
-  };
-  "truffle-hdwallet-provider-1.0.0-web3one.4" = nodeEnv.buildNodePackage {
-    name = "truffle-hdwallet-provider";
-    packageName = "truffle-hdwallet-provider";
-    version = "1.0.0-web3one.4";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/truffle-hdwallet-provider/-/truffle-hdwallet-provider-1.0.0-web3one.4.tgz";
-      sha512 = "YUGkj5B9SUjSggh2Bb3JHPJ2JApvED1lUKhOprTfd86mn5rkZt7vPwKc5KrVCaMIgaTsGDsq2547fPr/vlCnKA==";
-    };
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "HD Wallet-enabled Web3 provider";
-      homepage = "https://github.com/trufflesuite/truffle-hdwallet-provider#readme";
-      license = "MIT";
-    };
-    production = true;
-    bypassCache = true;
-  };
-  any-promise = nodeEnv.buildNodePackage {
-    name = "any-promise";
-    packageName = "any-promise";
-    version = "1.3.0";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/any-promise/-/any-promise-1.3.0.tgz";
-      sha1 = "abc6afeedcea52e809cdc0376aed3ce39635d17f";
-    };
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "Resolve any installed ES6 compatible promise";
-      homepage = http://github.com/kevinbeaty/any-promise;
       license = "MIT";
     };
     production = true;

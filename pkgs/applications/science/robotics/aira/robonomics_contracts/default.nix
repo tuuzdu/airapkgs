@@ -20,8 +20,6 @@ let
           nodePackages."ganache-cli-7.0.0-beta.0"
           nodePackages."truffle-5.0.0-beta.2"
           nodePackages.truffle-flattener
-          nodePackages."truffle-hdwallet-provider-1.0.0-web3one.4"
-          nodePackages.any-promise
     ];
   };
 
@@ -34,8 +32,8 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
       owner = "airalab";
       repo = pname;
-      rev = "v${version}";
-      sha256 = "1mxcw4vvhx0fqgrxzgmi73bnf9qm5fhkasi1hf96agxz1jvb6qxd";
+      rev = "903086d3c8cbcf7eae4f321cdb4ff9c5c2bcb84a";
+      sha256 = "0mxcw4vvhx0fqgrxzgmi73bnf9qm5fhkasi1hf96agxz1jvb6qxd";
   };
 
   buildInputs = [ makeWrapper nodejs ];

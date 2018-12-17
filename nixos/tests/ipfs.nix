@@ -11,7 +11,7 @@ import ./make-test.nix ({ pkgs, ...} : {
       {
         services.ipfs = {
           enable = true;
-          defaultMode = "norouting";
+          extraConfig = { Bootstrap = []; };
           gatewayAddress = "/ip4/127.0.0.1/tcp/2323";
           apiAddress = "/ip4/127.0.0.1/tcp/2324";
         };
@@ -22,8 +22,7 @@ import ./make-test.nix ({ pkgs, ...} : {
       {
         services.ipfs = {
           enable = true;
-          defaultMode = "norouting";
-          autoMount = true;
+          extraConfig = { Bootstrap = []; };
         };
         networking.firewall.allowedTCPPorts = [ 4001 ];
       };
@@ -31,8 +30,8 @@ import ./make-test.nix ({ pkgs, ...} : {
 
   testScript = ''
     startAll;
-    $adder->waitForUnit("ipfs-norouting");
-    $getter->waitForUnit("ipfs-norouting");
+    $adder->waitForUnit("ipfs");
+    $getter->waitForUnit("ipfs");
 
     # wait until api is available
     $adder->waitUntilSucceeds("ipfs --api /ip4/127.0.0.1/tcp/2324 id");

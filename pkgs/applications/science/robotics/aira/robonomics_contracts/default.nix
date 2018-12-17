@@ -33,7 +33,7 @@ in stdenv.mkDerivation rec {
       owner = "airalab";
       repo = pname;
       rev = "903086d3c8cbcf7eae4f321cdb4ff9c5c2bcb84a";
-      sha256 = "0mxcw4vvhx0fqgrxzgmi73bnf9qm5fhkasi1hf96agxz1jvb6qxd";
+      sha256 = "1gxqvmaykrgrnsph0qz7kfwdkd7hi60ahlr7zgm6bqm769cdalxz";
   };
 
   buildInputs = [ makeWrapper nodejs ];

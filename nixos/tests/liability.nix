@@ -19,7 +19,7 @@ let
         "gasLimitBoundDivisor": "0x400",
         "maximumExtraDataSize": "0x20",
         "minGasLimit": "0x1388",
-        "networkID" : "0x2323",
+        "networkID" : "0x6691B",
         "eip155Transition": 0,
         "validateChainIdTransition": 0,
         "eip140Transition": 0,
@@ -68,7 +68,7 @@ reseal_on_txs = "none"
 
   user_account_private_key = "3df8095dfbae93d8c7f1143b217a483d57a7f745e2542425dfe2fa25264cb2e8";
 
-  XRT_address = "0xDfE46C9140819979D4d02297EC37DAa224f512f2";
+  XRT_address = "0x49e4BA3c08c4A95c70d851Cd9faa9c1857322C9E";
 
   ENS_address = "0x5F3DBa5e45909D1bf126aA0aF0601B1a369dbFD7";
 

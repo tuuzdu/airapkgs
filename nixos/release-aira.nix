@@ -87,13 +87,14 @@ in rec {
     constituents =
       let all = x: map (system: x.${system}) supportedSystems; in
       [ nixpkgs.tarball
-        (all nixpkgs.robonomics_dev)
         (all nixpkgs.robonomics_comm)
-        (all nixpkgs.robonomics_comm-nightly)
-        (all nixpkgs.robonomics-tools)
-        (all nixpkgs.parity)
+        (all nixpkgs.robonomics_dev)
+
+        (all nixpkgs.rosserial)
+        (all nixpkgs.mavros)
+
         (all nixpkgs.parity-beta)
-        (all nixpkgs.polkadot)
+        (all nixpkgs.parity)
       ]
       ++ lib.collect lib.isDerivation nixos;
   });

@@ -17,10 +17,12 @@
     gpm.enable = true;
 
     # Enable light robot liability service
-    liability.enable = true;
-    liability.web3_http_provider = "https://mainnet.infura.io/v3/cd7368514cbd4135b06e2c5581a4fff7";
-    liability.web3_ws_provider = "wss://mainnet.infura.io/ws";
-    liability.lighthouse = "airalab.lighthouse.3.robonomics.eth";
+    liability = {
+      enable = true;
+      web3_http_provider = "https://mainnet.infura.io/v3/cd7368514cbd4135b06e2c5581a4fff7";
+      web3_ws_provider = "wss://mainnet.infura.io/ws";
+      lighthouse = "airalab.lighthouse.4.robonomics.eth";
+    };
   };
 
   programs.zsh = {
@@ -47,7 +49,7 @@
 
   # Useful preinstall utils
   environment.systemPackages = with pkgs; [
-    vim git htop screen mosh cmake gcc robonomics-tools
+    vim git htop screen mosh cmake gcc
   ];
 
 }

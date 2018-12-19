@@ -5,7 +5,7 @@
 , "eth-gas-reporter"
 , "eth-ens-namehash"
 , "openzeppelin-solidity"
-, { "ganache-cli": "7.0.0-beta.0" }
-, { "truffle": "5.0.0-beta.2" }
+, { "ganache-cli": "6.2.4" }
+, { "truffle": "5.0.0" }
 , "truffle-flattener"
 ]

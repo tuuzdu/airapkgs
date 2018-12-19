@@ -16,7 +16,8 @@ let
   lib = pkgs.lib;
 
   nixos' = import ./release.nix {
-    inherit stableBranch supportedSystems;
+    inherit stableBranch;
+    supportedSystems = [ "x86_64-linux" ];
     nixpkgs = nixpkgsSrc;
   };
 

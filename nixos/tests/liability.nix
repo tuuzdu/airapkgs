@@ -173,7 +173,7 @@ user'';
 
     #all units started, run robonomics_contracts creation
     $liability_node->mustSucceed("
-      truffle migrate --network testing
+      robonomics_migrate --network testing
     ");
 
     #run xrtd. TODO: systemd service

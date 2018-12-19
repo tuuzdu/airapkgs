@@ -1,77 +1,66 @@
-{ stdenv, lib, makeWrapper, fetchFromGitHub, buildEnv, fetchurl, nodejs, pkgs }:
-
-with lib;
+{ stdenv
+, fetchFromGitHub
+, pkgs
+, makeWrapper
+, nodejs-8_x
+, buildEnv
+}:
 
 let
-  nodePackages = import ./node.nix {
-    inherit pkgs;
-    system = stdenv.hostPlatform.system;
-  };
-
-  runtimeEnv = buildEnv {
-    name = "robonomics_contracts-runtime";
-    paths = with nodePackages; [
-          nodePackages.chai
-          nodePackages.bn-chai
-          nodePackages.chai-as-promised
-          nodePackages.eth-gas-reporter
-          nodePackages.eth-ens-namehash
-          nodePackages.openzeppelin-solidity
-          nodePackages."ganache-cli-7.0.0-beta.0"
-          nodePackages."truffle-5.0.0-beta.2"
-          nodePackages.truffle-flattener
-    ];
+  nodePackages = import ./node.nix { inherit pkgs; };
+  nodeEnv = buildEnv {
+    name = "robonomics_contracts-env";
+    paths = stdenv.lib.attrValues nodePackages;
   };
 
 in stdenv.mkDerivation rec {
-
+  name = "${pname}-${version}";
   pname = "robonomics_contracts";
   version = "1.0-rc2";
-  name = "${pname}-${version}";
 
   src = fetchFromGitHub {
       owner = "airalab";
       repo = pname;
-      rev = "903086d3c8cbcf7eae4f321cdb4ff9c5c2bcb84a";
-      sha256 = "1gxqvmaykrgrnsph0qz7kfwdkd7hi60ahlr7zgm6bqm769cdalxz";
+      rev = "2da5bbe6d5b65ad45cb78566600f2c86b7cd64ff";
+      sha256 = "1ri8hsqcd2s4dv099whgn4j1m6l9v7jyignxi9k6larg5yk7jp7b";
   };
 
-  buildInputs = [ makeWrapper nodejs ];
+  prePatch = ''
+    mkdir node_modules
+    cp -R ${nodePackages.openzeppelin-solidity}/lib/node_modules/openzeppelin-solidity node_modules
+    cp -R ${nodePackages."truffle-5.0.0"}/lib/node_modules/truffle node_modules
+    chmod 755 node_modules/truffle/build/
+    chmod 755 node_modules/truffle/build/cli.bundled.js
+    echo "truffle moved"
+  '';
 
-  dontBuild = true;
+  patches = [ ./cache-on-tmpdir.patch ];
 
-  installPhase = ''
-    mkdir -p $out/lib
+  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ nodejs-8_x ];
+
+  buildPhase = ''
     mkdir -p $out/bin
-    cp -R . $out
+    cp -R . $out/
 
-    #copy files
-    cp -RL ${runtimeEnv}/lib/node_modules $out
-
-    cat >$out/bin/truffle <<EOF
+    cat > $out/bin/robonomics_migrate <<EOF
       #!${stdenv.shell}/bin/sh
       pushd $out
-      ${nodejs}/bin/node $out/node_modules/.bin/truffle --contracts_build_directory /tmp/contracts/ "\$@"
+      exec $out/node_modules/truffle/build/cli.bundled.js migrate --contracts_build_directory /tmp/contracts/ "\$@"
     EOF
   '';
 
-  postFixup = ''
-    chmod +x $out/bin/truffle
-
-    wrapProgram $out/bin/truffle \
-      --set NODE_PATH "$out/node_modules/truffle/node_modules/"
-
-    pushd $out
-    export HOME=$TMPDIR # fix tests failing in sandbox due to "/homeless-shelter"
-    export NODE_PATH="$out/node_modules/truffle/node_modules"
-    ${nodejs}/bin/node $out/node_modules/.bin/truffle compile
+  installPhase = ''
+    chmod +x $out/bin/robonomics_migrate
+    wrapProgram $out/bin/robonomics_migrate \
+      --set NODE_PATH "${nodeEnv}/lib/node_modules"
   '';
 
   meta = with stdenv.lib; {
     description = "Robonomics platform smart contracts";
     homepage = http://github.com/airalab/robonomics_contracts;
     license = licenses.bsd3;
-    maintainers = [ maintainers.akru maintainers.strdn ];
+    maintainers = with maintainers; [ akru strdn ];
   };
 
 }

@@ -40,7 +40,7 @@
       echo -e "\nLook me at https://status.robonomics.network by $ID\n\n"
     '';
     shellInit = ''
-      source ${pkgs.hello_aira}/setup.zsh
+      source ${pkgs.robonomics_tutorials}/setup.zsh
     '';
   };
 

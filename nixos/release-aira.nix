@@ -76,6 +76,7 @@ in rec {
       robonomics_dev
       robonomics_comm
       robonomics_comm-nightly
+      robonomics_tutorials
       robonomics-tools;
   };
 
@@ -88,6 +89,7 @@ in rec {
     constituents =
       let all = x: map (system: x.${system}) supportedSystems; in
       [ nixpkgs.tarball
+        (all nixpkgs.robonomics_tutorials)
         (all nixpkgs.robonomics_comm)
         (all nixpkgs.robonomics_dev)
 

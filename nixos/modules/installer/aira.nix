@@ -4,6 +4,8 @@
 
   imports = [
     ../profiles/aira.nix
+    ../profiles/clone-config.nix
+    ../profiles/aira-foundation.nix
   ];
 
   # https://github.com/NixOS/nixpkgs/issues/26776
@@ -15,14 +17,6 @@
 
     # Enable mouse integration
     gpm.enable = true;
-
-    # Enable light robot liability service
-    liability = {
-      enable = true;
-      web3_http_provider = "https://mainnet.infura.io/v3/cd7368514cbd4135b06e2c5581a4fff7";
-      web3_ws_provider = "wss://mainnet.infura.io/ws";
-      lighthouse = "airalab.lighthouse.4.robonomics.eth";
-    };
   };
 
   programs.zsh = {
@@ -49,7 +43,7 @@
 
   # Useful preinstall utils
   environment.systemPackages = with pkgs; [
-    vim git htop screen mosh cmake gcc
+    vim git htop screen mosh cmake gcc robonomics-tools
   ];
 
 }

@@ -17,6 +17,8 @@ in {
     services.liability = {
       enable = mkEnableOption "Enable Robonomics liability executor service.";
 
+      graph = mkEnableOption "Enable Robonomics telemetry information node.";
+
       package = mkOption {
         type = types.package;
         default = pkgs.robonomics_comm;
@@ -64,8 +66,6 @@ in {
         default = "ws://127.0.0.1:8546";
         description = "Web3 websocket provider address";
       };
-
-      enable_aira_graph = mkEnableOption "Enable aira_graph node";
 
       ros_master_uri = mkOption {
         type = types.str;
@@ -116,7 +116,7 @@ in {
               keyfile_password_file:="${cfg.keyfile_password_file}" \
               web3_http_provider:="${cfg.web3_http_provider}" \
               web3_ws_provider:="${cfg.web3_ws_provider}" \
-              enable_aira_graph:="${if cfg.enable_aira_graph then "true" else "false"}"
+              enable_aira_graph:="${if cfg.graph then "true" else "false"}"
       '';
 
       serviceConfig = {

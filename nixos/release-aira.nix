@@ -46,6 +46,7 @@ in rec {
       inherit system;
       modules =
         [ ./modules/installer/virtualbox-minimal.nix
+          ./modules/profiles/aira-foundation.nix
           ./modules/installer/aira.nix
         ];
     }).config.system.build.virtualBoxOVA);
@@ -56,6 +57,7 @@ in rec {
       inherit system;
       modules =
         [ ./modules/installer/cd-dvd/sd-image-aarch64.nix
+          ./modules/profiles/aira-foundation.nix
           ./modules/installer/aira.nix
         ];
     }).config.system.build.sdImage);

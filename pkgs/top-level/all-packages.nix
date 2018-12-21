@@ -23294,7 +23294,9 @@ in
 
   ros_opcua_communication = callPackage ../development/ros-modules/ros_opcua_communication { };
 
-  robonomics-tools = haskellPackages.callPackage ../applications/science/robotics/aira/robonomics-tools.nix { };
+  robonomics-tools =
+    let tools = haskellPackages.callPackage ../applications/science/robotics/aira/robonomics-tools.nix { };
+    in haskell.lib.overrideCabal (haskell.lib.justStaticExecutables tools) { };
 
   robonomics_comm = callPackage ../applications/science/robotics/aira/robonomics_comm { };
 

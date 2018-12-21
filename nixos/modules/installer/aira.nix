@@ -5,7 +5,6 @@
   imports = [
     ../profiles/aira.nix
     ../profiles/clone-config.nix
-    ../profiles/aira-foundation.nix
   ];
 
   # https://github.com/NixOS/nixpkgs/issues/26776
@@ -17,6 +16,11 @@
 
     # Enable mouse integration
     gpm.enable = true;
+
+    # Enable telemetry node
+    liability.graph = true;
+
+    liability.package = pkgs.robonomics_comm-nightly;
   };
 
   programs.zsh = {

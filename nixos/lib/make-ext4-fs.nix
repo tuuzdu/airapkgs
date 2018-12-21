@@ -9,6 +9,7 @@
 , e2fsprogs
 , libfaketime
 , perl
+, lkl
 }:
 
 let
@@ -18,7 +19,7 @@ in
 pkgs.stdenv.mkDerivation {
   name = "ext4-fs.img";
 
-  nativeBuildInputs = [e2fsprogs.bin libfaketime perl];
+  nativeBuildInputs = [e2fsprogs.bin libfaketime perl lkl];
 
   buildCommand =
     ''
@@ -38,59 +39,15 @@ pkgs.stdenv.mkDerivation {
       truncate -s $bytes $out
       faketime -f "1970-01-01 00:00:01" mkfs.ext4 -L ${volumeLabel} -U ${uuid} $out
 
-      # Populate the image contents by piping a bunch of commands to the `debugfs` tool from e2fsprogs.
-      # For example, to copy /nix/store/abcd...efg-coreutils-8.23/bin/sleep:
-      #   cd /nix/store/abcd...efg-coreutils-8.23/bin
-      #   write /nix/store/abcd...efg-coreutils-8.23/bin/sleep sleep
-      #   sif sleep mode 040555
-      #   sif sleep gid 30000
-      # In particular, debugfs doesn't handle absolute target paths; you have to 'cd' in the virtual
-      # filesystem first. Likewise the intermediate directories must already exist (using `find`
-      # handles that for us). And when setting the file's permissions, the inode type flags (__S_IFDIR,
-      # __S_IFREG) need to be set as well.
       (
         echo write nix-path-registration nix-path-registration
         echo mkdir nix
         echo cd /nix
         echo mkdir store
-
-        IFS=$'\n' # make newlines the only separator
-        for line in `find $storePaths -printf '%y|%f|%h|%m\n'`; do
-          type=`echo $line | cut -f1 -d '|'`
-          file=`echo $line | cut -f2 -d '|'`
-          dir=`echo $line | cut -f3 -d '|'`
-          perms=`echo $line | cut -f4 -d '|'`
-          #echo "TYPE=$type DIR=$dir FILE=$file PERMS=$perms" >&2
-
-          echo "cd $dir"
-          case $type in
-            d)
-              echo "mkdir $file"
-              echo sif $file mode $((040000 | 0$perms)) # magic constant is __S_IFDIR
-              ;;
-            f)
-              echo "write $dir/$file $file"
-              echo sif $file mode $((0100000 | 0$perms)) # magic constant is __S_IFREG
-              ;;
-            l)
-              echo "symlink $file $(readlink "$dir/$file")"
-              ;;
-            *)
-              echo "Unknown entry: $type $dir $file $perms" >&2
-              exit 1
-              ;;
-          esac
-
-          echo sif $file gid 30000 # chgrp to nixbld
-        done
       ) | faketime -f "1970-01-01 00:00:01" debugfs -w $out -f /dev/stdin > errorlog 2>&1
 
-      # The debugfs tool doesn't terminate on error nor exit with a non-zero status. Check manually.
-      if egrep -q 'Could not allocate|File not found' errorlog; then
-        cat errorlog
-        echo "--- Failed to create EXT4 image of $bytes bytes (numInodes=$numInodes, numDataBlocks=$numDataBlocks) ---"
-        return 1
-      fi
+      echo "copying store paths to image..."
+      cptofs -t ext4 -i $out $storePaths /nix/store/
 
       # I have ended up with corrupted images sometimes, I suspect that happens when the build machine's disk gets full during the build.
       if ! fsck.ext4 -n -f $out; then

@@ -19,6 +19,11 @@ in {
 
       graph = mkEnableOption "Enable Robonomics telemetry information node.";
 
+      graph_topic = mkOption {
+        type = types.str;
+        description = "Robonomics PubSub telemetry topic.";
+      };
+
       package = mkOption {
         type = types.package;
         default = pkgs.robonomics_comm;
@@ -35,6 +40,11 @@ in {
       lighthouse = mkOption {
         type = types.str;
         description = "Lighthouse contract address.";
+      };
+
+      factory = mkOption {
+        type = types.str;
+        description = "Factory contract address.";
       };
 
       user = mkOption {
@@ -112,11 +122,14 @@ in {
           && roslaunch robonomics_liability liability.launch \
               ens_contract:="${cfg.ens}" \
               lighthouse_contract:="${cfg.lighthouse}" \
+              lighthouse_topic:="${cfg.lighthouse}" \
+              factory_contract:="${cfg.factory}" \
               keyfile:="${cfg.keyfile}" \
               keyfile_password_file:="${cfg.keyfile_password_file}" \
               web3_http_provider:="${cfg.web3_http_provider}" \
               web3_ws_provider:="${cfg.web3_ws_provider}" \
-              enable_aira_graph:="${if cfg.graph then "true" else "false"}"
+              enable_aira_graph:="${if cfg.graph then "true" else "false"}" \
+              graph_topic:="${cfg.graph_topic}"
       '';
 
       serviceConfig = {

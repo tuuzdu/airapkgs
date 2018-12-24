@@ -26,9 +26,6 @@ pkgs.stdenv.mkDerivation {
       # Add the closures of the top-level store objects.
       storePaths=$(cat ${sdClosureInfo}/store-paths)
 
-      # Also include a manifest of the closures in a format suitable for nix-store --load-db.
-      cp ${sdClosureInfo}/registration nix-path-registration
-
       # Make a crude approximation of the size of the target image.
       # If the script starts failing, increase the fudge factors here.
       numInodes=$(find $storePaths | wc -l)
@@ -39,12 +36,13 @@ pkgs.stdenv.mkDerivation {
       truncate -s $bytes $out
       faketime -f "1970-01-01 00:00:01" mkfs.ext4 -L ${volumeLabel} -U ${uuid} $out
 
-      (
-        echo write nix-path-registration nix-path-registration
-        echo mkdir nix
-        echo cd /nix
-        echo mkdir store
-      ) | faketime -f "1970-01-01 00:00:01" debugfs -w $out -f /dev/stdin > errorlog 2>&1
+      # Also include a manifest of the closures in a format suitable for nix-store --load-db.
+      cp ${sdClosureInfo}/registration nix-path-registration
+      cptofs -t ext4 -i $out nix-path-registration /
+
+      # Create nix/store before copying paths
+      faketime -f "1970-01-01 00:00:01" mkdir -p nix/store
+      cptofs -t ext4 -i $out nix /
 
       echo "copying store paths to image..."
       cptofs -t ext4 -i $out $storePaths /nix/store/

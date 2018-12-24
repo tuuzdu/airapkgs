@@ -14,7 +14,7 @@ mkRosPackage rec {
     owner = "airalab";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1w1q9lph0x1h2bpj4l1g7453hkrvdlpgi7aqwbvd9nf2360nadf8";
+    sha256 = "14vbnnyrz394wnlp2m9zbav0izpadpgqb0h7s2pvzk6jrbc21zpz";
   };
 
   propagatedBuildInputs = [ robonomics_comm rosserial ];

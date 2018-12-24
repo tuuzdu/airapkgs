@@ -4,7 +4,7 @@
 
   # Use AIRA channel by default
   # https://github.com/airalab/aira/issues/43
-  system.defaultChannel = "https://hydra.aira.life/channels/aira-release";
+  system.defaultChannel = "https://releases.aira.life/channels/aira-stable";
 
   nix = {
     # Disable sandbox by default
@@ -13,11 +13,11 @@
 
     binaryCaches = [
       https://cache.nixos.org
-      https://hydra.aira.life
+      https://aira.cachix.org
     ];
 
     binaryCachePublicKeys = [
-      "hydra.aira.life-1:StgkxSYBh18tccd4KUVmxHQZEUF7ad8m10Iw4jNt5ak="
+      "aira.cachix.org-1:/5nHPqhVrtvt7KCk04I8cH/jETANk8BtPHWsEtcwU/M="
     ];
   };
 

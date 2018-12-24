@@ -8,13 +8,13 @@
 mkRosPackage rec {
   name = "${pname}-${version}";
   pname = "robonomics_tutorials";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "airalab";
     repo = pname;
     rev = "v${version}";
-    sha256 = "07zzkypy8mci8z59fzcads4zixlcfm1xm050y11fzxhc5815bq9q";
+    sha256 = "1w1q9lph0x1h2bpj4l1g7453hkrvdlpgi7aqwbvd9nf2360nadf8";
   };
 
   propagatedBuildInputs = [ robonomics_comm rosserial ];

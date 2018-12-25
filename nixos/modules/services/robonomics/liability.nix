@@ -17,6 +17,20 @@ in {
     services.liability = {
       enable = mkEnableOption "Enable Robonomics liability executor service.";
 
+      graph = mkEnableOption "Enable Robonomics telemetry information node.";
+
+      graph_topic = mkOption {
+        type = types.str;
+        description = "Robonomics PubSub telemetry topic.";
+      };
+
+      package = mkOption {
+        type = types.package;
+        default = pkgs.robonomics_comm;
+        defaultText = "pkgs.robonomics_comm";
+        description = "Robonomics communication stack to use";
+      };
+
       ens = mkOption {
         type = types.str;
         default = mainnetEns;
@@ -26,6 +40,11 @@ in {
       lighthouse = mkOption {
         type = types.str;
         description = "Lighthouse contract address.";
+      };
+
+      factory = mkOption {
+        type = types.str;
+        description = "Factory contract address.";
       };
 
       user = mkOption {
@@ -58,11 +77,16 @@ in {
         description = "Web3 websocket provider address";
       };
 
+      ros_master_uri = mkOption {
+        type = types.str;
+        default = "http://localhost:11311";
+        description = "ROS master node location";
+      };
     };
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ robonomics_comm ];
+    environment.systemPackages = [ cfg.package ];
 
     # Enable dependencies
     services = {
@@ -83,6 +107,7 @@ in {
       wants = [ "ipfs.service" ];
       wantedBy = [ "multi-user.target" ];
 
+      environment.ROS_MASTER_URI = cfg.ros_master_uri;
 
       preStart = ''
         if [ ! -e ${cfg.keyfile} ]; then
@@ -93,14 +118,18 @@ in {
       '';
 
       script = ''
-        source ${pkgs.robonomics_comm}/setup.bash \
+        source ${cfg.package}/setup.bash \
           && roslaunch robonomics_liability liability.launch \
               ens_contract:="${cfg.ens}" \
               lighthouse_contract:="${cfg.lighthouse}" \
+              lighthouse_topic:="${cfg.lighthouse}" \
+              factory_contract:="${cfg.factory}" \
               keyfile:="${cfg.keyfile}" \
               keyfile_password_file:="${cfg.keyfile_password_file}" \
               web3_http_provider:="${cfg.web3_http_provider}" \
-              web3_ws_provider:="${cfg.web3_ws_provider}"
+              web3_ws_provider:="${cfg.web3_ws_provider}" \
+              enable_aira_graph:="${if cfg.graph then "true" else "false"}" \
+              graph_topic:="${cfg.graph_topic}"
       '';
 
       serviceConfig = {

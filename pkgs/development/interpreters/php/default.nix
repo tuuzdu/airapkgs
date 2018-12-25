@@ -1,9 +1,9 @@
 # pcre functionality is tested in nixos/tests/php-pcre.nix
-{ lib, stdenv, fetchurl, flex, bison
+{ lib, stdenv, fetchurl, flex, bison, autoconf
 , mysql, libxml2, readline, zlib, curl, postgresql, gettext
-, openssl, pcre, pkgconfig, sqlite, config, libjpeg, libpng, freetype
+, openssl, pcre, pcre2, pkgconfig, sqlite, config, libjpeg, libpng, freetype
 , libxslt, libmcrypt, bzip2, icu, openldap, cyrus_sasl, libmhash, freetds
-, uwimap, pam, gmp, apacheHttpd, libiconv, systemd, libsodium, html-tidy, libargon2
+, uwimap, pam, gmp, apacheHttpd, libiconv, systemd, libsodium, html-tidy, libargon2, libzip
 }:
 
 with lib;
@@ -12,6 +12,8 @@ let
   generic =
   { version
   , sha256
+  , extraPatches ? []
+  , withSystemd ? config.php.systemd or stdenv.isLinux
   , imapSupport ? config.php.imap or (!stdenv.isDarwin)
   , ldapSupport ? config.php.ldap or true
   , mhashSupport ? config.php.mhash or true
@@ -40,7 +42,7 @@ let
   , intlSupport ? config.php.intl or true
   , exifSupport ? config.php.exif or true
   , xslSupport ? config.php.xsl or false
-  , mcryptSupport ? config.php.mcrypt or true
+  , mcryptSupport ? (config.php.mcrypt or true) && (versionOlder version "7.2")
   , bz2Support ? config.php.bz2 or false
   , zipSupport ? config.php.zip or true
   , ftpSupport ? config.php.ftp or true
@@ -52,6 +54,11 @@ let
   , sodiumSupport ? (config.php.sodium or true) && (versionAtLeast version "7.2")
   , tidySupport ? (config.php.tidy or false)
   , argon2Support ? (config.php.argon2 or true) && (versionAtLeast version "7.2")
+  , libzipSupport ? (config.php.libzip or true) && (versionAtLeast version "7.3")
+  , phpdbgSupport ? config.php.phpdbg or true
+  , cgiSupport ? config.php.cgi or true
+  , cliSupport ? config.php.cli or true
+  , pharSupport ? config.php.phar or true
   }:
 
     let
@@ -65,9 +72,11 @@ let
 
       enableParallelBuilding = true;
 
-      nativeBuildInputs = [ pkgconfig ];
-      buildInputs = [ flex bison pcre ]
-        ++ optional stdenv.isLinux systemd
+      nativeBuildInputs = [ pkgconfig autoconf ];
+      buildInputs = [ flex bison ]
+        ++ optional (versionOlder version "7.3") pcre
+        ++ optional (versionAtLeast version "7.3") pcre2
+        ++ optional withSystemd systemd
         ++ optionals imapSupport [ uwimap openssl pam ]
         ++ optionals curlSupport [ curl openssl ]
         ++ optionals ldapSupport [ openldap openssl ]
@@ -94,17 +103,18 @@ let
         ++ optional (mssqlSupport && !stdenv.isDarwin) freetds
         ++ optional sodiumSupport libsodium
         ++ optional tidySupport html-tidy
-        ++ optional argon2Support libargon2;
+        ++ optional argon2Support libargon2
+        ++ optional libzipSupport libzip;
 
       CXXFLAGS = optional stdenv.cc.isClang "-std=c++11";
 
-
       configureFlags = [
         "--with-config-file-scan-dir=/etc/php.d"
-        "--with-pcre-regex=${pcre.dev} PCRE_LIBDIR=${pcre}"
       ]
+      ++ optional (versionOlder version "7.3") "--with-pcre-regex=${pcre.dev} PCRE_LIBDIR=${pcre}"
+      ++ optional (versionAtLeast version "7.3") "--with-pcre-regex=${pcre2.dev} PCRE_LIBDIR=${pcre2}"
       ++ optional stdenv.isDarwin "--with-iconv=${libiconv}"
-      ++ optional stdenv.isLinux  "--with-fpm-systemd"
+      ++ optional withSystemd "--with-fpm-systemd"
       ++ optionals imapSupport [
         "--with-imap=${uwimap}"
         "--with-imap-ssl"
@@ -161,8 +171,13 @@ let
       ++ optional calendarSupport "--enable-calendar"
       ++ optional sodiumSupport "--with-sodium=${libsodium.dev}"
       ++ optional tidySupport "--with-tidy=${html-tidy}"
-      ++ optional argon2Support "--with-password-argon2=${libargon2}";
-
+      ++ optional argon2Support "--with-password-argon2=${libargon2}"
+      ++ optional libzipSupport "--with-libzip=${libzip.dev}"
+      ++ optional phpdbgSupport "--enable-phpdbg"
+      ++ optional (!phpdbgSupport) "--disable-phpdbg"
+      ++ optional (!cgiSupport) "--disable-cgi"
+      ++ optional (!cliSupport) "--disable-cli"
+      ++ optional (!pharSupport) "--disable-phar";
 
       hardeningDisable = [ "bindnow" ];
 
@@ -182,9 +197,12 @@ let
 
         configureFlags+=(--with-config-file-path=$out/etc \
           --includedir=$dev/include)
+
+        ./buildconf --force
       '';
 
       postInstall = ''
+        test -d $out/etc || mkdir $out/etc
         cp php.ini-production $out/etc/php.ini
       '';
 
@@ -210,7 +228,7 @@ let
         outputsToInstall = [ "out" "dev" ];
       };
 
-      patches = [ ./fix-paths-php7.patch ];
+      patches = [ ./fix-paths-php7.patch ] ++ extraPatches;
 
       postPatch = optional stdenv.isDarwin ''
         substituteInPlace configure --replace "-lstdc++" "-lc++"
@@ -223,35 +241,31 @@ let
     };
 
 in {
-  # Because of an upstream bug: https://bugs.php.net/bug.php?id=76826
-  # We can't update the darwin versions because they simply don't compile at
-  # all due to a bug in the intl extensions.
-  #
-  # The bug so far is present in 7.1.21, 7.1.22, 7.1.23, 7.2.9, 7.2.10, 7.2.11.
+  php71 = generic {
+    version = "7.1.25";
+    sha256 = "1b5az5vhap593ggjxirs1zdlg20hcv9h94iq5kgaxky71a4dqb00";
 
-  php71 = generic (
-    if stdenv.isDarwin then
-      {
-        version = "7.1.20";
-        sha256 = "0i8xd6p4zdg8fl6f0j430raanlshsshr3s3jlm72b0gvi1n4f6rs";
-      }
-    else
-      {
-        version = "7.1.23";
-        sha256 = "0jyc5q666xh808sgy78cfylkhy5ma2zdg88jlxhagyphv23aly9d";
-      }
-  );
+    # https://bugs.php.net/bug.php?id=76826
+    extraPatches = optional stdenv.isDarwin ./php71-darwin-isfinite.patch;
+  };
 
-  php72 = generic (
-    if stdenv.isDarwin then
-      {
-        version = "7.2.8";
-        sha256 = "1rky321gcvjm0npbfd4bznh36an0y14viqcvn4yzy3x643sni00z";
-      }
-    else
-      {
-        version = "7.2.11";
-        sha256 = "1idlv04j1l2d0bn5nvfrapcpjh6ayj1n4y80lqvnp5h75m07y3aa";
-      }
-  );
+  php72 = generic {
+    version = "7.2.13";
+    sha256 = "0bg9nfc250p24hxn4bdjz7ngcw75h8rpf4qjxqzcs6s9fvxlcjjv";
+
+    # https://bugs.php.net/bug.php?id=71041
+    # https://bugs.php.net/bug.php?id=76826
+    extraPatches = [ ./fix-bug-71041.patch ]
+      ++ optional stdenv.isDarwin ./php72-darwin-isfinite.patch;
+  };
+
+  php73 = generic {
+    version = "7.3.0";
+    sha256 = "0rvwx37dsmxivgrf4wfc1y778iln498c6a40biy9k6lnr6p7s9ks";
+
+    # https://bugs.php.net/bug.php?id=71041
+    # https://bugs.php.net/bug.php?id=76826
+    extraPatches = [ ./fix-bug-71041.patch ]
+      ++ optional stdenv.isDarwin ./php73-darwin-isfinite.patch;
+  };
 }

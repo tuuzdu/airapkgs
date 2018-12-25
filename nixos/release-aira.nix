@@ -4,7 +4,7 @@
 
 { nixpkgs ? { outPath = (import ../lib).cleanSource ./..; revCount = 56789; shortRev = "gfedcba"; }
 , stableBranch ? false
-, supportedSystems ? [ "x86_64-linux" ] # no i686-linux
+, supportedSystems ? [ "x86_64-linux" "aarch64-linux" ]
 }:
 
 let
@@ -16,7 +16,8 @@ let
   lib = pkgs.lib;
 
   nixos' = import ./release.nix {
-    inherit stableBranch supportedSystems;
+    inherit stableBranch;
+    supportedSystems = [ "x86_64-linux" ];
     nixpkgs = nixpkgsSrc;
   };
 
@@ -28,32 +29,56 @@ let
 in rec {
 
   nixos = {
-    inherit (nixos') channel iso_minimal;
+    inherit (nixos') channel;
     tests = {
       inherit (nixos'.tests)
-      #ipfs
+        ipfs
         ipv6
         cjdns
         parity;
+        #liability;
     };
   };
+
+  # A bootable VirtualBox virtual appliance as an OVA file (i.e. packaged OVF).
+  ova_image = with import nixpkgsSrc { system = "x86_64-linux"; };
+    lib.hydraJob ((import lib/eval-config.nix {
+      inherit system;
+      modules =
+        [ ./modules/installer/virtualbox-minimal.nix
+          ./modules/profiles/aira-foundation.nix
+          ./modules/installer/aira.nix
+        ];
+    }).config.system.build.virtualBoxOVA);
+
+  # A bootable SD card image
+  sd_image = with import nixpkgsSrc { system = "aarch64-linux"; };
+    lib.hydraJob ((import lib/eval-config.nix {
+      inherit system;
+      modules =
+        [ ./modules/installer/cd-dvd/sd-image-aarch64.nix
+          ./modules/profiles/aira-foundation.nix
+          ./modules/installer/aira.nix
+        ];
+    }).config.system.build.sdImage);
 
   nixpkgs = {
     inherit (nixpkgs')
       tarball
 
-      ipfs
       parity
       parity-beta
+      polkadot
 
       ros_comm
       rosserial
       mavros
       dji_sdk
 
-      aira-graph
       robonomics_dev
       robonomics_comm
+      robonomics_comm-nightly
+      robonomics_tutorials
       robonomics-tools;
   };
 
@@ -61,20 +86,13 @@ in rec {
     name = "nixos-${nixos.channel.version}";
     meta = {
       description = "Release-critical builds for the AIRA channel";
-      maintainers = [ lib.maintainers.akru ];
+      maintainers = with lib.maintainers; [ akru strdn ];
     };
     constituents =
-      let all = x: map (system: x.${system}) supportedSystems; in
       [ nixpkgs.tarball
-        (all nixpkgs.aira-graph)
-        (all nixpkgs.robonomics_dev)
-        (all nixpkgs.robonomics_comm)
-        (all nixpkgs.robonomics-tools)
-        (all nixpkgs.ipfs)
-        (all nixpkgs.parity)
-        (all nixpkgs.parity-beta)
+        ova_image
+        sd_image
       ]
       ++ lib.collect lib.isDerivation nixos;
   });
-
 }

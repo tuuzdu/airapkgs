@@ -107,7 +107,7 @@ in
   ipfs = handleTest ./ipfs.nix {};
   ipv6 = handleTest ./ipv6.nix {};
   jenkins = handleTest ./jenkins.nix {};
-  kafka = handleTest ./kafka.nix {};
+  #kafka = handleTest ./kafka.nix {}; # broken since openjdk: 8u181 -> 8u192
   kernel-latest = handleTest ./kernel-latest.nix {};
   kernel-lts = handleTest ./kernel-lts.nix {};
   keymap = handleTest ./keymap.nix {};
@@ -119,6 +119,7 @@ in
   ldap = handleTest ./ldap.nix {};
   leaps = handleTest ./leaps.nix {};
   #lightdm = handleTest ./lightdm.nix {};
+  liability = handleTest ./liability.nix {};
   login = handleTest ./login.nix {};
   #logstash = handleTest ./logstash.nix {};
   mathics = handleTest ./mathics.nix {};
@@ -180,7 +181,9 @@ in
   rabbitmq = handleTest ./rabbitmq.nix {};
   radicale = handleTest ./radicale.nix {};
   redmine = handleTest ./redmine.nix {};
+  roundcube = handleTest ./roundcube.nix {};
   rspamd = handleTest ./rspamd.nix {};
+  rss2email = handleTest ./rss2email.nix {};
   rsyslogd = handleTest ./rsyslogd.nix {};
   runInMachine = handleTest ./run-in-machine.nix {};
   rxe = handleTest ./rxe.nix {};
@@ -195,6 +198,7 @@ in
   strongswan-swanctl = handleTest ./strongswan-swanctl.nix {};
   sudo = handleTest ./sudo.nix {};
   switchTest = handleTest ./switch-test.nix {};
+  syncthing-relay = handleTest ./syncthing-relay.nix {};
   systemd = handleTest ./systemd.nix {};
   taskserver = handleTest ./taskserver.nix {};
   tomcat = handleTest ./tomcat.nix {};

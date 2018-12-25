@@ -113,6 +113,7 @@ mapAliases ({
   gnome_themes_standard = gnome-themes-standard; # added 2018-02-25
   gnustep-make = gnustep.make; # added 2016-7-6
   go-pup = pup; # added 2017-12-19
+  gobjectIntrospection = gobject-introspection; # added 2018-12-02
   goimports = gotools; # added 2018-09-16
   googleAuthenticator = google-authenticator; # added 2016-10-16
   grantlee5 = libsForQt5.grantlee;  # added 2015-12-19
@@ -133,6 +134,7 @@ mapAliases ({
   gupnp_dlna = gupnp-dlna; # added 2018-02-25
   gupnp_igd = gupnp-igd; # added 2018-02-25
   gupnptools = gupnp-tools;  # added 2015-12-19
+  gutenberg = zola;  # added 2018-11-17
   heimdalFull = heimdal; # added 2018-05-01
   hicolor_icon_theme = hicolor-icon-theme; # added 2018-02-25
   htmlTidy = html-tidy;  # added 2014-12-06
@@ -208,6 +210,7 @@ mapAliases ({
   opencl-icd = ocl-icd; # added 2017-01-20
   openexr_ctl = ctl; # added 2018-04-25
   openjpeg_2_1 = openjpeg_2; # added 2018-10-25
+  opensans-ttf = open-sans; # added 2018-12-04
   openssh_with_kerberos = openssh; # added 2018-01-28
   owncloudclient = owncloud-client;  # added 2016-08
   p11_kit = p11-kit; # added 2018-02-25

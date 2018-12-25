@@ -86,22 +86,13 @@ in rec {
     name = "nixos-${nixos.channel.version}";
     meta = {
       description = "Release-critical builds for the AIRA channel";
-      maintainers = with lib.maintainers; [ akru ];
+      maintainers = with lib.maintainers; [ akru strdn ];
     };
     constituents =
-      let all = x: map (system: x.${system}) supportedSystems; in
       [ nixpkgs.tarball
-        (all nixpkgs.robonomics_tutorials)
-        (all nixpkgs.robonomics_comm)
-        (all nixpkgs.robonomics_dev)
-
-        (all nixpkgs.rosserial)
-        (all nixpkgs.mavros)
-
-        (all nixpkgs.parity-beta)
-        (all nixpkgs.parity)
+        ova_image
+        sd_image
       ]
       ++ lib.collect lib.isDerivation nixos;
   });
-
 }

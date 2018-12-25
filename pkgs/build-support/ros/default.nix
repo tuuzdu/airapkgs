@@ -23,21 +23,4 @@ stdenv.mkDerivation (attrs // rec {
       catkin_init_workspace
     fi
   '';
-
-  postFixup = attrs.postFixup or ''
-    mkdir -p $out/nix-support && printf "${catkin}:''$out" > ros-paths
-
-    # Collect ROS paths
-    test -f $pkg/nix-support/propagated-build-inputs && \
-      for i in $propagatedBuildInputs; do
-        test -f $i/nix-support/ros-paths && \
-          printf ":$i:$(cat $i/nix-support/ros-paths)" >> ros-paths
-      done
-
-    # Optimize ROS paths
-    ${python3.interpreter} -c "print(':'.join(set(open('ros-paths').read().split(':'))))" > ''$out/nix-support/ros-paths
-
-    # Store ROS paths to env file
-    echo "export ROS_PACKAGE_PATH=\"`cat ''$out/nix-support/ros-paths`\"" >> ''$out/setup.sh
-  '';
 })

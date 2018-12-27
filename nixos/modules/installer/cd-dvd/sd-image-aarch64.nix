@@ -12,6 +12,7 @@ in
   imports = [
     ../../profiles/base.nix
     ../../profiles/installation-device.nix
+    ../../profiles/clone-config.nix
     ./sd-image.nix
   ];
 

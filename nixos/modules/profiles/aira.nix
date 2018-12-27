@@ -4,7 +4,7 @@
 
   # Use AIRA channel by default
   # https://github.com/airalab/aira/issues/43
-  system.defaultChannel = "https://releases.aira.life/channels/aira-stable";
+  system.defaultChannel = "https://aira.life/channels/aira-stable";
 
   nix = {
     # Disable sandbox by default

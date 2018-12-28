@@ -2,10 +2,7 @@
 
 {
 
-  imports = [
-    ../profiles/aira.nix
-    ../profiles/clone-config.nix
-  ];
+  imports = [ ../profiles/aira.nix ];
 
   # https://github.com/NixOS/nixpkgs/issues/26776
   systemd.services.sshd.wantedBy = lib.mkOverride 40 [ "multi-user.target" ];
@@ -19,8 +16,6 @@
 
     # Enable telemetry node
     liability.graph = true;
-
-    liability.package = pkgs.robonomics_comm-nightly;
   };
 
   programs.zsh = {

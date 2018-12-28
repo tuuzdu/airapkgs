@@ -46,19 +46,19 @@ in rec {
       inherit system;
       modules =
         [ ./modules/installer/virtualbox-minimal.nix
-          ./modules/profiles/aira-foundation.nix
           ./modules/installer/aira.nix
+          ./modules/profiles/aira-foundation.nix
         ];
     }).config.system.build.virtualBoxOVA);
 
-  # A bootable SD card image
+  # A bootable SD card image for AArch64 SBCs.
   sd_image = with import nixpkgsSrc { system = "aarch64-linux"; };
     lib.hydraJob ((import lib/eval-config.nix {
       inherit system;
       modules =
         [ ./modules/installer/cd-dvd/sd-image-aarch64.nix
-          ./modules/profiles/aira-foundation.nix
           ./modules/installer/aira.nix
+          ./modules/profiles/aira-foundation.nix
         ];
     }).config.system.build.sdImage);
 

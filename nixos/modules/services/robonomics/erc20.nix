@@ -6,6 +6,7 @@ let
   cfg = config.services.erc20;
 
   mainnetEns = "0x314159265dD8dbb310642f98f50C066173C1259b";
+  erc20_token = "xrt.4.robonomics.eth";
   liabilityHome = "/var/lib/liability";
   keyfile = "${liabilityHome}/keyfile";
   keyfile_password_file = "${liabilityHome}/keyfile-psk";
@@ -21,6 +22,17 @@ in {
         type = types.str;
         default = mainnetEns;
         description = "Ethereum name regustry address.";
+      };
+
+      token = mkOption {
+        type = types.str;
+        default = erc20_token;
+        description = "ERC20 token to control.";
+      };
+
+      factory = mkOption {
+        type = types.str;
+        description = "Factory contract address.";
       };
 
       user = mkOption {
@@ -43,13 +55,11 @@ in {
 
       web3_http_provider = mkOption {
         type = types.str;
-        default = "https://mainnet.infura.io/v3/cd7368514cbd4135b06e2c5581a4fff7";
         description = "Web3 http provider address";
       };
 
       web3_ws_provider = mkOption {
         type = types.str;
-        default = "wss://mainnet.infura.io/ws";
         description = "Web3 websocket provider address";
       };
 
@@ -74,6 +84,8 @@ in {
         source ${pkgs.robonomics_comm}/setup.bash \
           && roslaunch ethereum_common erc20.launch \
               ens_contract:="${cfg.ens}" \
+              erc20_token:="${cfg.token}" \
+              factory_contract:="${cfg.factory}" \
               keyfile:="${cfg.keyfile}" \
               keyfile_password_file:="${cfg.keyfile_password_file}" \
               web3_http_provider:="${cfg.web3_http_provider}" \

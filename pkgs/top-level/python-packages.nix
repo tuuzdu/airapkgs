@@ -1312,12 +1312,6 @@ in {
 
   envs = callPackage ../development/python-modules/envs { };
 
-  eth-hash = callPackage ../development/python-modules/eth-hash { };
-
-  eth-typing = callPackage ../development/python-modules/eth-typing { };
-
-  eth-utils = callPackage ../development/python-modules/eth-utils { };
-
   jsonrpc-async = callPackage ../development/python-modules/jsonrpc-async { };
 
   jsonrpc-base = callPackage ../development/python-modules/jsonrpc-base { };
@@ -3674,8 +3668,6 @@ in {
 
   ptest = callPackage ../development/python-modules/ptest { };
 
-  websockets = callPackage ../development/python-modules/websockets { };
-
   ptyprocess = callPackage ../development/python-modules/ptyprocess { };
 
   pylibacl = callPackage ../development/python-modules/pylibacl { };
@@ -5060,36 +5052,6 @@ in {
 
   us = callPackage ../development/python-modules/us { };
 
-  lru-dict = callPackage ../development/python-modules/lru-dict { };
-
-  hexbytes = callPackage ../development/python-modules/hexbytes { };
-
-  eth-hash = callPackage ../development/python-modules/eth-hash { };
-
-  eth-utils = callPackage ../development/python-modules/eth-utils { };
-
-  eth-abi = callPackage ../development/python-modules/eth-abi { };
-
-  eth-keys = callPackage ../development/python-modules/eth-keys { };
-
-  eth-keyfile = callPackage ../development/python-modules/eth-keyfile { };
-
-  eth-rlp = callPackage ../development/python-modules/eth-rlp { };
-
-  eth-account = callPackage ../development/python-modules/eth-account { };
-
-  web3 = callPackage ../development/python-modules/web3 { };
-
-  empy = callPackage ../development/python-modules/empy { };
-
-  catkin_pkg = callPackage ../development/python-modules/catkin_pkg { };
-
-  catkin_tools = callPackage ../development/python-modules/catkin_tools { };
-
-  osrf_pycommon = callPackage ../development/python-modules/osrf_pycommon { };
-
-  rospkg = callPackage ../development/python-modules/rospkg { };
-
   wsproto = callPackage ../development/python-modules/wsproto { };
 
   h11 = callPackage ../development/python-modules/h11 { };
@@ -5168,6 +5130,8 @@ in {
 
   eth-hash = callPackage ../development/python-modules/eth-hash { };
 
+  eth-typing = callPackage ../development/python-modules/eth-typing { };
+
   eth-utils = callPackage ../development/python-modules/eth-utils { };
 
   eth-abi = callPackage ../development/python-modules/eth-abi { };
@@ -5187,6 +5151,10 @@ in {
   catkin_pkg = callPackage ../development/python-modules/catkin_pkg { };
 
   rospkg = callPackage ../development/python-modules/rospkg { };
+
+  catkin_tools = callPackage ../development/python-modules/catkin_tools { };
+
+  osrf_pycommon = callPackage ../development/python-modules/osrf_pycommon { };
 });
 
 in fix' (extends overrides packages)

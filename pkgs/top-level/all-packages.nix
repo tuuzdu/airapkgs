@@ -398,8 +398,6 @@ in
 
   releaseTools = callPackage ../build-support/release { };
 
-  composableDerivation = callPackage ../../lib/composable-derivation.nix { };
-
   inherit (lib.systems) platforms;
 
   setJavaClassPath = makeSetupHook { } ../build-support/setup-hooks/set-java-classpath.sh;
@@ -527,6 +525,8 @@ in
     inherit (darwin) cf-private;
     inherit (darwin.apple_sdk.frameworks) AppKit CoreFoundation CoreGraphics CoreServices CoreText Foundation OpenGL;
   };
+
+  amazon-ecs-cli = callPackage ../tools/virtualization/amazon-ecs-cli { };
 
   amazon-glacier-cmd-interface = callPackage ../tools/backup/amazon-glacier-cmd-interface { };
 
@@ -1448,6 +1448,8 @@ in
   genromfs = callPackage ../tools/filesystems/genromfs { };
 
   gh-ost = callPackage ../tools/misc/gh-ost { };
+
+  gif-for-cli = callPackage ../tools/misc/gif-for-cli { };
 
   gist = callPackage ../tools/text/gist { };
 
@@ -3163,7 +3165,6 @@ in
   gt5 = callPackage ../tools/system/gt5 { };
 
   gtest = callPackage ../development/libraries/gtest { };
-  gtest_static = callPackage ../development/libraries/gtest { static = true; };
   gmock = gtest; # TODO: move to aliases.nix
 
   gbenchmark = callPackage ../development/libraries/gbenchmark {};
@@ -3993,8 +3994,6 @@ in
 
   libqmi = callPackage ../development/libraries/libqmi { };
 
-  libqrencode = callPackage ../development/libraries/libqrencode { };
-
   libmbim = callPackage ../development/libraries/libmbim { };
 
   libmongo-client = callPackage ../development/libraries/libmongo-client { };
@@ -4434,7 +4433,9 @@ in
 
   networkmanager_dmenu = callPackage ../tools/networking/network-manager/dmenu.nix  { };
 
-  newsboat = callPackage ../applications/networking/feedreaders/newsboat { };
+  newsboat = callPackage ../applications/networking/feedreaders/newsboat {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   nextcloud = callPackage ../servers/nextcloud { };
 
@@ -5359,6 +5360,8 @@ in
 
   scrypt = callPackage ../tools/security/scrypt { };
 
+  sdate = callPackage ../tools/misc/sdate { };
+
   sdcv = callPackage ../applications/misc/sdcv { };
 
   sdl-jstest = callPackage ../tools/misc/sdl-jstest { };
@@ -5873,6 +5876,8 @@ in
   inherit (nodePackages) triton;
 
   triggerhappy = callPackage ../tools/inputmethods/triggerhappy {};
+
+  trilium = callPackage ../applications/office/trilium { };
 
   trousers = callPackage ../tools/security/trousers { };
 
@@ -6622,17 +6627,15 @@ in
 
   colm = callPackage ../development/compilers/colm { };
 
-  fetchegg = callPackage ../build-support/fetchegg { };
+  chickenPackages_4 = callPackage ../development/compilers/chicken/4 { };
+  chickenPackages_5 = callPackage ../development/compilers/chicken/5 { };
+  chickenPackages = chickenPackages_5;
 
-  eggDerivation = callPackage ../development/compilers/chicken/eggDerivation.nix { };
-
-  chicken = callPackage ../development/compilers/chicken {
-    bootstrap-chicken = chicken.override { bootstrap-chicken = null; };
-  };
-
-  egg2nix = callPackage ../development/tools/egg2nix {
-    chickenEggs = callPackage ../development/tools/egg2nix/chicken-eggs.nix { };
-  };
+  inherit (chickenPackages)
+    fetchegg
+    eggDerivation
+    chicken
+    egg2nix;
 
   ccl = callPackage ../development/compilers/ccl {
     inherit (buildPackages.darwin) bootstrap_cmds;
@@ -9310,7 +9313,9 @@ in
 
   armadillo = callPackage ../development/libraries/armadillo {};
 
-  arrow-cpp = callPackage ../development/libraries/arrow-cpp {};
+  arrow-cpp = callPackage ../development/libraries/arrow-cpp {
+    gtest = gtest.override { static = true; };
+  };
 
   assimp = callPackage ../development/libraries/assimp { };
 
@@ -9655,8 +9660,6 @@ in
   enet = callPackage ../development/libraries/enet { };
 
   epoxy = callPackage ../development/libraries/epoxy {};
-
-  esdl = callPackage ../development/libraries/esdl { };
 
   libesmtp = callPackage ../development/libraries/libesmtp { };
 
@@ -12493,6 +12496,7 @@ in
 
   sfml = callPackage ../development/libraries/sfml {
     inherit (darwin.apple_sdk.frameworks) IOKit Foundation AppKit OpenAL;
+    inherit (darwin) cf-private;
   };
   csfml = callPackage ../development/libraries/csfml { };
 
@@ -13890,7 +13894,6 @@ in
 
   pgbouncer = callPackage ../servers/sql/pgbouncer { };
 
-  pgpool93 = pgpool.override { postgresql = postgresql_9_3; };
   pgpool94 = pgpool.override { postgresql = postgresql_9_4; };
 
   pgpool = callPackage ../servers/sql/pgpool {
@@ -13903,7 +13906,6 @@ in
   postgresql = postgresql_9_6;
 
   inherit (callPackages ../servers/sql/postgresql { })
-    postgresql_9_3
     postgresql_9_4
     postgresql_9_5
     postgresql_9_6
@@ -15468,6 +15470,8 @@ in
 
   conway_polynomials = callPackage ../data/misc/conway_polynomials { };
 
+  cooper-hewitt = callPackage ../data/fonts/cooper-hewitt { };
+
   dosis = callPackage ../data/fonts/dosis { };
 
   dosemu_fonts = callPackage ../data/fonts/dosemu-fonts { };
@@ -15515,8 +15519,6 @@ in
   font-awesome_5 = callPackage ../data/fonts/font-awesome-5 { };
 
   freefont_ttf = callPackage ../data/fonts/freefont-ttf { };
-
-  font-droid = callPackage ../data/fonts/droid { };
 
   freepats = callPackage ../data/misc/freepats { };
 
@@ -15634,6 +15636,8 @@ in
 
   materia-theme = callPackage ../data/themes/materia-theme { };
 
+  material-design-icons = callPackage ../data/fonts/material-design-icons { };
+
   material-icons = callPackage ../data/fonts/material-icons { };
 
   meslo-lg = callPackage ../data/fonts/meslo-lg {};
@@ -15652,11 +15656,13 @@ in
 
   mobile-broadband-provider-info = callPackage ../data/misc/mobile-broadband-provider-info { };
 
+  mojave-gtk-theme = callPackage ../data/themes/mojave { };
+
+  moka-icon-theme = callPackage ../data/icons/moka-icon-theme { };
+
   monoid = callPackage ../data/fonts/monoid { };
 
   mononoki = callPackage ../data/fonts/mononoki { };
-
-  moka-icon-theme = callPackage ../data/icons/moka-icon-theme { };
 
   montserrat = callPackage ../data/fonts/montserrat { };
 
@@ -16986,6 +16992,8 @@ in
 
   fritzing = libsForQt5.callPackage ../applications/science/electronics/fritzing { };
 
+  fsv = callPackage ../applications/misc/fsv { };
+
   fvwm = callPackage ../applications/window-managers/fvwm { };
 
   ganttproject-bin = callPackage ../applications/misc/ganttproject-bin { };
@@ -17229,6 +17237,8 @@ in
 
   fomp = callPackage ../applications/audio/fomp { };
 
+  fractal = callPackage ../applications/networking/instant-messengers/fractal { };
+
   freecad = callPackage ../applications/graphics/freecad { mpi = openmpi; };
 
   freemind = callPackage ../applications/misc/freemind { };
@@ -17319,32 +17329,7 @@ in
     inherit (gnome3) dconf;
   };
 
-  gnucash24 = callPackage ../applications/office/gnucash/2.4.nix {
-    inherit (gnome2) libgnomeui libgtkhtml gtkhtml libbonoboui libgnomeprint libglade libart_lgpl;
-    gconf = gnome2.GConf;
-    guile = guile_1_8;
-    slibGuile = slibGuile.override { scheme = guile_1_8; };
-    goffice = goffice_0_8;
-  };
-
-  gnucash26 = lowPrio (callPackage ../applications/office/gnucash/2.6.nix {
-    inherit (gnome2) libgnomecanvas;
-    inherit (gnome3) dconf;
-    gconf = gnome2.GConf;
-    goffice = goffice_0_8;
-    webkit = webkitgtk24x-gtk2;
-    guile = guile_1_8;
-    slibGuile = slibGuile.override { scheme = guile_1_8; };
-    glib = glib;
-  });
-
   goffice = callPackage ../development/libraries/goffice { };
-
-  goffice_0_8 = callPackage ../development/libraries/goffice/0.8.nix {
-    inherit (pkgs.gnome2) libglade libgnomeui;
-    gconf = pkgs.gnome2.GConf;
-    libart = pkgs.gnome2.libart_lgpl;
-  };
 
   jetbrains = (recurseIntoAttrs (callPackages ../applications/editors/jetbrains {
     jdk = jetbrains.jdk;
@@ -17426,7 +17411,7 @@ in
     java = if stdenv.isLinux then jre else jdk;
   };
 
-  qrencode = callPackage ../tools/graphics/qrencode { };
+  qrencode = callPackage ../development/libraries/qrencode { };
 
   geeqie = callPackage ../applications/graphics/geeqie { };
 
@@ -19990,8 +19975,7 @@ in
   winswitch = callPackage ../tools/X11/winswitch { };
 
   wings = callPackage ../applications/graphics/wings {
-    esdl = esdl.override { erlang = erlangR18; };
-    erlang = erlangR18;
+    erlang = erlangR21;
   };
 
   write_stylus = libsForQt5.callPackage ../applications/graphics/write_stylus { };
@@ -20259,7 +20243,7 @@ in
 
   xpointerbarrier = callPackage ../tools/X11/xpointerbarrier {};
 
-  xkb_switch = callPackage ../tools/X11/xkb-switch { };
+  xkb-switch = callPackage ../tools/X11/xkb-switch { };
 
   xkblayout-state = callPackage ../applications/misc/xkblayout-state { };
 
@@ -20650,6 +20634,8 @@ in
   freesweep = callPackage ../games/freesweep { };
 
   frotz = callPackage ../games/frotz { };
+
+  frogatto = callPackage ../games/frogatto { };
 
   fsg = callPackage ../games/fsg {
     wxGTK = wxGTK28.override { unicode = false; };
@@ -22983,6 +22969,8 @@ in
   wcalc = callPackage ../applications/misc/wcalc { };
 
   webfs = callPackage ../servers/http/webfs { };
+
+  websocketd = callPackage ../applications/networking/websocketd { };
 
   wikicurses = callPackage ../applications/misc/wikicurses {
     pythonPackages = python3Packages;

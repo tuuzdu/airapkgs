@@ -1,5 +1,7 @@
-{stdenv, vim, vimPlugins, vim_configurable, buildEnv, writeText, writeScriptBin
-, nix-prefetch-hg, nix-prefetch-git }:
+{ stdenv, vim, vimPlugins, vim_configurable, neovim, buildEnv, writeText, writeScriptBin
+, nix-prefetch-hg, nix-prefetch-git
+, fetchFromGitHub
+}:
 
 /*
 
@@ -150,28 +152,29 @@ vim_with_plugins can be installed like any other application within Nix.
 let
   inherit (stdenv) lib;
 
-  # transitive closure of plugin dependencies
-  transitiveClosure = knownPlugins: plugin:
+  # make sure a plugin is a derivation and its dependencies are derivations. If
+  # plugin already is a derivation, this is a no-op. If it is a string, it is
+  # looked up in knownPlugins.
+  pluginToDrv = knownPlugins: plugin:
   let
-    # vam puts out a list of strings as the dependency list, we need to be able to deal with that.
-    # Because of that, "plugin" may be a string or a derivation. If it is a string, it is resolved
-    # using `knownPlugins`. Otherwise `knownPlugins` can be null.
-    knownPlugins' = if knownPlugins == null then vimPlugins else knownPlugins;
-    pluginDrv = if builtins.isString plugin then knownPlugins'.${plugin} else plugin;
+    drv =
+      if builtins.isString plugin then
+        # make sure `pname` is set to that we are able to convert the derivation
+        # back to a string.
+        ( knownPlugins.${plugin} // { pname = plugin; })
+      else
+        plugin;
   in
-    [ pluginDrv ] ++ (
-      lib.unique (builtins.concatLists (map (transitiveClosure knownPlugins) pluginDrv.dependencies or []))
+    # make sure all the dependencies of the plugin are also derivations
+    drv // { dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or []); };
+
+  # transitive closure of plugin dependencies (plugin needs to be a derivation)
+  transitiveClosure = plugin:
+    [ plugin ] ++ (
+      lib.unique (builtins.concatLists (map transitiveClosure plugin.dependencies or []))
     );
 
-  findDependenciesRecursively = knownPlugins: plugins: lib.concatMap (transitiveClosure knownPlugins) plugins;
-
-  attrnamesToPlugins = { knownPlugins, names }:
-    map (name: if builtins.isString name then knownPlugins.${name} else name) knownPlugins;
-
-  pluginToAttrname = plugin:
-    plugin.pname;
-
-  pluginsToAttrnames = plugins: map pluginToAttrname plugins;
+  findDependenciesRecursively = plugins: lib.concatMap transitiveClosure plugins;
 
   vamDictToNames = x:
       if builtins.isString x then [x]
@@ -195,7 +198,7 @@ let
       (let
         knownPlugins = pathogen.knownPlugins or vimPlugins;
 
-        plugins = findDependenciesRecursively knownPlugins pathogen.pluginNames;
+        plugins = findDependenciesRecursively (map (pluginToDrv knownPlugins) pathogen.pluginNames);
 
         pluginsEnv = buildEnv {
           name = "pathogen-plugin-env";
@@ -240,7 +243,10 @@ let
       (let
         knownPlugins = vam.knownPlugins or vimPlugins;
 
-        plugins = findDependenciesRecursively knownPlugins (lib.concatMap vamDictToNames vam.pluginDictionaries);
+        # plugins specified by the user
+        specifiedPlugins = map (pluginToDrv knownPlugins) (lib.concatMap vamDictToNames vam.pluginDictionaries);
+        # plugins with dependencies
+        plugins = findDependenciesRecursively specifiedPlugins;
 
         # Vim almost reads JSON, so eventually JSON support should be added to Nix
         # TODO: proper quoting
@@ -298,8 +304,8 @@ let
           # opposed to older implementations that have to maintain backwards
           # compatibility). Therefore we don't need to deal with "knownPlugins"
           # and can simply pass `null`.
-          depsOfOptionalPlugins = lib.subtractLists opt (findDependenciesRecursively null opt);
-          startWithDeps = findDependenciesRecursively null start;
+          depsOfOptionalPlugins = lib.subtractLists opt (findDependenciesRecursively opt);
+          startWithDeps = findDependenciesRecursively start;
         in
           ["mkdir -p $out/pack/${packageName}/start"]
           # To avoid confusion, even dependencies of optional plugins are added
@@ -407,6 +413,7 @@ rec {
 
   inherit (import ./build-vim-plugin.nix { inherit stdenv rtpPath vim; }) buildVimPlugin buildVimPluginFrom2Nix;
 
+  # used to figure out which python dependencies etc. neovim needs
   requiredPlugins = {
     packages ? {},
     givenKnownPlugins ? null,
@@ -420,11 +427,11 @@ rec {
                      if vam != null && vam ? knownPlugins then vam.knownPlugins else
                      if pathogen != null && pathogen ? knownPlugins then pathogen.knownPlugins else
                      vimPlugins;
-      pathogenNames = findDependenciesRecursively knownPlugins pathogen.pluginNames;
-      vamNames = findDependenciesRecursively knownPlugins (lib.concatMap vamDictToNames vam.pluginDictionaries);
-      names = (lib.optionals (pathogen != null) pathogenNames) ++
-              (lib.optionals (vam != null) vamNames);
-      nonNativePlugins = map (name: knownPlugins.${name}) names ++ (lib.optionals (plug != null) plug.plugins);
+      pathogenPlugins = findDependenciesRecursively (map (pluginToDrv knownPlugins) pathogen.pluginNames);
+      vamPlugins = findDependenciesRecursively (map (pluginToDrv knownPlugins) (lib.concatMap vamDictToNames vam.pluginDictionaries));
+      nonNativePlugins = (lib.optionals (pathogen != null) pathogenPlugins)
+                      ++ (lib.optionals (vam != null) vamPlugins)
+                      ++ (lib.optionals (plug != null) plug.plugins);
       nativePluginsConfigs = lib.attrsets.attrValues packages;
       nativePlugins = lib.concatMap ({start?[], opt?[], knownPlugins?vimPlugins}: start++opt) nativePluginsConfigs;
     in
@@ -450,5 +457,33 @@ rec {
   test_vim_with_vim_nix = vim_configurable.customize {
     name = "vim-with-vim-addon-nix";
     vimrcConfig.packages.myVimPackage.start = with vimPlugins; [ vim-nix ];
+  };
+
+  # only neovim makes use of `requiredPlugins`, test this here
+  test_nvim_with_vim_nix_using_pathogen = neovim.override {
+    configure.pathogen.pluginNames = [ "vim-nix" ];
+  };
+
+  # regression test for https://github.com/NixOS/nixpkgs/issues/53112
+  # The user may have specified their own plugins which may not be formatted
+  # exactly as the generated ones. In particular, they may not have the `pname`
+  # attribute.
+  test_vim_with_custom_plugin = vim_configurable.customize {
+    name = "vim_with_custom_plugin";
+    vimrcConfig.vam.knownPlugins =
+      vimPlugins // ({
+        "vim-trailing-whitespace" = buildVimPluginFrom2Nix {
+          name = "vim-trailing-whitespace";
+          src = fetchFromGitHub {
+            owner = "bronson";
+            repo = "vim-trailing-whitespace";
+            rev = "4c596548216b7c19971f8fc94e38ef1a2b55fee6";
+            sha256 = "0f1cpnp1nxb4i5hgymjn2yn3k1jwkqmlgw1g02sq270lavp2dzs9";
+          };
+          # make sure string dependencies are handled
+          dependencies = [ "vim-nix" ];
+        };
+      });
+    vimrcConfig.vam.pluginDictionaries = [ { names = [ "vim-trailing-whitespace" ]; } ];
   };
 }

@@ -615,6 +615,13 @@ in {
     pythonPackages = self;
   };
 
+  /*
+    `pyqt5_with_qtwebkit` should not be used by python libraries in
+    pkgs/development/python-modules/*. Putting this attribute in
+    `propagatedBuildInputs` may cause collisions.
+  */
+  pyqt5_with_qtwebkit = self.pyqt5.override { withWebKit = true; };
+
   pysc2 = callPackage ../development/python-modules/pysc2 { };
 
   pyscard = callPackage ../development/python-modules/pyscard { inherit (pkgs.darwin.apple_sdk.frameworks) PCSC; };
@@ -1121,6 +1128,8 @@ in {
   blinker = callPackage ../development/python-modules/blinker { };
 
   blockdiag = callPackage ../development/python-modules/blockdiag { };
+
+  blockdiagcontrib-cisco = callPackage ../development/python-modules/blockdiagcontrib-cisco { };
 
   bpython = callPackage ../development/python-modules/bpython {};
 
@@ -2410,6 +2419,10 @@ in {
     cudaSupport = pkgs.config.cudaSupport or false;
   };
 
+  pyro-ppl = callPackage ../development/python-modules/pyro-ppl {};
+
+  opt-einsum = callPackage ../development/python-modules/opt-einsum {};
+
   pytorchWithCuda = self.pytorch.override {
     cudaSupport = true;
   };
@@ -3219,6 +3232,8 @@ in {
   opentimestamps = callPackage ../development/python-modules/opentimestamps { };
 
   ordereddict = callPackage ../development/python-modules/ordereddict { };
+
+  od = callPackage ../development/python-modules/od { };
 
   orderedset = callPackage ../development/python-modules/orderedset { };
 
@@ -5090,6 +5105,8 @@ in {
 
   simpy = callPackage ../development/python-modules/simpy { };
 
+  x256 = callPackage ../development/python-modules/x256 { };
+
   yattag = callPackage ../development/python-modules/yattag { };
 
   multihash = callPackage ../development/python-modules/multihash { };
@@ -5155,6 +5172,18 @@ in {
   catkin_tools = callPackage ../development/python-modules/catkin_tools { };
 
   osrf_pycommon = callPackage ../development/python-modules/osrf_pycommon { };
+
+  srptools = callPackage ../development/python-modules/srptools { };
+
+  curve25519-donna = callPackage ../development/python-modules/curve25519-donna { };
+
+  pyatv = callPackage ../development/python-modules/pyatv { };
+
+  pybotvac = callPackage ../development/python-modules/pybotvac { };
+
+  pytado = callPackage ../development/python-modules/pytado { };
+
+  casttube = callPackage ../development/python-modules/casttube { };
 });
 
 in fix' (extends overrides packages)

@@ -21,4 +21,10 @@ in {
     enable = true;
     inherit ens web3_http_provider web3_ws_provider token factory;
   };
+
+  # enable separated roscore nodes
+  services.roscore = {
+    enable = true;
+  };
+
 }

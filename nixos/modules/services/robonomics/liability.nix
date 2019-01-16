@@ -104,7 +104,7 @@ in {
     };
 
     systemd.services.liability = {
-      wants = [ "ipfs.service" ];
+      wants = [ "ipfs.service" "roscore.service" ];
       wantedBy = [ "multi-user.target" ];
 
       environment.ROS_MASTER_URI = cfg.ros_master_uri;

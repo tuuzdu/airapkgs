@@ -70,6 +70,7 @@ in {
     environment.systemPackages = with pkgs; [ robonomics_comm ];
 
     systemd.services.erc20 = {
+      wants = [ "roscore.service" ];
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''

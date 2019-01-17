@@ -11,7 +11,6 @@ in
 {
   imports = [
     ../../profiles/base.nix
-    ../../profiles/installation-device.nix
     ../../profiles/clone-config.nix
     ./sd-image.nix
   ];
@@ -33,6 +32,9 @@ in
   # - ttyAMA0: for QEMU's -machine virt
   # Also increase the amount of CMA to ensure the virtual console on the RPi3 works.
   boot.kernelParams = ["cma=32M" "console=ttyS0,115200n8" "console=ttyAMA0,115200n8" "console=tty0"];
+
+  # Enable wireless by default.
+  networking.wireless.enable = lib.mkDefault true;
 
   sdImage = {
     populateBootCommands = let

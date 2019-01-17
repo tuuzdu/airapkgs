@@ -71,7 +71,7 @@ in {
 
     systemd.services.erc20 = {
       requires = [ "roscore.service" ];
-      after =  [ "roscore.service" ];
+      after =    [ "roscore.service" "liability.service" ];
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''

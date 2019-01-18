@@ -2,12 +2,13 @@
 , ros_comm
 , mkRosPackage
 , python3Packages
+, python3
 , fetchFromGitHub
 }:
 
 let
-  rev = "77db2a89debfc40f87add9c998ec6e7aba116fd4";
-  sha256 = "101jrap8kqxbzlbp1gsp56xd0rllra2w580vdmr84qs92qb7am2h";
+  rev = "c9c830d4c1dce3950441d77fef448629f48fc709";
+  sha256 = "0vvvk30k9fr6b71ly46s2f7fxc5alrkf1njdj4sd4gkvfrf686qd";
 
 in mkRosPackage rec {
   name = "${pname}-${version}";
@@ -22,6 +23,10 @@ in mkRosPackage rec {
 
   propagatedBuildInputs = with python3Packages;
   [ ros_comm web3 multihash voluptuous ipfsapi python-persistent-queue ];
+
+  postInstall = ''
+    patch $out/lib/${python3.libPrefix}/site-packages/ethereum_common/msg/_UInt256.py $src/ethereum_common/msg/_UInt256.py.patch
+  '';
 
   meta = with stdenv.lib; {
     description = "Robonomics communication stack";

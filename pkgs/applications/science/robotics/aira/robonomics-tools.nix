@@ -7,13 +7,13 @@
 
 mkDerivation rec {
   pname = "robonomics-tools";
-  version = "0.2.0.0";
+  version = "0.3.0.0";
 
   src = fetchFromGitHub {
     owner = "airalab";
     repo = pname;
     rev = "v${version}";
-    sha256 = "05jqf6nr6l0nqi5pnzk2d341j9f9y3zk863zh4mnfdh9yfxmhszz";
+    sha256 = "1dng4jbmbdvydwxsjr324gb7mz6mwfhbwmwmg1bqvqvp4w1yi27r";
   };
 
   isLibrary = true;
@@ -23,20 +23,20 @@ mkDerivation rec {
     aeson async base base58-bytestring bytestring concurrent-machines
     containers cryptonite data-default exceptions generics-sop hashable
     machines memory microlens monad-control monad-logger mtl
-    optparse-applicative process secp256k1-haskell text web3
+    optparse-applicative process text web3
   ];
   libraryToolDepends = [ hpack ];
   executableHaskellDepends = [
     aeson async base base58-bytestring bytestring concurrent-machines
     containers cryptonite data-default exceptions generics-sop hashable
     machines memory microlens monad-control monad-logger mtl
-    optparse-applicative process secp256k1-haskell text web3
+    optparse-applicative process text web3
   ];
   testHaskellDepends = [
     aeson async base base58-bytestring bytestring concurrent-machines
     containers cryptonite data-default exceptions generics-sop hashable
     machines memory microlens monad-control monad-logger mtl
-    optparse-applicative process secp256k1-haskell text web3
+    optparse-applicative process text web3
   ];
   preConfigure = "hpack";
 

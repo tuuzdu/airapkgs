@@ -23322,6 +23322,10 @@ in
 
   de_dev = callPackage ../applications/science/robotics/aira/de_dev { };
 
+  gscn_dev = callPackage ../applications/science/robotics/geoscan/gscn_dev { };
+
+  gscn_pioneer_mission = callPackage ../applications/science/robotics/geoscan/gscn_pioneer_mission { };
+
   xml2rfc = callPackage ../tools/typesetting/xml2rfc { };
 
   mmark = callPackage ../tools/typesetting/mmark { };

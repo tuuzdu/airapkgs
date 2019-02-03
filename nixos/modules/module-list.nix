@@ -658,6 +658,8 @@
   ./services/robonomics/liability.nix
   ./services/robonomics/erc20.nix
   ./services/robonomics/xrtd.nix
+  ./services/ros/roscore.nix
+  ./services/ros/gscn_pioneer_mission.nix
   ./services/scheduling/atd.nix
   ./services/scheduling/chronos.nix
   ./services/scheduling/cron.nix
